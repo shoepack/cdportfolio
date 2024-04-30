@@ -1,35 +1,66 @@
-.App {
+/* App.css */
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
+/* Reset some default browser styles */
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Set a base font family and size */
+body {
+  font-family: "DM Sans", sans-serif; /* Choose a font family that fits your design */
+  font-size: 16px; /* Base font size */
+  line-height: 1.5; /* Line height for better readability */
+  color: #333; /* Default text color */
+  background-color: #fff; /* Default background */
+}
+
+/* Default link styling */
+a {
+  color: #0066cc;
+  text-decoration: none; /* Remove underline */
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline; /* Add underline on hover/focus */
+}
+
+/* Utility classes for common adjustments */
+.text-center {
   text-align: center;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
-nav {
-  text-align: center;
-  background-color: #f8f8f8;
-  border-bottom: 1px solid #ccc;
-  padding: 10px;
+.hidden {
+  display: none;
 }
 
-.navbar-top {
-  margin-bottom: 10px;
+/* Container for content to manage max-width and centering */
+.container {
+  max-width: 1200px; /* Max width for content on larger screens */
+  margin: 0 auto; /* Center align the container */
+  padding: 0 20px; /* Padding on smaller screens */
 }
 
-.navbar-top a {
-  font-size: 24px;
-  text-decoration: none;
-  color: #333;
+/* Common spacing utilities */
+.margin-top {
+  margin-top: 20px;
 }
 
-.navbar-bottom a {
-  font-size: 18px;
-  margin: 0 15px;
-  text-decoration: none;
-  color: #666;
-}
-
-.navbar-bottom a:hover {
-  text-decoration: underline;
+.margin-bottom {
+  margin-bottom: 20px;
 }

@@ -1,18 +1,20 @@
 import React from "react";
+import "./Navbar.css";
 
-const Navbar = () => {
+function Navbar() {
   return (
-    <nav>
-      <div className="navbar-top">
+    <header className="navbar">
+      <div className="navbar-left">
         <a href="https://portfolio-site-chi-wine.vercel.app/">Jason Artley</a>
       </div>
-      <div className="navbar-bottom">
+      {/* The container itself is flex and centers the links, regardless of .navbar-left */}
+      <div className="navbar-center">
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
       </div>
-    </nav>
+    </header>
   );
-};
+}
 
 export default Navbar;

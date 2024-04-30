@@ -1,0 +1,31 @@
+/* Navbar.css */
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #282c34;
+  color: #ffffff;
+  padding: 20px;
+  position: relative; /* Allows absolute positioning relative to navbar */
+}
+
+.navbar-left {
+  position: absolute;
+  left: 20px; /* Adjust based on desired padding */
+  top: 20px; /* Adjust so it aligns vertically in the middle */
+}
+
+.navbar-center {
+  /* Centering is handled by the flexbox on the .navbar */
+}
+
+.navbar a {
+  color: #ffffff;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 15px;
+}
+
+.navbar a:hover {
+  color: #919191;
+}
