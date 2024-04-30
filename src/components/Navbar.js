@@ -9,7 +9,7 @@ function Navbar() {
       </div>
       {/* The container itself is flex and centers the links, regardless of .navbar-left */}
       <div className="navbar-center">
-        <a href="#about">About</a>
+        <Link to="/about">About</Link>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
       </div>
