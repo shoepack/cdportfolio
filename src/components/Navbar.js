@@ -1,12 +1,12 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 
 function Navbar() {
   return (
     <header className="navbar">
       <div className="navbar-left">
-        <a href="https://portfolio-site-chi-wine.vercel.app/">Jason Artley</a>
+        <a href="https://www.jasonartley.com/">Jason Artley</a>
       </div>
       {/* The container itself is flex and centers the links, regardless of .navbar-left */}
       <div className="navbar-center">
