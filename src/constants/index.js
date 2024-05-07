@@ -12,7 +12,7 @@ export const EXPERIENCES = [
     year: "Aug 2020 - Dec 2020",
     role: "Math & Computer Science Tutor",
     company: "MiraCosta College",
-    description: `Provided one-on-one tutoring in mathematics and computer science, with a focus on Java and Python. Guided students in problem-solving and critical thinking while fostering a suportive learning environment tailored to diverse styles and needs.`,
+    description: `Provided one-on-one tutoring in mathematics and computer science, with a focus on Java and Python. Guided students in problem-solving and critical thinking while fostering a supportive learning environment tailored to diverse styles and needs.`,
     technologies: ["Python", "Java", "C++", "Mentor"],
   },
 ];
