@@ -25,7 +25,7 @@ export const PROJECTS = [
       "A collaborative 2v2 Python programming space centered around the driver/navigator co-learning method. Conducted competitive analysis, prototyping, and surveys to create a user-friendly environment for team-based learning.",
     technologies: ["Python", "Figma", "User Experience (UX)"],
     link: [
-      "https://www.figma.com/proto/cS1jrjedTiR11xoqJUnryt/CodeLink---High-Fidelity-Prototype?type=design&node-id=1-2&t=iOoKsLK1Y3TjB2uc-1&scaling=scale-down&page-id=0%3A1&starting-point-node-id=1%3A2&mode=design",
+      "https://sites.google.com/ucsd.edu/codelink123/home",
     ],
   },
   {
