@@ -22,7 +22,7 @@ export const PROJECTS = [
     title: "CodeLink Collaborative Coding Prototype",
     image: project1,
     description:
-      "A fully functional e-commerce website with features like product listing, shopping cart, and user authentication.",
+      "A collaborative 2v2 Python programming space centered around the driver/navigator co-learning method. Conducted competitive analysis, prototyping, and surveys to create a user-friendly environment for team-based learning.",
     technologies: ["Python", "Figma", "User Experience (UX)"],
     link: [
       "https://www.figma.com/proto/cS1jrjedTiR11xoqJUnryt/CodeLink---High-Fidelity-Prototype?type=design&node-id=1-2&t=iOoKsLK1Y3TjB2uc-1&scaling=scale-down&page-id=0%3A1&starting-point-node-id=1%3A2&mode=design",
@@ -44,7 +44,9 @@ export const PROJECTS = [
     description:
       "A Python program to web scrape and analyze IMDb data for over 900 SNL episodes, identifying that favored hosts, especially comedians and actors, often returned for multiple episodes.",
     technologies: ["Python", "Web Scraping", "Git"],
-    link: ["https://github.com/shoepack/SNL-Data-Analysis"],
+    link: [
+      "https://github.com/shoepack/SNL-Data-Analysis/blob/master/SNL-Analysis.ipynb",
+    ],
   },
   {
     title: "Portfolio Website",
