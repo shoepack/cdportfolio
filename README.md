@@ -1,8 +1,14 @@
-# React + Vite
+# CDPortfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to my portfolio site repository! This project showcases my work and skills using HTML, JavaScript, CSS, React, and Vite.
 
-Currently, two official plugins are available:
+## Introduction
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This portfolio site is designed to showcase my projects, skills, and experience as a front-end web developer. The site is built with React and styled with CSS, and it uses Vite for a fast and optimized development experience.
+
+## Features
+
+- Responsive design for mobile and desktop views
+- Interactive project showcase
+- Contact form for inquiries
+- Smooth scrolling and navigation
