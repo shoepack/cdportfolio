@@ -1,8 +1,8 @@
 # Portfolio
 
-Live Site: https://jasonartley.com
+- Live Site: https://jasonartley.com
+
 Welcome to my portfolio site repository! This project showcases my work and skills using HTML, JavaScript, CSS, React, and Vite.
-You can visit the portfolio
 
 ## Introduction
 
