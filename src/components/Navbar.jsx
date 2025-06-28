@@ -1,6 +1,19 @@
 import logo from "../assets/logo.png";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 
+const socialLinks = [
+  {
+    href: "https://www.linkedin.com/in/jasonartley/",
+    label: "LinkedIn",
+    icon: <FaLinkedin />,
+  },
+  {
+    href: "https://github.com/shoepack",
+    label: "GitHub",
+    icon: <FaGithub />,
+  },
+];
+
 const Navbar = () => {
   return (
     <nav className="mb-20 flex items-center justify-between py-6">
@@ -10,22 +23,18 @@ const Navbar = () => {
         </a>
       </div>
       <div className="m-8 flex items-center justify-center gap-4 text-2xl">
-        <a
-          href="https://www.linkedin.com/in/jasonartley/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-gray-700 transition duration-300"
-        >
-          <FaLinkedin />
-        </a>
-        <a
-          href="https://github.com/shoepack"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-gray-700 transition duration-300"
-        >
-          <FaGithub />
-        </a>
+        {socialLinks.map((link) => (
+          <a
+            key={link.href}
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={link.label}
+            className="hover:text-gray-700 transition duration-300"
+          >
+            {link.icon}
+          </a>
+        ))}
       </div>
     </nav>
   );
