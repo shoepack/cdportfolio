@@ -31,11 +31,19 @@ const Experience = () => {
             >
               <div className="mb-4 flex items-center gap-4">
                 {experience.logo && (
-                  <img
-                    src={experience.logo}
-                    alt={`${experience.company} logo`}
-                    className="h-12 w-auto object-contain rounded"
-                  />
+                  <div className="relative h-12 w-20 overflow-hidden rounded">
+                    <img
+                      src={experience.logo}
+                      alt={`${experience.company} logo`}
+                      className="absolute inset-0 h-full w-full object-cover object-center"
+                      style={{
+                        objectPosition: 'center center',
+                        width: '200%',
+                        height: '200%',
+                        transform: 'translate(-25%, -25%)'
+                      }}
+                    />
+                  </div>
                 )}
                 <div>
                   <h6 className="mb-1 font-semibold">
