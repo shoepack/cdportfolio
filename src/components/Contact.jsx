@@ -18,10 +18,66 @@ const Contact = () => {
     });
   };
 
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const sanitizeInput = (input) => {
+    return input
+      .trim()
+      .replace(/[<>]/g, '') // Remove potential HTML tags
+      .replace(/javascript:/gi, '') // Remove potential JavaScript injection
+      .replace(/on\w+=/gi, ''); // Remove potential event handlers
+  };
+
+  const validateForm = () => {
+    const sanitizedName = sanitizeInput(formData.name);
+    const sanitizedEmail = sanitizeInput(formData.email);
+    const sanitizedMessage = sanitizeInput(formData.message);
+
+    if (!sanitizedName || sanitizedName.length < 2) {
+      setSubmitStatus('error');
+      return { valid: false, error: 'Name must be at least 2 characters long' };
+    }
+
+    if (!validateEmail(sanitizedEmail)) {
+      setSubmitStatus('error');
+      return { valid: false, error: 'Please enter a valid email address' };
+    }
+
+    if (!sanitizedMessage || sanitizedMessage.length < 10) {
+      setSubmitStatus('error');
+      return { valid: false, error: 'Message must be at least 10 characters long' };
+    }
+
+    if (sanitizedMessage.length > 1000) {
+      setSubmitStatus('error');
+      return { valid: false, error: 'Message must be less than 1000 characters' };
+    }
+
+    return {
+      valid: true,
+      sanitizedData: {
+        name: sanitizedName,
+        email: sanitizedEmail,
+        message: sanitizedMessage
+      }
+    };
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus("");
+
+    // Validate and sanitize form data
+    const validation = validateForm();
+    if (!validation.valid) {
+      setSubmitStatus(validation.error);
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       // Use environment variables for EmailJS credentials
@@ -29,9 +85,9 @@ const Contact = () => {
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         {
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
+          name: validation.sanitizedData.name,
+          email: validation.sanitizedData.email,
+          message: validation.sanitizedData.message,
           time: new Date().toLocaleString(),
         },
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
