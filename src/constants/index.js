@@ -15,6 +15,13 @@ export const EXPERIENCES = [
     description: `Provided one-on-one tutoring in mathematics and computer science, with a focus on Java and Python. Guided students in problem-solving and critical thinking while fostering a supportive learning environment tailored to diverse styles and needs.`,
     technologies: ["Python", "Java", "C++", "Mentor"],
   },
+  {
+    year: "Aug 2024 - Present",
+    role: "Software Product Specialist",
+    company: "Reotemp Instruments",
+    description: `Led multiple business-critical projects with executive stakeholders and senior programming teams. Designed complex solutions that improved programming team efficiency while delivering updates that aligned with stakeholder requirements. Created detailed prototypes in Figma to visualize project specifications and user workflows. Spearheaded Cloudflare implementation between IT and senior web development teams. Transformed legacy Excel sheets and pricing documentation using AI solutions, significantly boosting order team productivity.`,
+    technologies: ["LAMP", "Figma", "Python", "Project Management", "WordPress", "AI"],
+  },
 ];
 
 export const PROJECTS = [
