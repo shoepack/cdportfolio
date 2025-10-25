@@ -2,8 +2,6 @@ import project1 from "../assets/projects/project-1.png";
 import project2 from "../assets/projects/project-2.png";
 import project3 from "../assets/projects/project-3.png";
 import project4 from "../assets/projects/project-4.png";
-import reotempLogo from "../public/reotemp_logo.jpg";
-import miracostaLogo from "../public/miracosta_logo.jpg";
 
 export const HERO_CONTENT = `I'm a passionate front-end developer specializing in crafting intuitive and dynamic web experiences using HTML, CSS, JavaScript, and React. I focus on designing intuitive interfaces, paying attention to detail, and delivering quality user experiences that exceed client and user expectations.`;
 
@@ -16,7 +14,7 @@ export const EXPERIENCES = [
     company: "Reotemp Instruments",
     description: `Led multiple business-critical projects with executive stakeholders and senior programming teams, designing solutions that improved team efficiency and delivered stakeholder-aligned updates. Created detailed Figma prototypes and spearheaded Cloudflare implementation between IT and web development teams. Transformed legacy documentation using AI solutions, significantly boosting order team productivity.`,
     technologies: ["LAMP", "Figma", "Python", "Project Management", "WordPress", "AI"],
-    logo: reotempLogo,
+    logo: "/reotemp_logo.jpg",
   },
   {
     year: "Aug 2020 - Dec 2020",
@@ -24,7 +22,7 @@ export const EXPERIENCES = [
     company: "MiraCosta College",
     description: `Provided one-on-one tutoring in mathematics and computer science, with a focus on Java and Python. Guided students in problem-solving and critical thinking while fostering a supportive learning environment tailored to diverse styles and needs.`,
     technologies: ["Python", "Java", "C++", "Mentor"],
-    logo: miracostaLogo,
+    logo: "/miracosta_logo.jpg",
   },
 ];
 
