@@ -1,4 +1,4 @@
-import { HERO_CONTENT } from "../constants";
+import { HERO_CONTENT, ABOUT_TEXT } from "../constants";
 import profilePic from "../assets/portrait-1.jpg";
 import { motion } from "framer-motion";
 const imageAnimation = {
@@ -16,11 +16,15 @@ const Hero = () => {
             <h1 className="pb-16 text-6xl font-thin tracking-tight lg:mt-16 lg:text-8xl">
               Jason Artley
             </h1>
-            <span className="bg-gradient-to-r from-pink-300 via-slate-500 to-purple-500 bg-clip-text text-3xl tracking-tight text-transparent">
-              Full-Stack Product Developer
-            </span>
-            <p className="my-2 max-w-xl py-6 font-light tracking-tighter">
+            <h2 className="text-2xl font-light tracking-tight bg-gradient-to-r from-green-400 via-emerald-500 to-teal-600 bg-clip-text text-transparent">
+              Full-Stack Engineer
+            </h2>
+            <p className="mt-6 max-w-xl text-lg font-light leading-relaxed tracking-tight">
               {HERO_CONTENT}
+            </p>
+            <h3 className="mt-8 mb-2 text-xl font-semibold">About Me</h3>
+            <p className="max-w-xl pb-8 text-lg font-light leading-relaxed tracking-tight text-neutral-400">
+              {ABOUT_TEXT}
             </p>
           </div>
         </div>
