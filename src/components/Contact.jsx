@@ -232,9 +232,9 @@ const Contact = () => {
                 </div>
               )}
 
-              {submitStatus === "error" && (
+              {submitStatus && submitStatus !== "success" && (
                 <div className="p-3 rounded bg-red-900 border border-red-700 text-red-300 text-sm">
-                  Failed to send message. Please try again or email me directly.
+                  {submitStatus}
                 </div>
               )}
 
