@@ -10,6 +10,7 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState("");
+  const [lastSubmitTime, setLastSubmitTime] = useState(0);
 
   const handleChange = (e) => {
     setFormData({
@@ -68,6 +69,17 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Rate limiting: Check if user submitted recently (within 60 seconds)
+    const currentTime = Date.now();
+    const timeSinceLastSubmit = currentTime - lastSubmitTime;
+    const RATE_LIMIT_MS = 60000; // 60 seconds
+
+    if (timeSinceLastSubmit < RATE_LIMIT_MS) {
+      setSubmitStatus("Please wait before sending another message (rate limit: 60 seconds)");
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus("");
 
@@ -96,6 +108,7 @@ const Contact = () => {
       console.log("Email sent successfully:", result);
       setSubmitStatus("success");
       setFormData({ name: "", email: "", message: "" });
+      setLastSubmitTime(currentTime); // Update last successful submit time
     } catch (error) {
       console.error("Failed to send email:", error);
       setSubmitStatus("error");
@@ -189,7 +202,11 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-3 py-2 bg-neutral-900 border border-neutral-800 rounded text-neutral-300 placeholder-neutral-500 focus:outline-none focus:border-blue-500 transition-colors duration-200"
+                  className={`w-full px-3 py-2 bg-neutral-900 border rounded text-neutral-300 placeholder-neutral-500 focus:outline-none transition-colors duration-200 ${
+                    submitStatus && submitStatus !== "success" && formData.name && formData.name.length < 2
+                      ? "border-red-500 focus:border-red-500"
+                      : "border-neutral-800 focus:border-blue-500"
+                  }`}
                   placeholder="Your Name"
                 />
               </div>
@@ -205,7 +222,11 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-3 py-2 bg-neutral-900 border border-neutral-800 rounded text-neutral-300 placeholder-neutral-500 focus:outline-none focus:border-blue-500 transition-colors duration-200"
+                  className={`w-full px-3 py-2 bg-neutral-900 border rounded text-neutral-300 placeholder-neutral-500 focus:outline-none transition-colors duration-200 ${
+                    submitStatus && submitStatus !== "success" && formData.email && !validateEmail(formData.email)
+                      ? "border-red-500 focus:border-red-500"
+                      : "border-neutral-800 focus:border-blue-500"
+                  }`}
                   placeholder="your@email.com"
                 />
               </div>
@@ -221,7 +242,11 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   rows="4"
-                  className="w-full px-3 py-2 bg-neutral-900 border border-neutral-800 rounded text-neutral-300 placeholder-neutral-500 focus:outline-none focus:border-blue-500 transition-colors duration-200 resize-none"
+                  className={`w-full px-3 py-2 bg-neutral-900 border rounded text-neutral-300 placeholder-neutral-500 focus:outline-none transition-colors duration-200 resize-none ${
+                    submitStatus && submitStatus !== "success" && formData.message && (formData.message.length < 10 || formData.message.length > 1000)
+                      ? "border-red-500 focus:border-red-500"
+                      : "border-neutral-800 focus:border-blue-500"
+                  }`}
                   placeholder="Your message..."
                 />
               </div>
