@@ -59,7 +59,7 @@ export const PROJECTS = [
 ];
 
 export const CONTACT = {
-  address: "Oceanside, CA - 92058 ",
-  phoneNo: "(619) 630-4396",
+  address: "San Diego, CA",
   email: "contact@jasonartley.com",
+  linkedin: "https://www.linkedin.com/in/jasonartley/"
 };
