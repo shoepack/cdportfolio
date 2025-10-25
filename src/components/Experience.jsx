@@ -31,27 +31,35 @@ const Experience = () => {
             >
               <div className="mb-4 flex items-center gap-4">
                 {experience.logo && (
-                  <div className="relative h-12 w-20 overflow-hidden rounded">
-                    <img
-                      src={experience.logo}
-                      alt={`${experience.company} logo`}
-                      className="absolute inset-0 h-full w-full object-cover object-center"
-                      style={{
-                        objectPosition: 'center center',
-                        width: '200%',
-                        height: '200%',
-                        transform: 'translate(-25%, -25%)'
-                      }}
-                    />
-                  </div>
+                  <img
+                    src={experience.logo}
+                    alt={`${experience.company} logo`}
+                    className="h-12 w-auto object-contain rounded"
+                  />
                 )}
                 <div>
                   <h6 className="mb-1 font-semibold">
                     {experience.role}
                   </h6>
-                  <span className="text-sm text-purple-100">
-                    {experience.company}
-                  </span>
+                  {experience.companyUrl ? (
+                    <a
+                      href={experience.companyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-purple-100 hover:text-purple-300 transition-colors duration-200 underline inline-flex items-center"
+                    >
+                      {experience.company}
+                      <img
+                        src="/up-right-from-square-solid-full.svg"
+                        alt="External link"
+                        className="w-3 h-3 ml-1 opacity-70 hover:opacity-100 transition-opacity duration-200 filter brightness-0 invert"
+                      />
+                    </a>
+                  ) : (
+                    <span className="text-sm text-purple-100">
+                      {experience.company}
+                    </span>
+                  )}
                 </div>
               </div>
               <p className="mb-4 text-neutral-400">{experience.description}</p>

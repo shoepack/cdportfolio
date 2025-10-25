@@ -3,26 +3,28 @@ import project2 from "../assets/projects/project-2.png";
 import project3 from "../assets/projects/project-3.png";
 import project4 from "../assets/projects/project-4.png";
 
-export const HERO_CONTENT = `I'm a passionate front-end developer specializing in crafting intuitive and dynamic web experiences using HTML, CSS, JavaScript, and React. I focus on designing intuitive interfaces, paying attention to detail, and delivering quality user experiences that exceed client and user expectations.`;
+export const HERO_CONTENT = `I'm a passionate developer specializing in delivering intuitive and dynamic web experiences within cross-functional teams.`;
 
-export const ABOUT_TEXT = `I am a soon-to-be graduate from the University of California, San Diego, earning a B.S. in Cognitive Science with a specialization in Design and Interaction. During my studies, I honed my skills in working efficiently within multidisciplinary teams, consisting of both designers and developers. This collaborative experience has become my area of expertise. Beyond my academic and professional pursuits, I enjoy hosting servers for gaming and media sharing, creating enjoyable experiences for my friends and family.`;
+export const ABOUT_TEXT = `In 2024, I earned a B.S. in Cognitive Science with a specialization in Design and Interaction from UC San Diego, graduating Cum Laude. Throughout my studies, I developed expertise in cross-functional collaboration, working effectively with designers and developers on multidisciplinary projects. Outside of work and academics, I enjoy hosting and managing servers for gaming and media sharing.`;
 
 export const EXPERIENCES = [
   {
     year: "Aug 2024 - Present",
     role: "Software Product Specialist",
     company: "Reotemp Instruments",
+    companyUrl: "https://reotemp.com/",
     description: `Led multiple business-critical projects with executive stakeholders and senior programming teams, designing solutions that improved team efficiency and delivered stakeholder-aligned updates. Created detailed Figma prototypes and spearheaded Cloudflare implementation between IT and web development teams. Transformed legacy documentation using AI solutions, significantly boosting order team productivity.`,
     technologies: ["LAMP", "Figma", "Python", "Project Management", "WordPress", "AI"],
-    logo: "/reotemp_logo.jpg",
+    logo: "/reotemp_logo_resized.jpg",
   },
   {
     year: "Aug 2020 - Dec 2020",
     role: "Math & Computer Science Tutor",
     company: "MiraCosta College",
+    companyUrl: "https://www.miracosta.edu/",
     description: `Provided one-on-one tutoring in mathematics and computer science, with a focus on Java and Python. Guided students in problem-solving and critical thinking while fostering a supportive learning environment tailored to diverse styles and needs.`,
     technologies: ["Python", "Java", "C++", "Mentor"],
-    logo: "/miracosta_logo.jpg",
+    logo: "/miracosta_logo_resized.jpg",
   },
 ];
 
