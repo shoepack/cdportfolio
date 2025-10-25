@@ -32,6 +32,7 @@ const Contact = () => {
           name: formData.name,
           email: formData.email,
           message: formData.message,
+          time: new Date().toLocaleString(),
         },
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
