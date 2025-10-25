@@ -9,18 +9,18 @@ export const ABOUT_TEXT = `I am a soon-to-be graduate from the University of Cal
 
 export const EXPERIENCES = [
   {
+    year: "Aug 2024 - Present",
+    role: "Software Product Specialist",
+    company: "Reotemp Instruments",
+    description: `Led multiple business-critical projects with executive stakeholders and senior programming teams, designing solutions that improved team efficiency and delivered stakeholder-aligned updates. Created detailed Figma prototypes and spearheaded Cloudflare implementation between IT and web development teams. Transformed legacy documentation using AI solutions, significantly boosting order team productivity.`,
+    technologies: ["LAMP", "Figma", "Python", "Project Management", "WordPress", "AI"],
+  },
+  {
     year: "Aug 2020 - Dec 2020",
     role: "Math & Computer Science Tutor",
     company: "MiraCosta College",
     description: `Provided one-on-one tutoring in mathematics and computer science, with a focus on Java and Python. Guided students in problem-solving and critical thinking while fostering a supportive learning environment tailored to diverse styles and needs.`,
     technologies: ["Python", "Java", "C++", "Mentor"],
-  },
-  {
-    year: "Aug 2024 - Present",
-    role: "Software Product Specialist",
-    company: "Reotemp Instruments",
-    description: `Led multiple business-critical projects with executive stakeholders and senior programming teams. Designed complex solutions that improved programming team efficiency while delivering updates that aligned with stakeholder requirements. Created detailed prototypes in Figma to visualize project specifications and user workflows. Spearheaded Cloudflare implementation between IT and senior web development teams. Transformed legacy Excel sheets and pricing documentation using AI solutions, significantly boosting order team productivity.`,
-    technologies: ["LAMP", "Figma", "Python", "Project Management", "WordPress", "AI"],
   },
 ];
 
