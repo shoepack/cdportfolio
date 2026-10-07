@@ -13,7 +13,7 @@ export const EXPERIENCES = [
     role: "Software Product Specialist",
     company: "Reotemp Instruments",
     companyUrl: "https://reotemp.com/",
-    description: `Led multiple business-critical projects with executive stakeholders and senior programming teams, designing solutions that improved team efficiency and delivered stakeholder-aligned updates. Created detailed Figma prototypes and spearheaded Cloudflare implementation between IT and web development teams. Transformed legacy documentation using AI solutions, significantly boosting order team productivity.`,
+    description: `Built and launched reotempintelligence.com, the home for the company's IoT smart probe, including the company's first Stripe subscription integration. Designed product configurators for sales and customers in Figma alongside engineering and leadership. Built AI tools for quoting and product matching, and helped modernize the company's business platform from legacy systems to Odoo.`,
     technologies: ["LAMP", "Figma", "Python", "Project Management", "WordPress", "AI"],
     logo: "/reotemp_logo_resized.jpg",
   },
