@@ -1,6 +1,8 @@
 import { FiArrowUpRight, FiDownload, FiLinkedin, FiMail } from "react-icons/fi";
 import { PERSON, PORTRAIT, srcset, EXPERIENCE, EDUCATION, AREAS, SUMMARY } from "@/shared/profile";
 import ContactForm from "./ContactForm.jsx";
+import Work from "./Work.jsx";
+import { AREA_ICONS, IconTile, Logo, QuotingDiagram, ToolChips, WIN_ICONS } from "./visuals.jsx";
 
 const [REOTEMP, MIRACOSTA] = EXPERIENCE;
 
@@ -10,6 +12,7 @@ const q = (s) => s.replace(/'/g, "\u2019");
 // Which phrase in each win's result carries the outcome. Rendered heavier, never reworded.
 const RESULT_EMPHASIS = {
   stripe: "first subscription product",
+  wakecalc: "each ASME criterion",
   configurators: "About 95%",
   quoting: "Instant quotes",
   matching: "a fraction of a cent per request",
@@ -52,6 +55,7 @@ function Range({ start, end }) {
 /* ---------- Nav ---------- */
 
 const NAV = [
+  { href: "#work", label: "Work" },
   { href: "#experience", label: "Experience" },
   { href: "#areas", label: "Areas" },
   { href: "#contact", label: "Contact" },
@@ -193,10 +197,12 @@ function Section({ id, title, children, intro }) {
   );
 }
 
-function EntryHead({ title, org, orgUrl, place, start, end, level = "lead" }) {
+function EntryHead({ title, org, orgUrl, place, start, end, level = "lead", logo }) {
   return (
     <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-      <div>
+      <div className="flex items-center gap-4">
+        {logo && <Logo logo={logo} company={org} />}
+        <div>
         <h3
           className={
             level === "lead"
@@ -210,6 +216,7 @@ function EntryHead({ title, org, orgUrl, place, start, end, level = "lead" }) {
           {orgUrl ? <NewTab href={orgUrl}>{org}</NewTab> : <span className="text-ink">{org}</span>}
           {place && <span>, {place}</span>}
         </p>
+        </div>
       </div>
       <Range start={start} end={end} />
     </div>
@@ -244,26 +251,26 @@ function Experience() {
             place={REOTEMP.location}
             start={REOTEMP.start}
             end={REOTEMP.end}
+            logo={REOTEMP.logo}
           />
         </div>
         <p className="mt-4 text-[1.0625rem] leading-relaxed text-muted">{q(REOTEMP.summary)}</p>
 
         <ul className="mt-8 divide-y divide-line border-y border-line">
           {REOTEMP.wins.map((win) => (
-            <li key={win.id} id={`win-${win.id}`} className="py-6 sm:py-7">
-              <h4 className="text-[1.0625rem] font-semibold leading-snug tracking-[-0.01em]">{q(win.title)}</h4>
-              <p className="mt-2 leading-relaxed text-muted">
-                <WinAction win={win} />
-              </p>
-              <p className="mt-2 leading-relaxed text-ink">
-                <Emphasize text={win.result} phrase={RESULT_EMPHASIS[win.id]} />
-              </p>
-              {win.tools.length > 0 && (
-                <p className="mt-3 text-[0.8125rem] text-muted">
-                  <span className="sr-only">Tools: </span>
-                  {win.tools.join(" · ")}
+            <li key={win.id} id={`win-${win.id}`} className="grid grid-cols-[auto_1fr] gap-x-4 py-6 sm:gap-x-5 sm:py-7">
+              <IconTile Icon={WIN_ICONS[win.id]} />
+              <div className="min-w-0">
+                <h4 className="pt-1.5 text-[1.0625rem] font-semibold leading-snug tracking-[-0.01em]">{q(win.title)}</h4>
+                <p className="mt-2 leading-relaxed text-muted">
+                  <WinAction win={win} />
                 </p>
-              )}
+                <p className="mt-2 leading-relaxed text-ink">
+                  <Emphasize text={win.result} phrase={RESULT_EMPHASIS[win.id]} />
+                </p>
+                {win.id === "quoting" && <QuotingDiagram />}
+                <ToolChips tools={win.tools} />
+              </div>
             </li>
           ))}
         </ul>
@@ -280,6 +287,7 @@ function Experience() {
               place={MIRACOSTA.location}
               start={MIRACOSTA.start}
               end={MIRACOSTA.end}
+              logo={MIRACOSTA.logo}
             />
           </div>
           <p className="mt-3 leading-relaxed text-muted">
@@ -314,10 +322,16 @@ function Areas() {
         {AREAS.map((area) => (
           <div
             key={area.id}
-            className="grid gap-1 border-b border-line py-5 last:border-b-0 sm:grid-cols-[14.5rem_1fr] sm:gap-8 sm:py-6"
+            className="grid grid-cols-[auto_1fr] gap-x-4 border-b border-line py-5 last:border-b-0 sm:grid-cols-[auto_13rem_1fr] sm:gap-x-6 sm:py-6"
           >
-            <dt className="font-semibold leading-snug tracking-[-0.01em]">{area.name}</dt>
-            <dd className="leading-relaxed text-muted">{q(area.line)}</dd>
+            <IconTile Icon={AREA_ICONS[area.id]} />
+            <dt className="self-center font-semibold leading-snug tracking-[-0.01em]">{area.name}</dt>
+            <dd className="col-start-2 mt-1 leading-relaxed text-muted sm:col-start-3 sm:mt-0 sm:self-center">
+              {q(area.line)}{" "}
+              <a href={`#win-${area.wins[0]}`} className="link whitespace-nowrap text-[0.9375rem]">
+                See the work
+              </a>
+            </dd>
           </div>
         ))}
       </dl>
@@ -417,6 +431,7 @@ export default function App() {
       <Header />
       <main id="main" className="flex flex-col gap-20 sm:gap-24 lg:gap-28">
         <Hero />
+        <Work />
         <Experience />
         <Areas />
         <Contact />

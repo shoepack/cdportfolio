@@ -44,6 +44,7 @@ The current hero title "Full-Stack Engineer" predates this positioning and shoul
 - Contact form sends through EmailJS using `VITE_EMAILJS_*` environment variables set in Vercel.
 - React Bits Pro (Ultimate license) is configured in `components.json`; the license key is injected by the cloud environment's proxy (`.env.local` holds a placeholder).
 - **Projects are intentionally removed.** They are college-era work; for a second job, employers care about jobs and what he did at them. Do not bring the Projects section back as filler.
+- Gauge-style stat dials were considered and rejected by Jason as corny for a two-year, one-company career; present numbers in text.
 - Résumé is published at `/Jason_Artley_Resume.pdf`, exported from the 2026 Google Doc with the phone number removed (Jason's decision). Re-export when the Doc changes.
 
 ## Evidence on Hand
@@ -61,6 +62,8 @@ The current hero title "Full-Stack Engineer" predates this positioning and shoul
   - Reotemp: helped move the company off Sage and a custom CRM onto Odoo; reviews legacy PHP, writes custom Python for Odoo workflows.
   - Reotemp: partnered with the CEO on Python metric queries/reports and a daily slideshow of bonus-linked metrics.
   - Reotemp: patched SQL injection vulnerabilities, linked server-load spikes to marketing email sends, led Cloudflare adoption; **outages fell from 1–2 a week to about 1 a month**.
+  - Reotemp (confirmed by Jason, not yet on the résumé): took an engineer's Google Sheets thermowell wake-frequency calculator (ASME 19.3) to a standalone public site, wakefrequencycalc.com, and later into reotemp.com's thermowell configurator; set up and iterated the site on Vercel, worked with engineers on the front-end form, the back-end engine/API, and customer PDF reports.
+  - Public work that may be shown as screenshots: reotempintelligence.com and wakefrequencycalc.com. Everything else (Figma, internal tools, metrics) is under NDA; show it only as clearly labelled illustrations.
   - MiraCosta: tutored **50+ students** across Python, Java, C++, and Assembly; also tutored math.
   - UCSD: **GPA 3.9**, Cum Laude, Sep 2022 – Jun 2024.
   - Skills: Python, PHP, JavaScript, HTML/CSS, React, MySQL, PostgreSQL (Supabase); Figma, Jira; Git/GitHub, Stripe, Cloudflare, WordPress, Odoo, Linux, phpMyAdmin; Claude, OpenAI API, OpenRouter, AI coding agents.

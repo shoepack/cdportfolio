@@ -50,7 +50,7 @@ export const EXPERIENCE = [
     location: "San Diego, CA",
     start: "Aug 2024",
     end: "Present",
-    logo: { src: "/img/reotemp-logo.webp", fallback: "/img/reotemp-logo.png", width: 320, height: 180 },
+    logo: { src: "/img/reotemp-logo.webp", fallback: "/img/reotemp-logo.png", width: 330, height: 144 },
     summary:
       "Product, design, and engineering for an industrial instruments manufacturer: storefront, configurators, AI tools, the business platform, and the infrastructure under it.",
     // Each win is phrased as problem → what I did → result, so any direction
@@ -66,6 +66,18 @@ export const EXPERIENCE = [
         result: "The company's first subscription product, live.",
         link: { href: "https://reotempintelligence.com/", label: "reotempintelligence.com" },
         tools: ["Stripe"],
+      },
+      {
+        id: "wakecalc",
+        area: "systems",
+        title: "Turned an engineering spreadsheet into a public calculator",
+        problem:
+          "An engineer's thermowell wake-frequency calculator, based on the ASME 19.3 standard, lived in a Google Sheets prototype.",
+        action:
+          "Learned the thermowell product, then worked with engineers to turn it into a standalone site and later into the thermowell configurator on reotemp.com. I set up the site on Vercel, iterated on it rapidly, and worked on the front-end form, the back-end calculation engine and API, and the customer PDF reports.",
+        result: "A free public tool that checks a thermowell design against each ASME criterion and produces a PDF report.",
+        link: { href: "https://www.wakefrequencycalc.com/", label: "wakefrequencycalc.com" },
+        tools: ["Vercel", "ASME 19.3"],
       },
       {
         id: "configurators",
@@ -139,7 +151,7 @@ export const EXPERIENCE = [
     location: "STEM Tutoring",
     start: "Aug 2020",
     end: "Dec 2020",
-    logo: { src: "/img/miracosta-logo.webp", fallback: "/img/miracosta-logo.png", width: 320, height: 180 },
+    logo: { src: "/img/miracosta-logo.webp", fallback: "/img/miracosta-logo.png", width: 282, height: 144 },
     summary:
       "One-on-one and group tutoring for 50+ students across Python, Java, C++, and Assembly; built supplemental exercises; tutored math when the department needed it.",
     wins: [],
@@ -173,8 +185,8 @@ export const AREAS = [
   {
     id: "business",
     name: "Business systems",
-    line: "The company's first Stripe subscription, its move to Odoo, and a daily metrics report for the CEO.",
-    wins: ["stripe", "odoo", "metrics"],
+    line: "The company's first Stripe subscription, its move to Odoo, a public ASME calculator, and a daily metrics report for the CEO.",
+    wins: ["stripe", "odoo", "wakecalc", "metrics"],
   },
   {
     id: "security",

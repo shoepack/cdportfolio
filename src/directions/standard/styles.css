@@ -1,6 +1,7 @@
 @import "tailwindcss" source(none);
 @source "./";
 @source "../../shared";
+@source "../../components";
 
 /* Self-hosted type: Schibsted Grotesk (display + text), Red Hat Mono (dates and numbers only). */
 @font-face {
