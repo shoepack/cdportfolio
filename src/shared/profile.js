@@ -15,8 +15,8 @@ export const PERSON = {
 
 // Hero proof sentence, rendered with the outcome phrase emphasized.
 export const INTRO = {
-  text: "As Software Product Specialist at Reotemp Instruments, I shipped the company's first Stripe subscription product, built its AI quoting and product-matching tools, and cut site outages from 1–2 a week to about one every six months.",
-  emphasis: "1–2 a week to about one every six months",
+  text: "As Software Product Specialist at Reotemp Instruments, I'm the sole developer of reotempintelligence.com, where I shipped the company's first Stripe subscription product. I also built its AI quoting and product-matching tools.",
+  emphasis: "sole developer of reotempintelligence.com",
 };
 
 export const SUMMARY =
