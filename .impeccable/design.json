@@ -1,0 +1,458 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-18T19:37:55Z",
+  "title": "Design System: Jason Artley",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Warm Paper",
+        "canonical": "#f7f6f2",
+        "oklch": "oklch(97.3% 0.005 95.1)",
+        "tonalRamp": [
+          "#0b0b0a",
+          "#242422",
+          "#40403d",
+          "#5e5e5a",
+          "#81807d",
+          "#a5a4a2",
+          "#cbcac8",
+          "#efeeec"
+        ]
+      },
+      "raised": {
+        "role": "neutral",
+        "displayName": "Raised Paper",
+        "canonical": "#fdfcfa",
+        "oklch": "oklch(99.1% 0.003 84.6)",
+        "tonalRamp": [
+          "#0b0b0a",
+          "#242423",
+          "#40403e",
+          "#5e5d5c",
+          "#81807e",
+          "#a5a4a3",
+          "#cbcac9",
+          "#efeeed"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "Plain White",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#808080",
+          "#a4a4a4",
+          "#cacaca",
+          "#eeeeee"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#171716",
+        "oklch": "oklch(20.4% 0.002 106.6)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242423",
+          "#40403f",
+          "#5e5e5c",
+          "#80807f",
+          "#a4a5a3",
+          "#cacaca",
+          "#eeeeee"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Stone Grey",
+        "canonical": "#62615b",
+        "oklch": "oklch(49.2% 0.009 99.0)",
+        "tonalRamp": [
+          "#0c0b09",
+          "#252421",
+          "#41403c",
+          "#5f5e58",
+          "#81807a",
+          "#a6a5a0",
+          "#cbcbc6",
+          "#efeeeb"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#e3e1da",
+        "oklch": "oklch(90.9% 0.010 93.6)",
+        "tonalRamp": [
+          "#0c0b09",
+          "#252421",
+          "#41403b",
+          "#5f5e58",
+          "#82807a",
+          "#a6a49f",
+          "#cccac6",
+          "#efeeeb"
+        ]
+      },
+      "field": {
+        "role": "neutral",
+        "displayName": "Field Stroke",
+        "canonical": "#8c8a82",
+        "oklch": "oklch(63.3% 0.012 95.2)",
+        "tonalRamp": [
+          "#0c0b08",
+          "#252420",
+          "#41403a",
+          "#5f5e57",
+          "#828079",
+          "#a6a59e",
+          "#cccac5",
+          "#efeeea"
+        ]
+      },
+      "pine": {
+        "role": "primary",
+        "displayName": "Portrait Pine",
+        "canonical": "#1f6b45",
+        "oklch": "oklch(47.1% 0.096 157.3)",
+        "tonalRamp": [
+          "#001104",
+          "#012c18",
+          "#154b30",
+          "#2b6c4a",
+          "#4e916b",
+          "#7cb392",
+          "#abd7bb",
+          "#d6f9e2"
+        ]
+      },
+      "pine-deep": {
+        "role": "primary",
+        "displayName": "Deep Pine",
+        "canonical": "#17573a",
+        "oklch": "oklch(40.8% 0.081 159.5)",
+        "tonalRamp": [
+          "#001006",
+          "#082b1b",
+          "#1e4a34",
+          "#346a4f",
+          "#568e70",
+          "#82b197",
+          "#afd5bf",
+          "#d9f7e5"
+        ]
+      },
+      "pine-wash": {
+        "role": "primary",
+        "displayName": "Pine Wash",
+        "canonical": "#dbe8df",
+        "oklch": "oklch(91.9% 0.018 155.8)",
+        "tonalRamp": [
+          "#080c0a",
+          "#202622",
+          "#3a423d",
+          "#56615a",
+          "#78837c",
+          "#9ea7a1",
+          "#c5cdc7",
+          "#eaf0ec"
+        ]
+      },
+      "danger": {
+        "role": "semantic",
+        "displayName": "Brick",
+        "canonical": "#a8321c",
+        "oklch": "oklch(49.3% 0.158 32.7)",
+        "tonalRamp": [
+          "#230000",
+          "#490500",
+          "#721d0d",
+          "#9e3521",
+          "#c95943",
+          "#e78672",
+          "#ffb3a1",
+          "#ffdcce"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The name as h1, once per page; settles in on load."
+      },
+      "role": {
+        "displayName": "Role line",
+        "purpose": "Role (500 ink) and location (400 muted) under the name."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles; 26px at desktop in the sticky title rail."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Lead job entries."
+      },
+      "title-sm": {
+        "displayName": "Title small",
+        "purpose": "Lead wins and the \"Also at Reotemp\" subhead."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All reading text, capped at a 44rem measure; hero lede steps to 19px from 640px."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Buttons, nav, form labels, the disclosure toggle, link rows."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Chips, diagram nodes, figure titles; 12px for figure captions."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Red Hat Mono with tabular figures: dates, figures and part numbers only."
+      }
+    },
+    "cssTokens": {
+      "source": "src/site/styles.css @theme",
+      "fontSans": "--font-sans",
+      "fontMono": "--font-mono",
+      "colorPrefix": "--color-"
+    },
+    "shadows": [
+      {
+        "name": "field-rest",
+        "value": "0 1px 2px rgb(23 23 22 / 0.04)",
+        "purpose": "Form inputs at rest."
+      },
+      {
+        "name": "tab-selected",
+        "value": "0 1px 2px rgb(23 23 22 / 0.08)",
+        "purpose": "The active site tab, with a 1px line ring."
+      },
+      {
+        "name": "showcase",
+        "value": "0 1px 2px rgb(23 23 22 / 0.06), 0 12px 32px -12px rgb(23 23 22 / 0.18)",
+        "purpose": "The browser-window showcase only; the one floating object."
+      }
+    ],
+    "focus": {
+      "value": "2px solid var(--color-pine)",
+      "offset": "3px",
+      "radius": "4px",
+      "fields": "2px pine outline at 2px offset; brick when aria-invalid"
+    },
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Hero settle and the phone contact bar."
+      },
+      {
+        "name": "hero-in",
+        "value": "900ms; from opacity 0, translateY(10px), blur(6px); stagger 70ms after 60ms",
+        "purpose": "Hero text steps on load only, under prefers-reduced-motion: no-preference."
+      },
+      {
+        "name": "portrait-in",
+        "value": "800ms at 180ms; from opacity 0, scale(1.025), inset(4% round 14px)",
+        "purpose": "Hero portrait on load only."
+      },
+      {
+        "name": "contact-bar",
+        "value": "transform 320ms ease-out-expo",
+        "purpose": "Phone contact bar slide; none under reduced motion."
+      },
+      {
+        "name": "state",
+        "value": "150ms to 160ms ease",
+        "purpose": "Colour, border and 1px press feedback."
+      },
+      {
+        "name": "chevron",
+        "value": "transform 200ms",
+        "purpose": "Disclosure chevron rotation."
+      },
+      {
+        "name": "showcase-dwell",
+        "value": "5200ms, fade",
+        "purpose": "Browser-window autoplay; pausable, off under reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Pine action for Resume (PDF) and Send message; one per group.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/><polyline points=\"7 10 12 15 17 10\"/><line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\"/></svg>Resume <span class=\"ds-btn-note\">(PDF)</span></a>",
+      "css": ".ds-btn-primary { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:48px; padding:0 18px; border-radius:8px; font-size:0.9375rem; font-weight:500; font-family: var(--font-sans, 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif); text-decoration:none; cursor:pointer; transition: background-color 150ms, border-color 150ms, transform 150ms; border:0; background:var(--color-pine); color:#fff; } .ds-btn-primary .ds-btn-note { font-weight:400; color:rgb(255 255 255 / 0.8); } .ds-btn-primary:hover { background:var(--color-pine-deep); } .ds-btn-primary:active { transform:translateY(1px); } .ds-btn-primary:focus-visible { outline: 2px solid var(--color-pine, #1f6b45); outline-offset: 3px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Raised button for Email and LinkedIn beside the primary.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\"><span class=\"ds-btn-icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z\"/><polyline points=\"22,6 12,13 2,6\"/></svg></span>Email</a>",
+      "css": ".ds-btn-secondary { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:48px; padding:0 18px; border-radius:8px; font-size:0.9375rem; font-weight:500; font-family: var(--font-sans, 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif); text-decoration:none; cursor:pointer; transition: background-color 150ms, border-color 150ms, transform 150ms; background:var(--color-raised); color:var(--color-ink); border:1px solid color-mix(in srgb, var(--color-field) 50%, transparent); } .ds-btn-secondary .ds-btn-icon { display:inline-flex; color:var(--color-muted); } .ds-btn-secondary:hover { border-color: color-mix(in srgb, var(--color-ink) 60%, transparent); } .ds-btn-secondary:active { transform:translateY(1px); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--color-pine, #1f6b45); outline-offset: 3px; }"
+    },
+    {
+      "name": "Phone Contact Bar",
+      "kind": "nav",
+      "refersTo": "contact-bar-button",
+      "description": "Fixed thumb-reach bar on phones once the hero actions scroll away.",
+      "html": "<div class=\"ds-bar\"><a class=\"ds-bar-btn ds-bar-primary\" href=\"#\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/><polyline points=\"7 10 12 15 17 10\"/><line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\"/></svg>Resume</a><a class=\"ds-bar-btn\" href=\"#\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z\"/><polyline points=\"22,6 12,13 2,6\"/></svg>Email</a><a class=\"ds-bar-btn\" href=\"#\">LinkedIn</a></div>",
+      "css": ".ds-bar { display:flex; gap:8px; padding:10px 16px; border-top:1px solid var(--color-line); background:color-mix(in srgb, var(--color-paper) 95%, transparent); backdrop-filter:blur(4px); max-width:390px; } .ds-bar-btn { flex:1; min-width:0; display:inline-flex; align-items:center; justify-content:center; gap:4px; min-height:44px; padding:0 6px; border-radius:8px; font-size:0.875rem; font-weight:500; font-family: var(--font-sans, 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif); text-decoration:none; white-space:nowrap; background:var(--color-raised); color:var(--color-ink); border:1px solid color-mix(in srgb, var(--color-field) 50%, transparent); transition: background-color 150ms, border-color 150ms; } .ds-bar-btn:hover { border-color:color-mix(in srgb, var(--color-ink) 60%, transparent); } .ds-bar-primary { background:var(--color-pine); color:#fff; border-color:transparent; } .ds-bar-primary:hover { background:var(--color-pine-deep); } .ds-bar-btn:focus-visible { outline: 2px solid var(--color-pine, #1f6b45); outline-offset: 3px; }"
+    },
+    {
+      "name": "Tool Chips",
+      "kind": "chip",
+      "refersTo": "tool-chip",
+      "description": "Static round chips naming the tools a win used, each with its brand mark.",
+      "html": "<ul class=\"ds-chips\"><li class=\"ds-chip\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M24 22.525H0l12-21.05 12 21.05z\"/></svg>Vercel</li><li class=\"ds-chip\">Stripe</li><li class=\"ds-chip\">Supabase</li></ul>",
+      "css": ".ds-chips { display:flex; flex-wrap:wrap; gap:6px; list-style:none; margin:0; padding:0; } .ds-chip { display:inline-flex; align-items:center; gap:6px; min-height:28px; padding:0 10px; border-radius:9999px; border:1px solid var(--color-line); background:var(--color-raised); color:var(--color-muted); font-size:0.8125rem; font-family: var(--font-sans, 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif); } .ds-chip svg { color:color-mix(in srgb, var(--color-ink) 70%, transparent); }"
+    },
+    {
+      "name": "Page Pills",
+      "kind": "chip",
+      "refersTo": "page-pill",
+      "description": "Toggle pills that pick a screenshot page under the browser window.",
+      "html": "<div class=\"ds-pills\"><button class=\"ds-pill\" aria-pressed=\"true\">Home</button><button class=\"ds-pill\" aria-pressed=\"false\">Software</button><button class=\"ds-pill\" aria-pressed=\"false\">Subscribe</button></div>",
+      "css": ".ds-pills { display:flex; flex-wrap:wrap; gap:8px; } .ds-pill { min-height:44px; padding:6px 16px; border-radius:9999px; border:1px solid var(--color-line); background:var(--color-raised); color:var(--color-muted); font-size:0.875rem; font-weight:500; font-family: var(--font-sans, 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif); cursor:pointer; transition: color 150ms, border-color 150ms, background-color 150ms; } .ds-pill:hover { border-color:var(--color-field); color:var(--color-ink); } .ds-pill[aria-pressed=true] { background:var(--color-pine-wash); border-color:color-mix(in srgb, var(--color-pine) 30%, transparent); color:var(--color-ink); } .ds-pill:focus-visible { outline: 2px solid var(--color-pine, #1f6b45); outline-offset: 3px; }"
+    },
+    {
+      "name": "Site Tabs",
+      "kind": "nav",
+      "refersTo": "site-tab-active",
+      "description": "Segmented ARIA tablist choosing which public site the showcase shows.",
+      "html": "<div class=\"ds-tabs\" role=\"tablist\"><button class=\"ds-tab\" role=\"tab\" aria-selected=\"true\">reotempintelligence.com</button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\">wakefrequencycalc.com</button></div>",
+      "css": ".ds-tabs { display:inline-flex; gap:4px; padding:4px; border-radius:12px; border:1px solid var(--color-line); background:var(--color-raised); } .ds-tab { min-height:44px; padding:6px 16px; border:0; border-radius:8px; background:transparent; color:var(--color-muted); font-size:0.875rem; font-weight:500; font-family: var(--font-sans, 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif); cursor:pointer; transition:color 150ms; } .ds-tab:hover { color:var(--color-ink); } .ds-tab[aria-selected=true] { background:#fff; color:var(--color-ink); box-shadow:0 1px 2px rgb(23 23 22 / 0.08), 0 0 0 1px var(--color-line); } .ds-tab:focus-visible { outline: 2px solid var(--color-pine, #1f6b45); outline-offset: 3px; }"
+    },
+    {
+      "name": "How I Did It Disclosure",
+      "kind": "custom",
+      "refersTo": "disclosure-toggle",
+      "description": "Pine text toggle revealing a win's written detail; chevron rotates when open.",
+      "html": "<div class=\"ds-how\"><button class=\"ds-how-toggle\" aria-expanded=\"true\" onclick=\"this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')!=='true')\">How I did it<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><polyline points=\"6 9 12 15 18 9\"/></svg></button><p class=\"ds-how-panel\">Built the configurator, emailed quotes, signing and billing as the sole developer.</p></div>",
+      "css": ".ds-how { font-family: var(--font-sans, 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif); max-width:44rem; } .ds-how-toggle { display:inline-flex; align-items:center; gap:4px; min-height:44px; margin-left:-4px; padding:0 4px; border:0; border-radius:6px; background:transparent; color:var(--color-pine); font-size:0.9375rem; font-weight:500; font-family:inherit; cursor:pointer; } .ds-how-toggle:hover { color:var(--color-pine-deep); } .ds-how-toggle svg { transition:transform 200ms; } .ds-how-toggle[aria-expanded=true] svg { transform:rotate(180deg); } .ds-how-toggle[aria-expanded=false] + .ds-how-panel { display:none; } .ds-how-panel { margin:0; color:var(--color-muted); line-height:1.625; } .ds-how-toggle:focus-visible { outline: 2px solid var(--color-pine, #1f6b45); outline-offset: 3px; }"
+    },
+    {
+      "name": "Architecture Diagram",
+      "kind": "card",
+      "refersTo": "figure-panel",
+      "description": "Public-safe overview of a public site: users, host panel, named services.",
+      "html": "<figure class=\"ds-arch\"><p class=\"ds-arch-title\">How wakefrequencycalc.com fits together</p><div class=\"ds-arch-flow\"><div class=\"ds-node\">Engineers &amp; customers</div><div class=\"ds-arrow\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><line x1=\"12\" y1=\"5\" x2=\"12\" y2=\"19\"/><polyline points=\"19 12 12 19 5 12\"/></svg></div><div class=\"ds-host\"><p class=\"ds-host-name\">wakefrequencycalc.com</p><p class=\"ds-small\">Static front end and Python serverless functions on Vercel</p><ul class=\"ds-parts\"><li>Pass or fail on four criteria</li><li>PDF reports</li></ul></div><div class=\"ds-arrow\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><line x1=\"12\" y1=\"5\" x2=\"12\" y2=\"19\"/><polyline points=\"19 12 12 19 5 12\"/></svg></div><div class=\"ds-node\"><b>PDF service</b><span class=\"ds-muted\"> · Renders the reports</span></div></div><figcaption class=\"ds-small\">Simplified overview.</figcaption></figure>",
+      "css": ".ds-arch { margin:0; padding:20px; border-radius:12px; border:1px solid var(--color-line); background:var(--color-raised); font-family: var(--font-sans, 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif); max-width:44rem; } .ds-arch-title { margin:0; font-size:0.8125rem; font-weight:500; color:var(--color-muted); } .ds-arch-flow { display:grid; gap:8px; margin-top:12px; } .ds-node { border-radius:8px; border:1px solid var(--color-line); background:#fff; padding:8px 12px; font-size:0.8125rem; color:var(--color-ink); } .ds-node b { font-weight:500; } .ds-muted { color:var(--color-muted); } .ds-arrow { display:flex; justify-content:center; color:var(--color-muted); } .ds-host { border-radius:12px; border:1px solid color-mix(in srgb, var(--color-pine) 30%, transparent); background:color-mix(in srgb, var(--color-pine-wash) 50%, transparent); padding:12px; } .ds-host-name { margin:0; font-size:0.9375rem; font-weight:600; color:var(--color-ink); } .ds-small { margin:0; font-size:0.75rem; color:var(--color-muted); } figcaption.ds-small { margin-top:12px; } .ds-parts { list-style:none; margin:8px 0 0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:4px; } .ds-parts li { border-radius:6px; background:rgb(255 255 255 / 0.8); padding:6px 10px; font-size:0.8125rem; color:var(--color-ink); }"
+    },
+    {
+      "name": "Quoting Strip",
+      "kind": "custom",
+      "refersTo": "figure-panel",
+      "description": "Labelled illustration of the internal quoting assistant: part-number segments to a priced reply.",
+      "html": "<figure class=\"ds-quote\"><div class=\"ds-quote-row\"><ol class=\"ds-segs\"><li><span class=\"ds-seg\">PG</span><span class=\"ds-seg-l\">Series</span></li><li><span class=\"ds-seg\">25</span><span class=\"ds-seg-l\">2.5″ dial</span></li><li><span class=\"ds-seg\">160P</span><span class=\"ds-seg-l\">0–160 psi</span></li></ol><span class=\"ds-q-arrow\" aria-hidden=\"true\">→</span><p class=\"ds-bubble\"><span class=\"ds-num\">$48.20</span><span class=\"ds-q-muted\"> · 2.5″ gauge, 0–160 psi</span></p></div><figcaption>Illustrative part number and price, not Reotemp data. The real tool is internal.</figcaption></figure>",
+      "css": ".ds-quote { margin:0; padding:20px; border-radius:12px; border:1px solid var(--color-line); background:var(--color-raised); font-family: var(--font-sans, 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif); max-width:44rem; } .ds-quote-row { display:flex; flex-wrap:wrap; align-items:center; gap:16px; } .ds-segs { display:flex; gap:6px; list-style:none; margin:0; padding:0; } .ds-segs li { display:flex; flex-direction:column; align-items:center; } .ds-seg { font-family: var(--font-mono, 'Red Hat Mono', ui-monospace, monospace); font-variant-numeric: tabular-nums; display:inline-flex; align-items:center; height:32px; padding:0 8px; border-radius:6px; background:var(--color-pine-wash); color:var(--color-pine); font-size:0.875rem; font-weight:500; } .ds-seg-l { margin-top:4px; font-size:0.75rem; color:var(--color-muted); } .ds-q-arrow { color:var(--color-muted); } .ds-bubble { margin:0; padding:8px 12px; border-radius:16px 16px 16px 2px; border:1px solid var(--color-line); background:#fff; font-size:0.875rem; color:var(--color-ink); } .ds-num { font-family: var(--font-mono, 'Red Hat Mono', ui-monospace, monospace); font-variant-numeric: tabular-nums; font-weight:500; } .ds-q-muted { color:var(--color-muted); } .ds-quote figcaption { margin-top:12px; font-size:0.75rem; color:var(--color-muted); }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input-text",
+      "description": "Labelled form field with pine focus and brick error state.",
+      "html": "<div class=\"ds-field\"><label class=\"ds-label\" for=\"ds-email\">Email</label><input id=\"ds-email\" class=\"ds-input\" placeholder=\"name@company.com\"><label class=\"ds-label\" for=\"ds-name\" style=\"margin-top:16px\">Name</label><input id=\"ds-name\" class=\"ds-input\" aria-invalid=\"true\" value=\"J\"><p class=\"ds-error\">Enter your full name.</p></div>",
+      "css": ".ds-field { display:flex; flex-direction:column; font-family: var(--font-sans, 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif); max-width:22rem; } .ds-label { font-size:0.9375rem; font-weight:500; color:var(--color-ink); margin-bottom:8px; } .ds-input { height:48px; padding:0 14px; border-radius:8px; border:1px solid var(--color-field); background:var(--color-raised); color:var(--color-ink); font-size:1rem; font-family:inherit; box-shadow:0 1px 2px rgb(23 23 22 / 0.04); transition:border-color 150ms, box-shadow 150ms; } .ds-input::placeholder { color:var(--color-muted); opacity:1; } .ds-input:hover { border-color:color-mix(in srgb, var(--color-ink) 55%, transparent); } .ds-input:focus { border-color:var(--color-pine); outline:2px solid var(--color-pine); outline-offset:2px; } .ds-input[aria-invalid=true] { border-color:var(--color-danger); } .ds-input[aria-invalid=true]:focus { outline-color:var(--color-danger); } .ds-error { margin:8px 0 0; font-size:0.875rem; color:var(--color-danger); }"
+    },
+    {
+      "name": "Text Navigation",
+      "kind": "nav",
+      "description": "Muted text links with 44px targets; ink on hover.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">Work</a><a href=\"#\">Experience</a><a href=\"#\">Areas</a><a href=\"#\">Contact</a><a href=\"#\">Resume</a></nav>",
+      "css": ".ds-nav { display:flex; gap:4px; font-family: var(--font-sans, 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif); } .ds-nav a { display:inline-flex; align-items:center; min-height:44px; padding:0 10px; border-radius:6px; font-size:0.9375rem; color:var(--color-muted); text-decoration:none; transition:color 150ms; } .ds-nav a:hover { color:var(--color-ink); } .ds-nav a:focus-visible { outline: 2px solid var(--color-pine, #1f6b45); outline-offset: 3px; }"
+    },
+    {
+      "name": "Area Row with Icon Tile",
+      "kind": "custom",
+      "refersTo": "icon-tile",
+      "description": "Areas index row: pine-wash Feather tile, area name, links to the proving wins.",
+      "html": "<div class=\"ds-area\"><span class=\"ds-tile\"><svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" ry=\"2\"/><line x1=\"3\" y1=\"9\" x2=\"21\" y2=\"9\"/><line x1=\"9\" y1=\"21\" x2=\"9\" y2=\"9\"/></svg></span><span class=\"ds-area-name\">Front-end and product design</span><a class=\"ds-link\" href=\"#\">Product configurators</a></div>",
+      "css": ".ds-area { display:flex; flex-wrap:wrap; align-items:center; gap:16px; padding:20px 0; border-bottom:1px solid var(--color-line); font-family: var(--font-sans, 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif); } .ds-tile { display:inline-flex; width:36px; height:36px; align-items:center; justify-content:center; border-radius:8px; background:var(--color-pine-wash); color:var(--color-pine); box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--color-pine) 10%, transparent); } .ds-area-name { font-weight:600; color:var(--color-ink); } .ds-link { font-size:0.9375rem; color:var(--color-pine); text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:0.22em; text-decoration-color:color-mix(in srgb, var(--color-pine) 35%, transparent); transition:color 160ms, text-decoration-color 160ms; } .ds-link:hover { color:var(--color-pine-deep); text-decoration-color:currentColor; } .ds-link:focus-visible { outline: 2px solid var(--color-pine, #1f6b45); outline-offset: 3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Category Standard, Played Straight",
+    "overview": "**Creative North Star: \"The Category Standard, Played Straight\"**\n\nA personal site that looks like the best version of what a careful engineer's site should look like: warm off-white paper, near-black ink, one grey, and one pine-green accent taken from the foliage in the portrait. Proof comes from real, public work (live screenshots of the two public sites, public-safe architecture diagrams, a labelled illustration of an internal tool), never from decoration. The page is typographic first: one grotesque does every job, hairlines do the structuring, and colour is reserved for what can be clicked.\n\nDensity is calm and editorial. Sections sit in a two-column frame on desktop (a sticky section title rail beside a single reading column) and collapse to one column on phones, where the first screen must carry name, role, proof line and the Resume, Email and LinkedIn actions. The world refuses the dark developer-portfolio template (glow, gradient titles, logo walls) and any themed costume. Motion is a single authored moment: the hero settles in once on load.\n\nThis world is the standing-exit canon direction (seed `12619c66cff89c54`), chosen by Jason after comparing three built directions and documented from the shipped build.",
+    "keyCharacteristics": [
+      "Light only (`color-scheme: light`); warm paper ground, never pure white as the page.",
+      "One accent, pine, used for links, the primary action and the selected state.",
+      "One sans family for everything; the mono face is confined to numerals and dates.",
+      "Hairline rules and tonal panels for structure; almost no shadow.",
+      "Feather line icons for UI, brand marks only on tool chips and architecture-diagram nodes, real logos only on jobs.",
+      "The hero is the only thing that animates on its own."
+    ],
+    "rules": [
+      {
+        "name": "The One Accent Rule",
+        "body": "Pine is the only hue. It marks what can be acted on or what is selected; it is never a background wash for a whole section and never decoration.",
+        "section": "colors"
+      },
+      {
+        "name": "The Warm Paper Rule",
+        "body": "The page is paper (#f7f6f2), not white. White appears only as the innermost layer inside a raised panel, or as text on pine.",
+        "section": "colors"
+      },
+      {
+        "name": "The Mono Is Data Rule",
+        "body": "Red Hat Mono (with tabular numerals) is allowed only for dates and date ranges, figures (the GPA, prices, the character counter, the copyright year) and part-number codes. Never for headings, labels, nav or prose.",
+        "section": "typography"
+      },
+      {
+        "name": "The Emphasis Is Weight Rule",
+        "body": "Outcomes are emphasised by setting the existing phrase in 600 ink inside muted text; the words are never reworded, recoloured in pine, or enlarged into stat callouts.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Floating Object Rule",
+        "body": "Only the browser-window showcase carries a lifted shadow. Every other surface is defined by tone and hairline.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** keep pine (#1f6b45) for links, the primary action, the focus ring and selection only, with deep pine (#17573a) for hover and press.",
+      "**Do** build new surfaces from paper, raised and white in that order, divided by 1px hairlines (#e3e1da).",
+      "**Do** set Red Hat Mono with tabular numerals for dates, figures and part numbers, and Schibsted Grotesk for everything else.",
+      "**Do** give every interactive target at least 44px of height, and keep the 2px pine focus outline at a 3px offset.",
+      "**Do** present numbers in sentences, emphasised by 600 ink weight, never as dials, gauges or stat widgets.",
+      "**Do** write visible copy as \"Resume\" without accents, and describe past work in durable past tense (\"built X as its sole developer\").",
+      "**Do** show only reotempintelligence.com and wakefrequencycalc.com as screenshots; anything else (Figma, internal tools, metrics, dashboards) appears only as a figure panel captioned as an illustration.",
+      "**Do** keep architecture diagrams generic: users, what the site does, and the named services. No endpoints, file names, data model or security mechanics.",
+      "**Do** keep the hero settle as the only load animation, and gate any motion behind `prefers-reduced-motion: no-preference`.",
+      "**Do** pair every Feather icon used beside a label with `aria-hidden`, and keep brand marks to tool chips and architecture-diagram nodes."
+    ],
+    "donts": [
+      "**Don't** introduce a dark theme, glow, gradient text, neon accents or a logo wall; this world is the refusal of that template.",
+      "**Don't** add a second accent hue or tint whole sections in pine wash.",
+      "**Don't** use pure white as the page ground.",
+      "**Don't** animate anything on scroll, autoplay anything other than the pausable browser window, or count numbers up.",
+      "**Don't** add lifted shadows beyond the browser-window showcase, and never hard offset shadows.",
+      "**Don't** set headings, labels or prose in the mono face.",
+      "**Don't** use brand marks as UI icons, or a second UI icon family alongside Feather.",
+      "**Don't** add uppercase eyebrows or kickers above section titles; sections open with the hairline and the title.",
+      "**Don't** bring back a Projects section or invent testimonials, certifications or figures not in the profile facts."
+    ]
+  }
+}
