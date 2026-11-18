@@ -39,8 +39,8 @@ The current hero title "Full-Stack Engineer" predates this positioning and shoul
 
 ## Capabilities and Constraints
 
-- Stack: React 18 + Vite 7, Tailwind CSS 4 (Vite plugin), JavaScript with TypeScript support enabled (for React Bits Pro components), `@/` alias to `src/`. Facts live in `src/shared/profile.js`; contact behaviour in `src/shared/useContactForm.js`.
-- Sections today: Navbar (logo, LinkedIn, GitHub), Hero (name, title, intro, About Me, portrait), Technical Skills, Experience, Contact (details + EmailJS-powered message form).
+- Stack: React 18 + Vite 7, Tailwind CSS 4 (Vite plugin), JavaScript with TypeScript support enabled (for React Bits Pro components), `@/` alias to `src/`. Facts live in `src/shared/profile.js`; contact behaviour in `src/shared/useContactForm.js`; the page is `src/site/`; React Bits Pro components are vendored in `src/components/react-bits/`.
+- Sections: nav, hero (name, role, proof line, Résumé/Email/LinkedIn, portrait), Work in public (browser-window screenshots of the two public sites), Experience, Areas, Contact (direct links + EmailJS form), footer.
 - Contact form sends through EmailJS using `VITE_EMAILJS_*` environment variables set in Vercel.
 - React Bits Pro (Ultimate license) is configured in `components.json`; the license key is injected by the cloud environment's proxy (`.env.local` holds a placeholder).
 - **Projects are intentionally removed.** They are college-era work; for a second job, employers care about jobs and what he did at them. Do not bring the Projects section back as filler.

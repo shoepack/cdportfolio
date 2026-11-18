@@ -1,23 +1,24 @@
-# Portfolio
+# jasonartley.com
 
-- Live Site: https://jasonartley.com
+Personal site for Jason Artley, Solutions Architect. Live at https://www.jasonartley.com.
 
-Welcome to my portfolio site repository! This project showcases my work and skills using HTML, JavaScript, CSS, React, and Vite.
+## Stack
+- React 18 + Vite 7, Tailwind CSS 4 (Vite plugin)
+- React Bits Pro (Browser Window), vendored in `src/components/react-bits/`
+- EmailJS for the contact form (`VITE_EMAILJS_*` variables in Vercel)
+- Hosted on Vercel; `master` deploys to production, other branches get previews
 
-## Introduction
+## Where things live
+- `src/shared/profile.js`: every fact the site states (keep it in sync with the résumé)
+- `src/shared/useContactForm.js`: contact form behaviour
+- `src/site/`: the page
+- `public/Jason_Artley_Resume.pdf`: résumé (exported from the Google Doc, phone number removed)
+- `public/img/`: optimized portrait, logos, OG image, and work screenshots
+- `PRODUCT.md`: audience, positioning, and the evidence the site may use
 
-This portfolio site is designed to showcase my projects, skills, and experience as a front-end web developer. The site is built with React and styled with CSS, and it uses Vite for a fast and optimized development experience.
-
-## Features
-
-- Responsive design for mobile and desktop views
-- Interactive project showcase
-- Contact form for inquiries
-- Smooth scrolling and navigation
-
-## Technologies Used
-- HTML5: Markup language used for structuring the content of the site.
-- CSS3: Style sheet language used for describing the presentation of the site.
-- JavaScript: Programming language used to create dynamic and interactive effects.
-- React: JavaScript library for building user interfaces.
-- Vite: Front-end build tool and development server.
+## Develop
+```sh
+npm install
+npm run dev
+npm run build
+```
