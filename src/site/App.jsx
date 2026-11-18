@@ -224,7 +224,7 @@ function StickyContact({ visible }) {
 function Section({ id, title, children, intro }) {
   return (
     <section id={id} aria-labelledby={`${id}-title`} className="mx-auto w-full max-w-[68rem] px-4 sm:px-6 lg:px-8">
-      <div className="grid gap-y-6 border-t border-line pt-10 sm:pt-16 lg:grid-cols-[13rem_1fr] lg:gap-x-12 lg:pt-20">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-y-6 border-t border-line pt-10 sm:pt-16 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-x-12 lg:pt-20">
         <div>
           <h2 id={`${id}-title`} className="text-[1.75rem] font-semibold leading-tight tracking-[-0.025em] lg:sticky lg:top-8 lg:text-[1.625rem]">
             {title}
@@ -242,9 +242,9 @@ function Section({ id, title, children, intro }) {
 function EntryHead({ title, org, orgUrl, place, start, end, level = "lead", logo }) {
   return (
     <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-      <div className="flex items-center gap-3 sm:gap-4">
+      <div className="flex flex-wrap items-center gap-3 sm:gap-4">
         {logo && <Logo logo={logo} company={org} />}
-        <div className="min-w-0">
+        <div className="min-w-[min(12rem,100%)] flex-1">
           <h3
             className={
               level === "lead"
@@ -415,15 +415,15 @@ function Areas() {
         {AREAS.map((area) => (
           <li
             key={area.id}
-            className="grid grid-cols-[auto_1fr] gap-x-4 border-b border-line py-5 last:border-b-0 sm:grid-cols-[auto_15rem_1fr] sm:gap-x-6"
+            className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 border-b border-line py-5 last:border-b-0 sm:grid-cols-[auto_minmax(0,15rem)_minmax(0,1fr)] sm:gap-x-6"
           >
             <IconTile Icon={AREA_ICONS[area.id]} />
             <h3 className="self-center font-semibold leading-snug tracking-[-0.01em]">{area.name}</h3>
             <div className="col-start-2 mt-1 sm:col-start-3 sm:mt-0 sm:self-center">
-              <ul className="flex flex-wrap gap-x-4 gap-y-1">
+              <ul className="flex min-w-0 flex-wrap gap-x-4 gap-y-1 [&>li]:max-w-full">
                 {area.wins.map((id) => (
                   <li key={id}>
-                    <a href={`#win-${id}`} className="link inline-flex min-h-8 items-center text-[0.9375rem]">
+                    <a href={`#win-${id}`} className="link inline-block max-w-full py-1 text-[0.9375rem] [overflow-wrap:anywhere]">
                       {WIN_BY_ID[id].short}
                     </a>
                   </li>

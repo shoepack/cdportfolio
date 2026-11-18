@@ -124,7 +124,7 @@ export function ArchitectureDiagram() {
       <p id="arch-title" className="text-[0.8125rem] font-medium text-muted">
         How reotempintelligence.com fits together
       </p>
-      <div className="mt-3 grid gap-2 lg:grid-cols-[auto_auto_1fr_auto_auto] lg:items-center lg:gap-3">
+      <div className="mt-3 grid grid-cols-[minmax(0,1fr)] gap-2 lg:grid-cols-[auto_auto_minmax(0,1fr)_auto_minmax(0,auto)] lg:items-center lg:gap-3 [&>*]:min-w-0">
         <ul className="flex flex-wrap gap-1.5 lg:flex-col" aria-label="Used by">
           {users.map((u) => (
             <li key={u}>
@@ -134,12 +134,12 @@ export function ArchitectureDiagram() {
         </ul>
         <Arrow />
         <div className="rounded-xl border border-pine/30 bg-pine-wash/50 p-3">
-          <p className="flex items-center gap-1.5 text-[0.9375rem] font-semibold text-ink">
-            <SiVercel aria-hidden="true" className="size-3.5" />
+          <p className="flex min-w-0 items-center gap-1.5 text-[0.9375rem] font-semibold text-ink [overflow-wrap:anywhere]">
+            <SiVercel aria-hidden="true" className="size-3.5 shrink-0" />
             reotempintelligence.com
           </p>
           <p className="text-[0.75rem] text-muted">HTML, CSS and JavaScript on Vercel</p>
-          <ul className="mt-2 grid gap-1">
+          <ul className="mt-2 grid grid-cols-[minmax(0,1fr)] gap-1">
             {parts.map((p) => (
               <li key={p} className="rounded-md bg-white/80 px-2.5 py-1.5 text-[0.8125rem] leading-snug text-ink">
                 {p}
@@ -148,12 +148,12 @@ export function ArchitectureDiagram() {
           </ul>
         </div>
         <Arrow />
-        <ul className="grid gap-1.5" aria-label="Services">
+        <ul className="grid grid-cols-[minmax(0,1fr)] gap-1.5" aria-label="Services">
           {services.map(({ name, role, Mark }) => (
             <li key={name}>
               <Node className="flex items-center gap-2">
                 <Mark aria-hidden="true" className="size-3.5 shrink-0 text-ink/70" />
-                <span className="text-[0.8125rem]">
+                <span className="min-w-0 text-[0.8125rem] [overflow-wrap:anywhere]">
                   <span className="font-medium text-ink">{name}</span>
                   <span className="text-muted"> · {role}</span>
                 </span>

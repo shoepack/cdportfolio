@@ -84,7 +84,7 @@ export default function Work() {
 
   return (
     <section id="work" aria-labelledby="work-title" className="mx-auto w-full max-w-[68rem] px-4 sm:px-6 lg:px-8">
-      <div className="grid gap-y-6 border-t border-line pt-10 sm:pt-16 lg:grid-cols-[13rem_1fr] lg:gap-x-12 lg:pt-20">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-y-6 border-t border-line pt-10 sm:pt-16 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-x-12 lg:pt-20">
         <div>
           <h2 id="work-title" className="text-[1.75rem] font-semibold leading-tight tracking-[-0.025em] lg:sticky lg:top-8 lg:text-[1.625rem]">
             Work in public

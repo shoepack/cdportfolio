@@ -67,6 +67,7 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     caret-color: var(--color-pine);
+    overflow-wrap: break-word;
   }
   ::selection {
     background-color: var(--color-pine-wash);
