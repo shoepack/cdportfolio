@@ -39,12 +39,12 @@ The current hero title "Full-Stack Engineer" predates this positioning and shoul
 
 ## Capabilities and Constraints
 
-- Stack: React 18 + Vite 7, Tailwind CSS 3, Framer Motion, plain JavaScript (no TypeScript), single page.
+- Stack: React 18 + Vite 7, Tailwind CSS 4 (Vite plugin), JavaScript with TypeScript support enabled (for React Bits Pro components), `@/` alias to `src/`. Facts live in `src/shared/profile.js`; contact behaviour in `src/shared/useContactForm.js`.
 - Sections today: Navbar (logo, LinkedIn, GitHub), Hero (name, title, intro, About Me, portrait), Technical Skills, Experience, Contact (details + EmailJS-powered message form).
 - Contact form sends through EmailJS using `VITE_EMAILJS_*` environment variables set in Vercel.
-- React Bits Pro (Ultimate license) is available for components and blocks; it targets TypeScript and Tailwind 4, so adopting it may require upgrading the stack.
+- React Bits Pro (Ultimate license) is configured in `components.json`; the license key is injected by the cloud environment's proxy (`.env.local` holds a placeholder).
 - **Projects are intentionally removed.** They are college-era work; for a second job, employers care about jobs and what he did at them. Do not bring the Projects section back as filler.
-- Open: the résumé is not yet on the site; how to publish it (PDF export, and whether to include the phone number) is undecided.
+- Résumé is published at `/Jason_Artley_Resume.pdf`, exported from the 2026 Google Doc with the phone number removed (Jason's decision). Re-export when the Doc changes.
 
 ## Evidence on Hand
 

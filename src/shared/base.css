@@ -1,0 +1,2 @@
+/* Shared base layer (used by shadcn / React Bits Pro installs). Directions import their own styles. */
+@import "tailwindcss";

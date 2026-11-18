@@ -1,0 +1,198 @@
+// Single source of truth for every fact the site states.
+// Everything here is confirmed by Jason's 2026 résumé or PRODUCT.md.
+// Do not add numbers, employers, or claims that are not listed here.
+
+export const PERSON = {
+  name: "Jason Artley",
+  role: "Solutions Architect",
+  roleLong: "Software Solutions Architect",
+  location: "San Diego, CA",
+  email: "contact@jasonartley.com",
+  linkedin: "https://www.linkedin.com/in/jasonartley/",
+  linkedinLabel: "linkedin.com/in/jasonartley",
+  github: "https://github.com/shoepack",
+  resume: "/Jason_Artley_Resume.pdf",
+  site: "https://www.jasonartley.com/",
+};
+
+// Default copy. Directions may restate these in their own vocabulary,
+// but must not change the facts.
+export const HEADLINE =
+  "I design, build, and keep running the systems a business actually uses.";
+
+export const INTRO =
+  "Software Product Specialist at Reotemp Instruments. I shipped the company's first Stripe subscription product, built its AI quoting and product-matching tools, helped move it onto Odoo, and cut site outages from 1–2 a week to about one a month.";
+
+export const SUMMARY =
+  "A generalist across product design, front-end, AI tooling, business systems, and security. Cognitive Science (Design & Interaction) graduate, UC San Diego, Cum Laude.";
+
+export const PORTRAIT = {
+  alt: "Jason Artley sitting outdoors among green foliage, smiling",
+  width: 3960,
+  height: 2640,
+  // Responsive sources, widest last.
+  sources: {
+    avif: [640, 1080, 1600].map((w) => ({ src: `/img/portrait-${w}.avif`, w })),
+    webp: [640, 1080, 1600].map((w) => ({ src: `/img/portrait-${w}.webp`, w })),
+    jpg: [640, 1080, 1600].map((w) => ({ src: `/img/portrait-${w}.jpg`, w })),
+  },
+  fallback: "/img/portrait-1080.jpg",
+};
+
+export const srcset = (list) => list.map(({ src, w }) => `${src} ${w}w`).join(", ");
+
+export const EXPERIENCE = [
+  {
+    id: "reotemp",
+    role: "Software Product Specialist",
+    company: "Reotemp Instruments",
+    companyUrl: "https://reotemp.com/",
+    location: "San Diego, CA",
+    start: "Aug 2024",
+    end: "Present",
+    logo: { src: "/img/reotemp-logo.webp", fallback: "/img/reotemp-logo.png", width: 320, height: 180 },
+    summary:
+      "Product, design, and engineering for an industrial instruments manufacturer: storefront, configurators, AI tools, the business platform, and the infrastructure under it.",
+    // Each win is phrased as problem → what I did → result, so any direction
+    // can render it as a worked problem, a spec row, or a plain bullet.
+    wins: [
+      {
+        id: "stripe",
+        area: "business",
+        title: "Launched the smart probe's storefront and first subscription",
+        problem: "The company's new IoT smart probe had no home online and no way to sell a subscription.",
+        action:
+          "Built and launched reotempintelligence.com and led the company's first Stripe integration. I also contribute to the product's software.",
+        result: "The company's first subscription product, live.",
+        link: { href: "https://reotempintelligence.com/", label: "reotempintelligence.com" },
+        tools: ["Stripe"],
+      },
+      {
+        id: "configurators",
+        area: "design",
+        title: "Designed product configurators and portal redesigns",
+        problem: "Sales staff and customers needed a clearer way to configure products and use the customer portal.",
+        action:
+          "Mocked up configurator updates and customer-portal redesigns in Figma with engineering and leadership, ran the work from my own Jira Kanban board, and led stakeholder user testing.",
+        result: "About 95% of designs shipped.",
+        metric: { value: "~95%", label: "of designs shipped" },
+        tools: ["Figma", "Jira", "User testing"],
+      },
+      {
+        id: "quoting",
+        area: "ai",
+        title: "Built an AI quoting assistant",
+        problem: "Products without a configurator had to be priced by hand from an internal pricing sheet.",
+        action:
+          "Sales enters a part number; the app splits it into segments, matches them against the pricing sheet, and returns a price and description in a chat interface.",
+        result: "Instant quotes for products with no configurator.",
+        tools: [],
+      },
+      {
+        id: "matching",
+        area: "ai",
+        title: "Built a customer-facing gauge-matching tool",
+        problem: "Customers knew the pressure range they needed, not which gauge to order.",
+        action:
+          "An AI tool that matches a required pressure range to an exact pre-configured gauge, or routes the customer to a salesperson when nothing matches.",
+        result: "Runs on a lightweight model at a fraction of a cent per request.",
+        tools: [],
+      },
+      {
+        id: "odoo",
+        area: "systems",
+        title: "Moved the business onto Odoo",
+        problem: "The company ran on Sage plus a custom CRM.",
+        action:
+          "Helped move it onto Odoo as its single business platform: reviewing legacy PHP, proposing modern replacements, and writing custom Python that adapts Odoo to company workflows.",
+        result: "One business platform instead of two legacy systems.",
+        tools: ["Odoo", "Python", "PHP"],
+      },
+      {
+        id: "metrics",
+        area: "systems",
+        title: "Turned the CEO's metric ideas into a daily report",
+        problem: "Leadership wanted to track the numbers tied to company bonuses.",
+        action:
+          "Partnered with the CEO to turn his metric ideas into Python queries and reports, then built a daily company slideshow of bonus-linked metrics.",
+        result: "Revenue, shipping speed, and overall performance in front of the company every day.",
+        tools: ["Python"],
+      },
+      {
+        id: "uptime",
+        area: "security",
+        title: "Improved site security and uptime",
+        problem: "The site went down one to two times a week and had SQL injection vulnerabilities.",
+        action:
+          "Worked with the senior developer to patch SQL injection vulnerabilities, linked server-load spikes to marketing email sends, and led adoption of Cloudflare for caching and filtering malicious traffic.",
+        result: "Outages fell from 1–2 a week to about 1 a month.",
+        metric: { value: "1–2/wk → ~1/mo", label: "site outages" },
+        tools: ["Cloudflare", "SQL"],
+      },
+    ],
+  },
+  {
+    id: "miracosta",
+    role: "Computer Science Tutor",
+    company: "MiraCosta College",
+    companyUrl: "https://www.miracosta.edu/",
+    location: "STEM Tutoring",
+    start: "Aug 2020",
+    end: "Dec 2020",
+    logo: { src: "/img/miracosta-logo.webp", fallback: "/img/miracosta-logo.png", width: 320, height: 180 },
+    summary:
+      "One-on-one and group tutoring for 50+ students across Python, Java, C++, and Assembly; built supplemental exercises; tutored math when the department needed it.",
+    wins: [],
+  },
+];
+
+export const EDUCATION = {
+  school: "University of California, San Diego",
+  degree: "B.S., Cognitive Science",
+  focus: "Specialization in Design & Interaction",
+  honors: "Cum Laude",
+  gpa: "3.9",
+  start: "Sep 2022",
+  end: "Jun 2024",
+};
+
+// The job-backed "areas" strip. Each area points at real wins above.
+export const AREAS = [
+  {
+    id: "design",
+    name: "Product & front-end design",
+    line: "Configurators and portal redesigns in Figma; about 95% shipped.",
+    wins: ["configurators"],
+  },
+  {
+    id: "ai",
+    name: "AI tools",
+    line: "A part-number quoting assistant and a gauge-matching tool at a fraction of a cent per request.",
+    wins: ["quoting", "matching"],
+  },
+  {
+    id: "business",
+    name: "Business systems",
+    line: "The company's first Stripe subscription, its move to Odoo, and a daily metrics report for the CEO.",
+    wins: ["stripe", "odoo", "metrics"],
+  },
+  {
+    id: "security",
+    name: "Security & reliability",
+    line: "Patched SQL injection, added Cloudflare, and cut outages from 1–2 a week to about one a month.",
+    wins: ["uptime"],
+  },
+  {
+    id: "infra",
+    name: "Infrastructure",
+    line: "Linux and Cloudflare, plus my own servers for gaming and media sharing.",
+    wins: ["uptime"],
+  },
+];
+
+export const SKILLS = {
+  "Languages & databases": ["Python", "PHP", "JavaScript", "HTML/CSS", "React", "MySQL", "PostgreSQL (Supabase)"],
+  "Product & design": ["Figma", "Jira", "User testing", "Product configurators", "IoT products"],
+  "Platforms & tools": ["Git/GitHub", "Stripe", "Cloudflare", "WordPress", "Odoo", "Linux", "phpMyAdmin"],
+  "AI tools": ["Claude", "OpenAI API", "OpenRouter", "AI coding agents"],
+};
