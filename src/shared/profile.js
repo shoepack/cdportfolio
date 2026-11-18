@@ -15,8 +15,8 @@ export const PERSON = {
 
 // Hero proof sentence, rendered with the outcome phrase emphasized.
 export const INTRO = {
-  text: "As Software Product Specialist at Reotemp Instruments, I shipped the company's first Stripe subscription product, built its AI quoting and product-matching tools, and cut site outages from 1–2 a week to about one a month.",
-  emphasis: "1–2 a week to about one a month",
+  text: "As Software Product Specialist at Reotemp Instruments, I shipped the company's first Stripe subscription product, built its AI quoting and product-matching tools, and cut site outages from 1–2 a week to about one every six months.",
+  emphasis: "1–2 a week to about one every six months",
 };
 
 export const SUMMARY =
@@ -146,8 +146,8 @@ export const EXPERIENCE = [
         problem: "The site went down one to two times a week and had SQL injection vulnerabilities.",
         action:
           "Worked with the senior developer to patch SQL injection vulnerabilities, linked server-load spikes to marketing email sends, and led adoption of Cloudflare for caching and filtering malicious traffic.",
-        result: "Outages fell from 1–2 a week to about 1 a month.",
-        metric: { value: "1–2/wk → ~1/mo", label: "site outages" },
+        result: "Outages fell from 1–2 a week to about one every six months.",
+        metric: { value: "1–2/wk → ~1 per 6 mo", label: "site outages" },
         tools: ["Cloudflare"],
       },
     ],

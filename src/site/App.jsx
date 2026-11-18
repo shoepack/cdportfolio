@@ -23,7 +23,7 @@ const RESULT_EMPHASIS = {
   matching: "a fraction of a cent per request",
   odoo: "One business platform",
   metrics: "every day",
-  uptime: "1–2 a week to about 1 a month",
+  uptime: "1–2 a week to about one every six months",
 };
 
 function Emphasize({ text, phrase, className = "font-semibold text-ink" }) {
