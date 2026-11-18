@@ -68,7 +68,7 @@ function ContactActions({ className = "" }) {
       <li className="col-span-2">
         <a href={PERSON.resume} className={btnPrimary}>
           <FiDownload aria-hidden="true" className="size-[1.05em]" />
-          Résumé <span className="font-normal text-white/80">(PDF)</span>
+          Resume <span className="font-normal text-white/80">(PDF)</span>
         </a>
       </li>
       <li>
@@ -94,7 +94,7 @@ const NAV = [
   { href: "#experience", label: "Experience" },
   { href: "#areas", label: "Areas", desktopOnly: true },
   { href: "#contact", label: "Contact" },
-  { href: PERSON.resume, label: "Résumé" },
+  { href: PERSON.resume, label: "Resume" },
 ];
 
 function Header() {
@@ -199,7 +199,7 @@ function StickyContact({ visible }) {
         <li className="flex-[1.4]">
           <a href={PERSON.resume} className={`${btnPrimary} min-h-11`}>
             <FiDownload aria-hidden="true" className="size-[1.05em]" />
-            Résumé
+            Resume
           </a>
         </li>
         <li className="flex-1">
@@ -444,7 +444,7 @@ function Contact() {
   const direct = [
     { label: "Email", value: PERSON.email, href: `mailto:${PERSON.email}`, Icon: FiMail },
     { label: "LinkedIn", value: PERSON.linkedinLabel, href: PERSON.linkedin, Icon: FiLinkedin, external: true },
-    { label: "Résumé", value: "Résumé (PDF, 42 KB)", href: PERSON.resume, Icon: FiDownload },
+    { label: "Resume", value: "Resume (PDF, 42 KB)", href: PERSON.resume, Icon: FiDownload },
   ];
   return (
     <Section
@@ -511,7 +511,7 @@ function Footer() {
           </li>
           <li>
             <a href={PERSON.resume} className="inline-flex min-h-11 items-center px-2 hover:text-ink">
-              Résumé
+              Resume
             </a>
           </li>
         </ul>

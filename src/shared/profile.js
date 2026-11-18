@@ -1,5 +1,5 @@
 // Single source of truth for every fact the site states.
-// Everything here is confirmed by Jason's 2026 résumé or PRODUCT.md.
+// Everything here is confirmed by Jason's 2026 resume or PRODUCT.md.
 // Do not add numbers, employers, or claims that are not listed here.
 
 export const PERSON = {
