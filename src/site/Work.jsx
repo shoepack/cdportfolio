@@ -11,7 +11,7 @@ const SITES = [
     href: "https://www.reotempintelligence.com/",
     win: "win-stripe",
     blurb:
-      "Built as the sole developer: customer site, subscription checkout and resource library for Reotemp’s smart-probe line, plus an admin dashboard for SaaS metrics. Plain HTML, CSS and JS on Vercel, with Supabase, Stripe and SMTP2GO.",
+      "Built as the sole developer: configurator, emailed quotes, signing and Stripe billing for Reotemp’s smart-probe line, a resource library, and a staff dashboard for quotes, pricing and past-due invoices. HTML, CSS and JavaScript with serverless functions on Vercel, plus Supabase, Stripe and SMTP2GO.",
     pages: [
       { url: "reotempintelligence.com", href: "https://www.reotempintelligence.com/", title: "Home", src: "/img/work/rti-home.webp", alt: "Reotemp Intelligence home page" },
       { url: "reotempintelligence.com/software", href: "https://www.reotempintelligence.com/software", title: "Software", src: "/img/work/rti-software.webp", alt: "Reotemp Intelligence software page" },
@@ -25,7 +25,7 @@ const SITES = [
     href: "https://www.wakefrequencycalc.com/",
     win: "win-wakecalc",
     blurb:
-      "Took an engineer’s ASME 19.3 spreadsheet to a public calculator: front-end form, calculation engine and API, and PDF reports.",
+      "Took an engineer’s Google Sheets prototype of the ASME PTC 19.3 TW-2016 calculation to a public calculator: front-end form, calculation engine and API, and PDF reports.",
     pages: [
       { url: "wakefrequencycalc.com", href: "https://www.wakefrequencycalc.com/", title: "Home", src: "/img/work/wfc-home.webp", alt: "Thermowell wake frequency calculator home page" },
       { url: "wakefrequencycalc.com/calculator", href: "https://www.wakefrequencycalc.com/calculator", title: "Calculator", src: "/img/work/wfc-calculator.webp", alt: "Wake frequency calculator form" },

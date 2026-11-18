@@ -52,6 +52,7 @@
     color: var(--color-ink);
     scroll-behavior: smooth;
     scroll-padding-top: 1.5rem;
+    scroll-padding-bottom: 1.5rem;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
     scrollbar-color: #c9c7bf var(--color-paper);
@@ -144,7 +145,7 @@
     animation-delay: calc(var(--step, 0) * 70ms + 60ms);
   }
   .hero-portrait {
-    animation: portrait-in 1300ms var(--ease-out-expo) both;
+    animation: portrait-in 800ms var(--ease-out-expo) both;
     animation-delay: 180ms;
   }
 }
@@ -165,5 +166,12 @@
 @media (prefers-reduced-motion: reduce) {
   .sticky-contact {
     transition: none;
+  }
+}
+
+/* Keep focused controls clear of the phone contact bar (WCAG 2.2 SC 2.4.11). */
+@media (max-width: 39.99rem) {
+  html {
+    scroll-padding-bottom: 6rem;
   }
 }

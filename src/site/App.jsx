@@ -62,7 +62,7 @@ const btnBase =
 const btnPrimary = `${btnBase} bg-pine text-white hover:bg-pine-deep`;
 const btnSecondary = `${btnBase} border border-field/50 bg-raised text-ink hover:border-ink/60`;
 const barBase =
-  "inline-flex min-h-11 w-full items-center justify-center gap-1.5 rounded-lg px-2 text-[0.875rem] font-medium transition-[background-color,border-color,color] duration-150 whitespace-nowrap";
+  "inline-flex min-h-11 w-full min-w-0 items-center justify-center gap-1 overflow-hidden rounded-lg px-1.5 text-[0.875rem] font-medium transition-[background-color,border-color,color] duration-150 whitespace-nowrap";
 const barPrimary = `${barBase} bg-pine text-white hover:bg-pine-deep`;
 const barSecondary = `${barBase} border border-field/50 bg-raised text-ink hover:border-ink/60`;
 
@@ -155,7 +155,7 @@ function Portrait() {
 function Hero({ actionsRef }) {
   return (
     <section aria-labelledby="hero-name" className="mx-auto w-full max-w-[68rem] px-4 pt-8 sm:px-6 sm:pt-16 lg:px-8 lg:pt-20">
-      <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+      <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-8 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-7">
           <h1
             id="hero-name"
@@ -188,10 +188,32 @@ function Hero({ actionsRef }) {
   );
 }
 
-/* Thumb-reach contact bar on phones, shown once the hero's actions scroll away. */
+/* Thumb-reach contact bar on phones, shown once the hero's actions scroll away.
+   Drops to icons (labels stay for screen readers) when large text would overflow it. */
 function StickyContact({ visible }) {
+  const listRef = useRef(null);
+  const [compact, setCompact] = useState(false);
+
+  useEffect(() => {
+    const ul = listRef.current;
+    if (!ul || typeof ResizeObserver === "undefined") return;
+    const check = () => {
+      setCompact(false);
+      requestAnimationFrame(() => {
+        const overflowing = [...ul.querySelectorAll("a")].some((a) => a.scrollWidth > a.clientWidth + 1);
+        setCompact(overflowing);
+      });
+    };
+    const ro = new ResizeObserver(check);
+    ro.observe(document.documentElement);
+    check();
+    return () => ro.disconnect();
+  }, []);
+
+  const label = (text) => <span className={compact ? "sr-only" : undefined}>{text}</span>;
   return (
-    <div
+    <aside
+      aria-label="Quick contact"
       aria-hidden={!visible}
       inert={!visible ? "" : undefined}
       className={`sticky-contact fixed inset-x-0 bottom-0 z-40 border-t border-line bg-paper/95 px-4 pt-2.5 backdrop-blur-sm sm:hidden ${
@@ -199,27 +221,27 @@ function StickyContact({ visible }) {
       }`}
       style={{ paddingBottom: "max(0.625rem, env(safe-area-inset-bottom))" }}
     >
-      <ul className="flex gap-2">
-        <li className="flex-1">
+      <ul ref={listRef} className="flex gap-2">
+        <li className="min-w-0 flex-1">
           <a href={PERSON.resume} className={barPrimary}>
-            <FiDownload aria-hidden="true" className="size-[1.05em]" />
-            Resume
+            <FiDownload aria-hidden="true" className="size-[1.05em] shrink-0" />
+            {label("Resume")}
           </a>
         </li>
-        <li className="flex-1">
+        <li className="min-w-0 flex-1">
           <a href={`mailto:${PERSON.email}`} className={barSecondary}>
-            <FiMail aria-hidden="true" className="size-[1.05em] text-muted" />
-            Email
+            <FiMail aria-hidden="true" className="size-[1.05em] shrink-0 text-muted" />
+            {label("Email")}
           </a>
         </li>
-        <li className="flex-1">
+        <li className="min-w-0 flex-1">
           <NewTab href={PERSON.linkedin} className={barSecondary}>
-            <FiLinkedin aria-hidden="true" className="size-[1.05em] text-muted" />
-            LinkedIn
+            <FiLinkedin aria-hidden="true" className="size-[1.05em] shrink-0 text-muted" />
+            {label("LinkedIn")}
           </NewTab>
         </li>
       </ul>
-    </div>
+    </aside>
   );
 }
 
@@ -533,24 +555,26 @@ export default function App() {
 
   useEffect(() => {
     const el = actionsRef.current;
-    if (!el || typeof IntersectionObserver === "undefined") return;
     const contact = document.getElementById("contact");
-    let pastHero = false;
-    let atContact = false;
-    const update = () => setShowBar(pastHero && !atContact);
-    const heroObs = new IntersectionObserver(([e]) => {
-      pastHero = !e.isIntersecting && e.boundingClientRect.top < 0;
-      update();
-    });
-    const contactObs = new IntersectionObserver(([e]) => {
-      atContact = e.isIntersecting;
-      update();
-    });
-    heroObs.observe(el);
-    if (contact) contactObs.observe(contact);
+    if (!el) return;
+    let frame = 0;
+    // Positions, not crossing events: correct after instant jumps (nav links, find-in-page).
+    const update = () => {
+      frame = 0;
+      const pastHero = el.getBoundingClientRect().bottom < 0;
+      const atContact = contact ? contact.getBoundingClientRect().top < window.innerHeight : false;
+      setShowBar(pastHero && !atContact);
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
     return () => {
-      heroObs.disconnect();
-      contactObs.disconnect();
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      if (frame) cancelAnimationFrame(frame);
     };
   }, []);
 
