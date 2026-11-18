@@ -1,17 +1,15 @@
 import { Fragment } from "react";
-import { AREAS, EDUCATION, EXPERIENCE } from "@/shared/profile";
+import { EDUCATION, EXPERIENCE } from "@/shared/profile";
 import { LuArrowRight, LuArrowUpRight } from "react-icons/lu";
 import PencilBox from "./PencilBox";
 import QuoteDetail from "./QuoteDetail";
-import { NewTab } from "./parts";
+import { NewTab, Sep } from "./parts";
 
 const [reotemp, ...earlier] = EXPERIENCE;
 
 // Problem references on this sheet: 2.1, 2.2 ... Sheet 3 points back at them.
 export const REFS = Object.fromEntries(reotemp.wins.map((w, i) => [w.id, `2.${i + 1}`]));
 
-const areaName = (id) => AREAS.find((a) => a.id === id)?.name ?? "";
-const shortArea = (id) => areaName(id).split(/ & | /)[0];
 
 function Metric({ value }) {
   const parts = value.split("→").map((s) => s.trim());
@@ -36,10 +34,7 @@ function Problem({ win, seed, children }) {
   const ref = REFS[win.id];
   return (
     <li id={`p-${win.id}`} className="prob">
-      <div className="prob-gutter prob-ref" aria-hidden="true">
-        {ref}
-        <span className="area">{shortArea(win.area)}</span>
-      </div>
+      <div className="prob-gutter prob-ref" aria-hidden="true">{ref}</div>
 
       <div className="prob-body">
         <div className="prob-headline">
@@ -66,7 +61,7 @@ function Problem({ win, seed, children }) {
             {(win.tools.length > 0 || win.link) && (
               <p className="tools" style={{ marginTop: 6 }}>
                 {win.tools.length > 0 && <>Using {win.tools.join(", ")}</>}
-                {win.tools.length > 0 && win.link && <span aria-hidden="true">&ensp;·&ensp;</span>}
+                {win.tools.length > 0 && win.link && <Sep />}
                 {win.link && (
                   <a className="ext-link" href={win.link.href} target="_blank" rel="noopener noreferrer">
                     {win.link.label}
@@ -82,13 +77,14 @@ function Problem({ win, seed, children }) {
 
       <PencilBox className="result" seed={seed}>
         <span className="term">Result</span>
-        {win.metric && (
-          <>
+        {win.metric ? (
+          <p className="metric-wrap">
             <Metric value={win.metric.value} />
             <span className="metric-label">{win.metric.label}</span>
-          </>
+          </p>
+        ) : (
+          <p>{win.result}</p>
         )}
-        <p>{win.result}</p>
       </PencilBox>
       {children}
     </li>
@@ -112,7 +108,7 @@ export default function SheetExperience() {
             </a>
           </h3>
           <p className="job-meta" style={{ margin: 0 }}>
-            {reotemp.role} · {reotemp.location} · <span className="mono">{reotemp.start} – {reotemp.end}</span>
+            {reotemp.role}<Sep />{reotemp.location}<Sep /><span className="mono">{reotemp.start} – {reotemp.end}</span>
           </p>
         </div>
         <p className="job-summary">{reotemp.summary}</p>
@@ -133,7 +129,7 @@ export default function SheetExperience() {
         <div>
           <h4 className="minor-title">{tutor.role}, {tutor.company}</h4>
           <p className="minor-meta" style={{ margin: 0 }}>
-            {tutor.location} · <span className="mono">{tutor.start} – {tutor.end}</span>
+            {tutor.location}<Sep /><span className="mono">{tutor.start} – {tutor.end}</span>
           </p>
           <p>{tutor.summary}</p>
         </div>
@@ -148,7 +144,7 @@ export default function SheetExperience() {
         <div>
           <h4 className="minor-title">{EDUCATION.degree}, {EDUCATION.school}</h4>
           <p className="minor-meta" style={{ margin: 0 }}>
-            {EDUCATION.focus} · <span className="mono">{EDUCATION.start} – {EDUCATION.end}</span>
+            {EDUCATION.focus}<Sep /><span className="mono">{EDUCATION.start} – {EDUCATION.end}</span>
           </p>
         </div>
         <div className="minor-fig">

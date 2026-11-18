@@ -1,5 +1,5 @@
 import { PERSON } from "@/shared/profile";
-import { NewTab, SHEETS, Strip, YEAR } from "./parts";
+import { NewTab, SHEETS, Sep, Strip, YEAR } from "./parts";
 import SheetAnswer from "./SheetAnswer";
 import SheetExperience from "./SheetExperience";
 import SheetAreas from "./SheetAreas";
@@ -70,11 +70,11 @@ export default function App() {
         <div className="end-rule" aria-hidden="true" />
         <div className="foot-grid">
           <p className="end" style={{ margin: 0 }}>
-            END OF CALC · SHEET {SHEETS.length} OF {SHEETS.length}
+            END OF CALC<Sep />SHEET {SHEETS.length} OF {SHEETS.length}
           </p>
           <div>
             <p style={{ margin: 0, color: "var(--color-ink)" }}>
-              © {YEAR} {PERSON.name} · {PERSON.roleLong} · {PERSON.location}
+              © {YEAR} {PERSON.name}<Sep />{PERSON.roleLong}<Sep />{PERSON.location}
             </p>
             <p className="colophon">Set in Overpass and Overpass Mono, type descended from the Highway Gothic engineering alphabet.</p>
           </div>
@@ -86,7 +86,6 @@ export default function App() {
           </ul>
         </div>
       </footer>
-      <div className="backing" aria-hidden="true" />
     </div>
   );
 }

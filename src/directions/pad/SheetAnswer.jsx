@@ -7,20 +7,10 @@ const job = EXPERIENCE[0];
 // The problem statement and its answer, restated from the Reotemp wins.
 // Each GIVEN pairs with the numbered line in the answer that resolved it.
 const PAIRS = [
-  { n: 1, win: "odoo", given: "A manufacturer running on Sage and a custom CRM.", got: "Moved the business onto Odoo" },
-  {
-    n: 2,
-    win: "stripe",
-    given: "A new IoT smart probe with no storefront and no way to sell a subscription.",
-    got: "Launched the company’s first Stripe subscription",
-  },
-  {
-    n: 3,
-    win: "quoting",
-    given: "Products with no configurator, priced by hand from a pricing sheet.",
-    got: "Built AI quoting and gauge-matching tools",
-  },
-  { n: 4, win: "uptime", given: "A website that went down 1–2 times a week.", got: "Cut outages to about 1 a month" },
+  { n: 1, win: "odoo", given: "A manufacturer on Sage and a custom CRM.", got: "Moved it onto Odoo" },
+  { n: 2, win: "stripe", given: "A smart probe with no storefront.", got: "Shipped its first Stripe subscription" },
+  { n: 3, win: "quoting", given: "Products priced by hand.", got: "Built AI quoting and matching tools" },
+  { n: 4, win: "uptime", given: "A site down 1–2× a week.", got: "Outages down to about 1 a month" },
 ];
 
 export default function SheetAnswer() {
@@ -43,14 +33,14 @@ export default function SheetAnswer() {
           <dd className="find">Someone who can design it, build it, and keep it running.</dd>
         </dl>
         <dl className="work s1-ans">
-          <dt className="term">Ans.</dt>
+          <dt className="term term--ans">Ans.</dt>
           <dd>
             <PencilBox className="answer" seed={7}>
               <h1 id="answer-title" className="h-answer">
                 {PERSON.name},<span className="role"> {PERSON.role}</span>
               </h1>
               <p className="proof-at">
-                {job.role}, {job.company}, <span className="mono">{job.start} – {job.end}</span>
+                {job.role} at {job.company} since <span className="mono">{job.start}</span>:
               </p>
               <ul className="proof">
                 {PAIRS.map((p) => (

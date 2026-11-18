@@ -17,6 +17,13 @@ export const YEAR = today.getFullYear();
 const [first, ...rest] = PERSON.name.split(" ");
 export const INITIALS = `${first[0]}. ${rest.join(" ")}`;
 
+export const Sep = () => (
+  <>
+    {" "}
+    <span className="sep" aria-hidden="true">·</span>{" "}
+  </>
+);
+
 export const NewTab = () => <span className="sr-only"> (opens in new tab)</span>;
 
 // A red-pencil check, drawn rather than set.

@@ -1,13 +1,13 @@
 import { PERSON } from "@/shared/profile";
 import { useContactForm } from "@/shared/useContactForm";
-import { LuArrowUpRight, LuFileText, LuGithub, LuLinkedin, LuMail, LuMapPin } from "react-icons/lu";
+import { LuArrowUpRight, LuMapPin } from "react-icons/lu";
+import PencilBox from "./PencilBox";
 import { NewTab, Tick } from "./parts";
 
 const DIRECT = [
-  { k: "Email", v: PERSON.email, href: `mailto:${PERSON.email}`, Icon: LuMail, primary: true },
-  { k: "LinkedIn", v: PERSON.linkedinLabel, href: PERSON.linkedin, Icon: LuLinkedin, ext: true },
-  { k: "Résumé", v: "Download the PDF", href: PERSON.resume, Icon: LuFileText, ext: true },
-  { k: "GitHub", v: PERSON.github.replace(/^https?:\/\//, ""), href: PERSON.github, Icon: LuGithub, ext: true },
+  { k: "LinkedIn", v: PERSON.linkedinLabel, href: PERSON.linkedin },
+  { k: "Résumé", v: "Open the PDF", href: PERSON.resume },
+  { k: "GitHub", v: PERSON.github.replace(/^https?:\/\//, ""), href: PERSON.github },
 ];
 
 function Status({ form }) {
@@ -55,15 +55,21 @@ export default function SheetContact() {
       </p>
 
       <div className="contact">
-        <div>
-          <ul className="direct" aria-label="Ways to reach me">
-            {DIRECT.map(({ k, v, href, Icon, ext, primary }) => (
-              <li key={k} className={primary ? "primary" : undefined}>
-                <a href={href} {...(ext ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+        <div className="contact-direct">
+          <PencilBox className="mailbox" seed={41}>
+            <span className="term">Answer to</span>
+            <a className="mail-big" href={`mailto:${PERSON.email}`}>
+              {PERSON.email}
+            </a>
+          </PencilBox>
+          <ul className="direct" aria-label="Other ways to reach me">
+            {DIRECT.map(({ k, v, href }) => (
+              <li key={k}>
+                <a href={href} target="_blank" rel="noopener noreferrer">
                   <span className="lbl">{k}</span>
                   <span className="dval">{v}</span>
-                  {ext ? <LuArrowUpRight className="dicon" size={18} aria-hidden="true" /> : <Icon className="dicon" size={18} aria-hidden="true" />}
-                  {ext && <NewTab />}
+                  <LuArrowUpRight className="dicon" size={18} aria-hidden="true" />
+                  <NewTab />
                 </a>
               </li>
             ))}
@@ -108,7 +114,7 @@ export default function SheetContact() {
             <Err name="message" />
           </div>
           <div className="form-foot">
-            <button type="submit" className="btn btn--primary" disabled={sending}>
+            <button type="submit" className="btn btn--ink" disabled={sending}>
               {sending ? "Sending…" : "Send message"}
             </button>
             <div className={`status${form.status === "failed" ? " is-failed" : ""}`} {...form.statusProps}>
