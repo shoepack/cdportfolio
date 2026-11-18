@@ -112,7 +112,7 @@ export default function Work() {
                 tabIndex={i === active ? 0 : -1}
                 onClick={() => selectSite(i)}
                 className={`min-h-11 min-w-0 flex-auto rounded-lg px-3 py-1.5 text-[0.875rem] font-medium leading-snug break-words transition-colors duration-150 sm:flex-none sm:px-4 ${
-                  i === active ? "bg-ink text-paper" : "text-muted hover:text-ink"
+                  i === active ? "bg-white text-ink shadow-[0_1px_2px_rgb(23_23_22/0.08)] ring-1 ring-line" : "text-muted hover:text-ink"
                 }`}
               >
                 <span className="sm:hidden">{s.short}</span>
@@ -149,7 +149,7 @@ export default function Work() {
               />
             </div>
 
-            <div role="group" aria-label={`Pages on ${site.label}`} className="mt-3 flex flex-wrap gap-2">
+            <div role="group" aria-label={`Pages on ${site.label}`} className="mt-5 flex flex-wrap gap-2">
               {pages.map((p, i) => (
                 <button
                   key={p.url}

@@ -23,5 +23,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 ## Constraints
 No gauge dials or stat widgets (Jason: corny for a two-year, one-company career). NDA: only the two public sites may be shown as screenshots; internal tools appear only as labelled illustrations.
 
-## Unresolved
-Whether to collapse each win's detail behind a tap on phones.
+## Decisions recorded
+- Phones: each lead win's written detail sits behind a "How I did it" tap (Jason's answer, Nov 2026); visuals and tool chips stay visible. The shorter wins collapse at every width.
+- Phone nav shows Work, Experience, Contact, Resume. Areas is desktop-only because five links don't fit one line below 390px; Areas stays reachable by scrolling.
+- Each public site has an architecture diagram in Experience, visible by default.

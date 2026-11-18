@@ -61,6 +61,10 @@ const btnBase =
   "inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg px-4.5 sm:w-auto text-[0.9375rem] font-medium transition-[background-color,border-color,color,transform] duration-150 active:translate-y-px";
 const btnPrimary = `${btnBase} bg-pine text-white hover:bg-pine-deep`;
 const btnSecondary = `${btnBase} border border-field/50 bg-raised text-ink hover:border-ink/60`;
+const barBase =
+  "inline-flex min-h-11 w-full items-center justify-center gap-1.5 rounded-lg px-2 text-[0.875rem] font-medium transition-[background-color,border-color,color] duration-150 whitespace-nowrap";
+const barPrimary = `${barBase} bg-pine text-white hover:bg-pine-deep`;
+const barSecondary = `${barBase} border border-field/50 bg-raised text-ink hover:border-ink/60`;
 
 function ContactActions({ className = "" }) {
   return (
@@ -196,22 +200,22 @@ function StickyContact({ visible }) {
       style={{ paddingBottom: "max(0.625rem, env(safe-area-inset-bottom))" }}
     >
       <ul className="flex gap-2">
-        <li className="flex-[1.4]">
-          <a href={PERSON.resume} className={`${btnPrimary} min-h-11`}>
+        <li className="flex-1">
+          <a href={PERSON.resume} className={barPrimary}>
             <FiDownload aria-hidden="true" className="size-[1.05em]" />
             Resume
           </a>
         </li>
         <li className="flex-1">
-          <a href={`mailto:${PERSON.email}`} className={`${btnSecondary} min-h-11`}>
+          <a href={`mailto:${PERSON.email}`} className={barSecondary}>
             <FiMail aria-hidden="true" className="size-[1.05em] text-muted" />
             Email
           </a>
         </li>
         <li className="flex-1">
-          <NewTab href={PERSON.linkedin} className={`${btnSecondary} min-h-11`}>
+          <NewTab href={PERSON.linkedin} className={barSecondary}>
             <FiLinkedin aria-hidden="true" className="size-[1.05em] text-muted" />
-            <span className="sr-only">LinkedIn</span>
+            LinkedIn
           </NewTab>
         </li>
       </ul>
@@ -281,8 +285,9 @@ function WinAction({ win }) {
   );
 }
 
-/* "How I did it": a tap to open on phones for the lead wins, a tap at every
-   width for the shorter ones. Desktop shows the lead wins' detail open. */
+/* "How I did it": the written detail is a tap away on phones for the lead wins
+   (Jason's choice) and at every width for the shorter ones. Visuals and tool
+   chips stay outside the toggle so phones keep them. */
 function How({ win, alwaysCollapsible = false, children }) {
   const [open, setOpen] = useState(false);
   const id = useId();
@@ -302,11 +307,10 @@ function How({ win, alwaysCollapsible = false, children }) {
         <FiChevronDown aria-hidden="true" className={`size-4 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
       </button>
       <div id={id} className={panel}>
-        <p className="leading-relaxed text-muted sm:mt-0">
+        <p className="leading-relaxed text-muted">
           <WinAction win={win} />
         </p>
         {children}
-        <ToolChips tools={win.tools} />
       </div>
     </div>
   );
@@ -320,7 +324,9 @@ function LeadWin({ win }) {
         <Emphasize text={win.result} phrase={RESULT_EMPHASIS[win.id]} />
       </p>
       {win.diagram && <ArchitectureDiagram site={win.diagram} />}
-      <How win={win}>{win.id === "quoting" && <QuotingDiagram />}</How>
+      {win.id === "quoting" && <QuotingDiagram />}
+      <How win={win} />
+      <ToolChips tools={win.tools} />
     </li>
   );
 }
@@ -332,8 +338,9 @@ function MoreWin({ win }) {
       <p className="mt-1 leading-relaxed text-muted">
         <Emphasize text={win.result} phrase={RESULT_EMPHASIS[win.id]} />
       </p>
+      {win.diagram && <ArchitectureDiagram site={win.diagram} />}
       <How win={win} alwaysCollapsible>
-        {win.diagram && <ArchitectureDiagram site={win.diagram} />}
+        <ToolChips tools={win.tools} />
       </How>
     </li>
   );
@@ -362,7 +369,7 @@ function Experience() {
           ))}
         </ul>
 
-        <h4 className="mt-10 text-[0.9375rem] font-semibold text-muted">Also at Reotemp</h4>
+        <h4 className="mt-12 text-[1.1875rem] font-semibold leading-snug tracking-[-0.012em] text-ink">Also at Reotemp</h4>
         <ul className="mt-2 divide-y divide-line border-y border-line">
           {MORE_WINS.map((win) => (
             <MoreWin key={win.id} win={win} />

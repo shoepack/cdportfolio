@@ -73,7 +73,7 @@ export function QuotingDiagram() {
                 <span className="num inline-flex h-8 items-center rounded-md bg-pine-wash px-2 text-[0.875rem] font-medium text-pine">
                   {s.code}
                 </span>
-                <span className="mt-1 text-[0.6875rem] leading-tight text-muted">{s.label}</span>
+                <span className="mt-1 text-[0.75rem] leading-tight text-muted">{s.label}</span>
               </span>
               {i < SEGMENTS.length - 1 && (
                 <span aria-hidden="true" className="pt-1.5 text-muted">
