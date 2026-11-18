@@ -23,8 +23,9 @@ Target role: **(Software) Solutions Architect** — a technical generalist who i
 
 - Front-end and product design (Cognitive Science B.S., Design & Interaction; Figma configurators; shipped sites)
 - Building and using AI tools (e.g. quoting and product-matching tools at Reotemp)
-- Security work (specifics to be supplied by Jason before any claim is written)
-- Infrastructure and self-hosting (runs his own servers for gaming and media sharing)
+- Security and reliability (patched SQL injection vulnerabilities with the senior developer; led Cloudflare adoption for caching and malicious-traffic filtering)
+- Infrastructure and self-hosting (Linux, Cloudflare; runs his own servers for gaming and media sharing)
+- Data and reporting (turned the CEO's metric ideas into Python queries, reports, and a daily company metrics slideshow)
 
 What a neighbouring portfolio can't copy: he bridges design, engineering, and business systems inside a real company — e.g. launching reotempintelligence.com with the company's first Stripe subscription integration, and moving the business platform from legacy systems to Odoo.
 
@@ -43,7 +44,7 @@ The current hero title "Full-Stack Engineer" predates this positioning and shoul
 - Contact form sends through EmailJS using `VITE_EMAILJS_*` environment variables set in Vercel.
 - React Bits Pro (Ultimate license) is available for components and blocks; it targets TypeScript and Tailwind 4, so adopting it may require upgrading the stack.
 - **Projects are intentionally removed.** They are college-era work; for a second job, employers care about jobs and what he did at them. Do not bring the Projects section back as filler.
-- Open: a résumé exists in Jason's Google Drive but is not yet on the site.
+- Open: the résumé is not yet on the site; how to publish it (PDF export, and whether to include the phone number) is undecided.
 
 ## Evidence on Hand
 
@@ -51,8 +52,19 @@ The current hero title "Full-Stack Engineer" predates this positioning and shoul
 - Education: B.S. Cognitive Science (Design & Interaction), UC San Diego, 2024, Cum Laude.
 - Portrait: `src/assets/portrait-1.jpg` (6.5 MB; also `sanDiego-2.jpg`).
 - Contact: contact@jasonartley.com, LinkedIn `linkedin.com/in/jasonartley`, GitHub `github.com/shoepack`, San Diego, CA.
-- Résumé: in Google Drive (to be located and linked).
-- **Absent — do not fabricate:** testimonials, metrics or outcome numbers, certifications, employer names beyond those listed, and any specifics of his security, AI, or infrastructure work beyond what is written above.
+- Résumé: Google Doc `Jason_Artley_Resume_2026` (Drive, edited Oct 2026). It is the source of truth for the claims below. Its header includes a phone number; do not publish the phone number on the site without Jason's explicit OK.
+- Résumé-confirmed facts usable on the site:
+  - Reotemp: built and launched reotempintelligence.com and led the company's first Stripe integration (its first subscription product); contributes to the product's software.
+  - Reotemp: designed product configurators and customer-portal redesigns in Figma, ran his own Jira Kanban, led stakeholder user testing; **about 95% of designs shipped**.
+  - Reotemp: built an AI quoting assistant (part number → segments → matched to internal pricing sheet → price and description in a chat UI).
+  - Reotemp: built a customer-facing AI tool matching a pressure range to an exact pre-configured gauge, or routing to sales; runs on a lightweight model at a fraction of a cent per request.
+  - Reotemp: helped move the company off Sage and a custom CRM onto Odoo; reviews legacy PHP, writes custom Python for Odoo workflows.
+  - Reotemp: partnered with the CEO on Python metric queries/reports and a daily slideshow of bonus-linked metrics.
+  - Reotemp: patched SQL injection vulnerabilities, linked server-load spikes to marketing email sends, led Cloudflare adoption; **outages fell from 1–2 a week to about 1 a month**.
+  - MiraCosta: tutored **50+ students** across Python, Java, C++, and Assembly; also tutored math.
+  - UCSD: **GPA 3.9**, Cum Laude, Sep 2022 – Jun 2024.
+  - Skills: Python, PHP, JavaScript, HTML/CSS, React, MySQL, PostgreSQL (Supabase); Figma, Jira; Git/GitHub, Stripe, Cloudflare, WordPress, Odoo, Linux, phpMyAdmin; Claude, OpenAI API, OpenRouter, AI coding agents.
+- **Absent — do not fabricate:** testimonials, certifications, employer names beyond those listed, and any numbers or claims not on the résumé above.
 
 ## Product Principles
 
