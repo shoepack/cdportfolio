@@ -57,7 +57,7 @@ function Range({ start, end }) {
 const NAV = [
   { href: "#work", label: "Work" },
   { href: "#experience", label: "Experience" },
-  { href: "#areas", label: "Areas" },
+  { href: "#areas", label: "Areas", desktopOnly: true },
   { href: "#contact", label: "Contact" },
   { href: PERSON.resume, label: "Résumé" },
 ];
@@ -72,12 +72,12 @@ function Header() {
         {PERSON.name}
       </a>
       <nav aria-label="Primary" className="w-full sm:w-auto">
-        <ul className="-mx-2.5 flex items-center justify-between sm:mx-0 sm:justify-end sm:gap-1">
+        <ul className="-mx-2 flex items-center justify-between sm:mx-0 sm:justify-end sm:gap-1">
           {NAV.map((item) => (
-            <li key={item.href}>
+            <li key={item.href} className={item.desktopOnly ? "hidden sm:block" : undefined}>
               <a
                 href={item.href}
-                className="inline-flex min-h-11 items-center rounded-md px-2.5 text-[0.9375rem] text-muted transition-colors duration-150 hover:text-ink"
+                className="inline-flex min-h-11 items-center rounded-md px-2 text-[0.9375rem] text-muted transition-colors duration-150 hover:text-ink sm:px-2.5"
               >
                 {item.label}
               </a>
@@ -98,7 +98,7 @@ function Portrait() {
   const { sources } = PORTRAIT;
   const sizes = "(min-width: 1024px) 760px, calc(100vw - 32px)";
   return (
-    <picture>
+    <picture className="block h-full w-full">
       <source type="image/avif" srcSet={srcset(sources.avif)} sizes={sizes} />
       <source type="image/webp" srcSet={srcset(sources.webp)} sizes={sizes} />
       <img
@@ -182,7 +182,7 @@ function Hero() {
 function Section({ id, title, children, intro }) {
   return (
     <section id={id} aria-labelledby={`${id}-title`} className="mx-auto w-full max-w-[68rem] px-4 sm:px-6 lg:px-8">
-      <div className="grid gap-y-6 border-t border-line pt-12 sm:pt-16 lg:grid-cols-[13rem_1fr] lg:gap-x-12 lg:pt-20">
+      <div className="grid gap-y-6 border-t border-line pt-10 sm:pt-16 lg:grid-cols-[13rem_1fr] lg:gap-x-12 lg:pt-20">
         <div>
           <h2 id={`${id}-title`} className="text-[1.75rem] font-semibold leading-tight tracking-[-0.025em] lg:sticky lg:top-8 lg:text-[1.625rem]">
             {title}
@@ -202,7 +202,7 @@ function EntryHead({ title, org, orgUrl, place, start, end, level = "lead", logo
     <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
       <div className="flex items-center gap-4">
         {logo && <Logo logo={logo} company={org} />}
-        <div>
+        <div className="min-w-0">
         <h3
           className={
             level === "lead"
@@ -387,7 +387,7 @@ function Contact() {
 function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="mx-auto mt-24 w-full max-w-[68rem] px-4 pb-10 sm:px-6 lg:mt-32 lg:px-8">
+    <footer className="mx-auto mt-16 w-full max-w-[68rem] px-4 pb-10 sm:px-6 sm:mt-24 lg:mt-32 lg:px-8">
       <div className="flex flex-col gap-4 border-t border-line pt-6 text-[0.875rem] text-muted sm:flex-row sm:items-center sm:justify-between">
         <p>
           © <span className="num">{year}</span> {PERSON.name}, {PERSON.location}
@@ -429,7 +429,7 @@ export default function App() {
         Skip to content
       </a>
       <Header />
-      <main id="main" className="flex flex-col gap-20 sm:gap-24 lg:gap-28">
+      <main id="main" className="flex flex-col gap-12 sm:gap-24 lg:gap-28">
         <Hero />
         <Work />
         <Experience />

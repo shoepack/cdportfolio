@@ -79,8 +79,8 @@ export function ToolChips({ tools }) {
 
 export function Logo({ logo, company, className = "" }) {
   return (
-    <span className={`inline-flex h-11 shrink-0 overflow-hidden rounded-lg ring-1 ring-line ${className}`}>
-      <picture>
+    <span className={`inline-flex shrink-0 overflow-hidden rounded-lg ring-1 ring-line ${className}`}>
+      <picture className="block">
         <source type="image/webp" srcSet={logo.src} />
         <img
           src={logo.fallback}
@@ -89,7 +89,7 @@ export function Logo({ logo, company, className = "" }) {
           alt={`${company} logo`}
           loading="lazy"
           decoding="async"
-          className="h-full w-auto"
+          className="block h-11 w-auto max-w-none"
         />
       </picture>
     </span>

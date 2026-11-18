@@ -151,7 +151,7 @@ export const EXPERIENCE = [
     location: "STEM Tutoring",
     start: "Aug 2020",
     end: "Dec 2020",
-    logo: { src: "/img/miracosta-logo.webp", fallback: "/img/miracosta-logo.png", width: 282, height: 144 },
+    logo: { src: "/img/miracosta-logo.webp", fallback: "/img/miracosta-logo.png", width: 222, height: 144 },
     summary:
       "One-on-one and group tutoring for 50+ students across Python, Java, C++, and Assembly; built supplemental exercises; tutored math when the department needed it.",
     wins: [],
