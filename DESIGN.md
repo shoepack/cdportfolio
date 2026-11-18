@@ -179,7 +179,7 @@ A restrained, warm neutral palette with a single deep green accent; every text p
 ### Primary
 - **Portrait Pine** (pine): inline links, the primary action fill, the "How I did it" toggle, the focus ring, the caret and the "sent" form status. 5.98:1 on paper; white on pine is 6.47:1.
 - **Deep Pine** (pine-deep): hover and pressed state for every pine element. White on it is 8.53:1.
-- **Pine Wash** (pine-wash): text selection, icon tiles, the active page pill, quoting segment chips, and (at 50%) the host panel of architecture diagrams. Pine text on it is 5.12:1; ink on it is 14.2:1.
+- **Pine Wash** (pine-wash): text selection, the active page pill, quoting segment chips, and (at 50%) the host panel of architecture diagrams. Pine text on it is 5.12:1; ink on it is 14.2:1.
 
 ### Neutral
 - **Warm Paper** (paper): the page, the phone contact bar (at 95% with a light blur) and the browser theme colour.
@@ -228,9 +228,9 @@ A centred container of 68rem with side gutters of 16px (phone), 24px (from 640px
 
 From 1024px each section is a two-column grid: a 13rem title rail (the h2 sticks 32px from the top) and a content column capped at 44rem, 48px apart. Below that everything is one column with 24px between title and content. The hero is a 12-column grid at desktop (7 text, 5 portrait, 48px gap; portrait 4:5), and stacks on phones with the portrait at 3:2 below the actions.
 
-Lists of wins, areas and contact rows are divided by hairlines rather than boxed. Lead wins breathe at 28px to 32px vertical padding; shorter wins and area rows at 20px.
+Lists of wins and contact rows are divided by hairlines rather than boxed. Lead wins breathe at 28px to 32px vertical padding; shorter wins at 20px. On desktop (1024px and up) the "Also at Reotemp" wins and the earlier roles sit in two columns, and Contact puts the direct links beside the form, to keep the page short. Sections are 48px apart on phones and 80px from 640px.
 
-Phones (below 640px): nav drops the name and the desktop-only Areas link; the Resume button spans both columns above Email and LinkedIn; a fixed contact bar appears once the hero actions scroll away and hides at Contact, and scroll padding grows to 6rem so focused controls stay clear of it. The browser window switches to phone-captured screenshots at a 0.82 aspect ratio (1.6 on larger screens).
+Phones (below 640px): nav drops the name; the Resume button spans both columns above Email and LinkedIn; a fixed contact bar appears once the hero actions scroll away and hides at Contact, and scroll padding grows to 6rem so focused controls stay clear of it. The browser window switches to phone-captured screenshots at a 0.82 aspect ratio (1.6 on larger screens).
 
 ## Elevation & Depth
 
@@ -246,7 +246,7 @@ Flat by default. Depth comes from tonal layering (paper, then raised, then white
 
 ## Shapes
 
-Gently rounded and consistent. Controls, fields, icon tiles, logos and diagram nodes use 8px; small inline targets (nav links, the disclosure toggle, contact rows, quoting segments) use 6px; figure panels, the tablist track and the portrait use 12px; the browser window uses 18px. Chips and page pills are fully round. The quote bubble is 16px with a 2px tail corner at bottom left, the one asymmetric shape. Borders are 1px hairlines; pine borders appear only at 30% around the active pill and the diagram host panel.
+Gently rounded and consistent. Controls, fields, logos and diagram nodes use 8px; small inline targets (nav links, the disclosure toggle, contact rows, quoting segments) use 6px; figure panels, the tablist track and the portrait use 12px; the browser window uses 18px. Chips and page pills are fully round. The quote bubble is 16px with a 2px tail corner at bottom left, the one asymmetric shape. Borders are 1px hairlines; pine borders appear only at 30% around the active pill and the diagram host panel.
 
 ## Components
 
@@ -273,10 +273,10 @@ A thumb-reach bar for phones only: Resume, Email, LinkedIn in three equal cells.
 A segmented control above the showcase: a raised track with a hairline border and 4px inset, 12px radius. Tabs are 44px tall, 14px medium; the selected tab is white with ink text, a line ring and the selected-tab shadow; others are muted and firm to ink on hover. Phones show the short site name, larger screens the domain. Full ARIA tabs pattern with arrow, Home and End keys.
 
 ### "How I did it" disclosure
-The written detail of a win sits behind a text toggle: pine, 15px medium, 44px target, with a Feather chevron that rotates 180 degrees (200ms) when open; the label reads "Hide details" when open and carries a screen-reader suffix naming the win. Lead wins collapse on phones only (always open from 640px, where the toggle is hidden); the shorter "Also at Reotemp" wins collapse at every width. Visuals and tool chips of lead wins stay outside the toggle so phones keep them.
+The written detail of a win sits behind a text toggle: pine, 15px medium, 44px target, with a Feather chevron that rotates 180 degrees (200ms) when open; the label reads "Hide details" when open and carries a screen-reader suffix naming the win. Every win collapses at every width, so the page stays short. Visuals (the quoting strip) and tool chips of lead wins stay outside the toggle.
 
 ### Architecture diagram
-A public-safe overview of each public site, visible by default in Experience.
+A public-safe overview of each public site, shown in Work in public under the browser window for whichever site is selected, so screenshots and architecture sit together.
 - **Frame:** a figure panel (raised, hairline, 12px radius, 16px to 20px padding) with a 13px medium muted title and a 12px muted caption.
 - **Flow:** top to bottom with muted Feather down-arrows: users as white 8px-radius nodes, then the host panel (pine wash at 50%, pine border at 30%, 12px radius) carrying the domain with a Vercel mark, a stack line and the parts as white-at-80% tiles in a two-column grid from 640px, then service nodes with brand marks, name in medium ink and role in muted.
 - **Content limit:** who uses the site, what it does and the named services only.
@@ -295,15 +295,14 @@ The vendored React Bits Pro Browser Window, configured light: compact chrome, in
 - **Status:** a polite region (muted, or pine medium when sent) and an alert region (brick, with the email address as a link on failure) are always rendered, side by side with the submit button from 640px.
 
 ### Navigation
-Text only: 15px, muted at rest, ink on hover, 44px targets, 6px radius. Desktop shows the name at left (15px semibold ink) and Work, Experience, Areas, Contact, Resume at right; phones show Work, Experience, Contact, Resume spread across one line. A skip link appears on focus as an ink pill with paper text.
+Text only: 15px, muted at rest, ink on hover, 44px targets, 6px radius. Desktop shows the name at left (15px semibold ink) and Work, Experience, Contact, Resume at right; phones show Work, Experience, Contact, Resume spread across one line. A skip link appears on focus as an ink pill with paper text.
 
 ### Contact rows and links
 - **Inline links:** pine with a 1px underline at 35% pine, offset 0.22em; on hover the colour deepens and the underline goes solid (160ms). External links add a Feather up-right arrow and a "(opens in new tab)" screen-reader note.
 - **Contact rows:** hairline-divided rows at least 56px tall: muted icon, a muted label (visible from 640px), and the value in medium pine; hover lays a raised tint behind the row.
 
-### Logos and icon tiles
+### Logos
 - **Logos:** real employer logos only, beside job entries, 36px tall (44px from 640px), 8px radius with a hairline ring.
-- **Icon tiles:** 36px pine-wash squares, 8px radius, a faint pine inset ring, holding one Feather icon in pine; used only in the Areas index.
 
 ### Motion
 - **Hero settle (load only):** name, role line, lede and actions rise 10px from blurred and transparent over 900ms on ease-out-expo (`cubic-bezier(0.16, 1, 0.3, 1)`), staggered 70ms after a 60ms start; the portrait unclips from a 4% inset and settles from 102.5% scale over 800ms at 180ms. Content is visible by default; the animation runs only under `prefers-reduced-motion: no-preference`.

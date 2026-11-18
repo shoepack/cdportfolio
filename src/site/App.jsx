@@ -1,13 +1,11 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { FiArrowUpRight, FiChevronDown, FiDownload, FiLinkedin, FiMail } from "react-icons/fi";
-import { PERSON, PORTRAIT, INTRO, srcset, EXPERIENCE, EDUCATION, AREAS, SUMMARY } from "@/shared/profile";
+import { PERSON, PORTRAIT, INTRO, srcset, EXPERIENCE, EDUCATION, SUMMARY } from "@/shared/profile";
 import ContactForm from "./ContactForm.jsx";
 import Work from "./Work.jsx";
-import { AREA_ICONS } from "./icons.js";
-import { ArchitectureDiagram, IconTile, Logo, QuotingDiagram, ToolChips } from "./visuals.jsx";
+import { Logo, QuotingDiagram, ToolChips } from "./visuals.jsx";
 
 const [REOTEMP, MIRACOSTA] = EXPERIENCE;
-const WIN_BY_ID = Object.fromEntries(REOTEMP.wins.map((w) => [w.id, w]));
 const LEAD_WINS = REOTEMP.wins.filter((w) => w.lead);
 const MORE_WINS = REOTEMP.wins.filter((w) => !w.lead);
 
@@ -96,7 +94,6 @@ function ContactActions({ className = "" }) {
 const NAV = [
   { href: "#work", label: "Work" },
   { href: "#experience", label: "Experience" },
-  { href: "#areas", label: "Areas", desktopOnly: true },
   { href: "#contact", label: "Contact" },
   { href: PERSON.resume, label: "Resume" },
 ];
@@ -113,7 +110,7 @@ function Header() {
       <nav aria-label="Primary" className="w-full sm:w-auto">
         <ul className="-mx-2 flex flex-wrap items-center justify-between sm:mx-0 sm:justify-end sm:gap-1">
           {NAV.map((item) => (
-            <li key={item.href} className={item.desktopOnly ? "hidden sm:block" : undefined}>
+            <li key={item.href}>
               <a
                 href={item.href}
                 className="inline-flex min-h-11 items-center rounded-md px-2 text-[0.9375rem] text-muted transition-colors duration-150 hover:text-ink sm:px-2.5"
@@ -247,16 +244,16 @@ function StickyContact({ visible }) {
 
 /* ---------- Sections ---------- */
 
-function Section({ id, title, children, intro }) {
+function Section({ id, title, children, intro, wide = false }) {
   return (
     <section id={id} aria-labelledby={`${id}-title`} className="mx-auto w-full max-w-[68rem] px-4 sm:px-6 lg:px-8">
-      <div className="grid grid-cols-[minmax(0,1fr)] gap-y-6 border-t border-line pt-10 sm:pt-16 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-x-12 lg:pt-20">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-y-6 border-t border-line pt-10 sm:pt-14 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-x-12 lg:pt-16">
         <div>
           <h2 id={`${id}-title`} className="text-[1.75rem] font-semibold leading-tight tracking-[-0.025em] lg:sticky lg:top-8 lg:text-[1.625rem]">
             {title}
           </h2>
         </div>
-        <div className="min-w-0 max-w-[44rem]">
+        <div className={`min-w-0 ${wide ? "" : "max-w-[44rem]"}`}>
           {intro && <p className="mb-8 text-[1.0625rem] leading-relaxed text-muted sm:mb-10">{intro}</p>}
           {children}
         </div>
@@ -267,7 +264,9 @@ function Section({ id, title, children, intro }) {
 
 function EntryHead({ title, org, orgUrl, place, start, end, level = "lead", logo }) {
   return (
-    <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+    <div
+      className={`flex flex-col gap-1 ${level === "lead" ? "sm:flex-row sm:items-baseline sm:justify-between sm:gap-6" : ""}`}
+    >
       <div className="flex flex-wrap items-center gap-3 sm:gap-4">
         {logo && <Logo logo={logo} company={org} />}
         <div className="min-w-[min(12rem,100%)] flex-1">
@@ -307,14 +306,11 @@ function WinAction({ win }) {
   );
 }
 
-/* "How I did it": the written detail is a tap away on phones for the lead wins
-   (Jason's choice) and at every width for the shorter ones. Visuals and tool
-   chips stay outside the toggle so phones keep them. */
-function How({ win, alwaysCollapsible = false, children }) {
+/* "How I did it": the written detail is one tap away at every width. Visuals and
+   tool chips stay outside the toggle. Architecture diagrams live in Work. */
+function How({ win, children }) {
   const [open, setOpen] = useState(false);
   const id = useId();
-  const toggle = alwaysCollapsible ? "" : "sm:hidden";
-  const panel = open ? "" : alwaysCollapsible ? "hidden" : "hidden sm:block";
   return (
     <div className="mt-3">
       <button
@@ -322,13 +318,13 @@ function How({ win, alwaysCollapsible = false, children }) {
         aria-expanded={open}
         aria-controls={id}
         onClick={() => setOpen((o) => !o)}
-        className={`${toggle} -ml-1 inline-flex min-h-11 items-center gap-1 rounded-md px-1 text-[0.9375rem] font-medium text-pine hover:text-pine-deep`}
+        className="-ml-1 inline-flex min-h-11 items-center gap-1 rounded-md px-1 text-[0.9375rem] font-medium text-pine hover:text-pine-deep"
       >
         {open ? "Hide details" : "How I did it"}
         <span className="sr-only">: {q(win.short || win.title)}</span>
         <FiChevronDown aria-hidden="true" className={`size-4 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
       </button>
-      <div id={id} className={panel}>
+      <div id={id} className={open ? "" : "hidden"}>
         <p className="leading-relaxed text-muted">
           <WinAction win={win} />
         </p>
@@ -345,7 +341,6 @@ function LeadWin({ win }) {
       <p className="mt-2 text-[1.0625rem] leading-relaxed text-ink">
         <Emphasize text={win.result} phrase={RESULT_EMPHASIS[win.id]} />
       </p>
-      {win.diagram && <ArchitectureDiagram site={win.diagram} />}
       {win.id === "quoting" && <QuotingDiagram />}
       <How win={win} />
       <ToolChips tools={win.tools} />
@@ -360,8 +355,7 @@ function MoreWin({ win }) {
       <p className="mt-1 leading-relaxed text-muted">
         <Emphasize text={win.result} phrase={RESULT_EMPHASIS[win.id]} />
       </p>
-      {win.diagram && <ArchitectureDiagram site={win.diagram} />}
-      <How win={win} alwaysCollapsible>
+      <How win={win}>
         <ToolChips tools={win.tools} />
       </How>
     </li>
@@ -370,7 +364,7 @@ function MoreWin({ win }) {
 
 function Experience() {
   return (
-    <Section id="experience" title="Experience">
+    <Section id="experience" title="Experience" intro={SUMMARY}>
       <article aria-labelledby="exp-reotemp">
         <div id="exp-reotemp">
           <EntryHead
@@ -392,14 +386,14 @@ function Experience() {
         </ul>
 
         <h4 className="mt-12 text-[1.1875rem] font-semibold leading-snug tracking-[-0.012em] text-ink">Also at Reotemp</h4>
-        <ul className="mt-2 divide-y divide-line border-y border-line">
+        <ul className="mt-2 grid border-t border-line lg:grid-cols-2 lg:gap-x-10 [&>li]:border-b [&>li]:border-line">
           {MORE_WINS.map((win) => (
             <MoreWin key={win.id} win={win} />
           ))}
         </ul>
       </article>
 
-      <div className="mt-12 grid gap-10 sm:mt-14">
+      <div className="mt-12 grid gap-10 sm:mt-14 lg:grid-cols-2 lg:gap-x-10">
         <article aria-labelledby="exp-miracosta">
           <div id="exp-miracosta">
             <EntryHead
@@ -438,37 +432,6 @@ function Experience() {
   );
 }
 
-/* An index, not a restatement: each area names and links the wins that prove it. */
-function Areas() {
-  return (
-    <Section id="areas" title="Areas" intro={SUMMARY}>
-      <ul className="border-t border-line">
-        {AREAS.map((area) => (
-          <li
-            key={area.id}
-            className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 border-b border-line py-5 last:border-b-0 sm:grid-cols-[auto_minmax(0,15rem)_minmax(0,1fr)] sm:gap-x-6"
-          >
-            <IconTile Icon={AREA_ICONS[area.id]} />
-            <h3 className="self-center font-semibold leading-snug tracking-[-0.01em]">{area.name}</h3>
-            <div className="col-start-2 mt-1 sm:col-start-3 sm:mt-0 sm:self-center">
-              <ul className="flex min-w-0 flex-wrap gap-x-4 gap-y-1 [&>li]:max-w-full">
-                {area.wins.map((id) => (
-                  <li key={id}>
-                    <a href={`#win-${id}`} className="link inline-block max-w-full py-1 text-[0.9375rem] [overflow-wrap:anywhere]">
-                      {WIN_BY_ID[id].short}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              {area.note && <p className="mt-1 text-[0.9375rem] text-muted">{area.note}</p>}
-            </div>
-          </li>
-        ))}
-      </ul>
-    </Section>
-  );
-}
-
 function Contact() {
   const direct = [
     { label: "Email", value: PERSON.email, href: `mailto:${PERSON.email}`, Icon: FiMail },
@@ -479,15 +442,17 @@ function Contact() {
     <Section
       id="contact"
       title="Contact"
+      wide
       intro="Hiring for a solutions architect role, or want to compare notes? Email and LinkedIn reach me directly."
     >
+      <div className="grid gap-y-2 lg:grid-cols-[18.5rem_minmax(0,1fr)] lg:items-start lg:gap-x-12">
       <ul className="border-y border-line">
         {direct.map(({ label, value, href, Icon, external }) => {
           const inner = (
             <>
               <Icon aria-hidden="true" className="size-[1.1em] shrink-0 text-muted" />
-              <span className="sr-only text-muted sm:not-sr-only sm:w-20 sm:shrink-0">{label}</span>
-              <span className="min-w-0 break-words font-medium text-pine group-hover:text-pine-deep">{value}</span>
+              <span className="sr-only text-muted sm:not-sr-only sm:w-20 sm:shrink-0 lg:sr-only">{label}</span>
+              <span className="min-w-0 font-medium text-pine [overflow-wrap:anywhere] group-hover:text-pine-deep lg:[overflow-wrap:normal]">{value}</span>
               {external && <FiArrowUpRight aria-hidden="true" className="ml-auto size-[1em] shrink-0 text-muted" />}
             </>
           );
@@ -510,6 +475,7 @@ function Contact() {
       </ul>
 
       <ContactForm />
+      </div>
     </Section>
   );
 }
@@ -517,7 +483,7 @@ function Contact() {
 function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="mx-auto mt-16 w-full max-w-[68rem] px-4 pb-24 sm:mt-24 sm:px-6 sm:pb-10 lg:mt-32 lg:px-8">
+    <footer className="mx-auto mt-16 w-full max-w-[68rem] px-4 pb-24 sm:mt-20 sm:px-6 sm:pb-10 lg:px-8">
       <div className="flex flex-col gap-4 border-t border-line pt-6 text-[0.875rem] text-muted sm:flex-row sm:items-center sm:justify-between">
         <p>
           © <span className="num">{year}</span> {PERSON.name}, {PERSON.location}
@@ -587,11 +553,10 @@ export default function App() {
         Skip to content
       </a>
       <Header />
-      <main id="main" className="flex flex-col gap-12 sm:gap-24 lg:gap-28">
+      <main id="main" className="flex flex-col gap-12 sm:gap-20">
         <Hero actionsRef={actionsRef} />
         <Work />
         <Experience />
-        <Areas />
         <Contact />
       </main>
       <Footer />

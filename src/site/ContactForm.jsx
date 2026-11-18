@@ -60,7 +60,7 @@ export default function ContactForm() {
   const count = form.values.message.length;
 
   return (
-    <form {...form.formProps} aria-labelledby="contact-form-title" className="mt-12">
+    <form {...form.formProps} aria-labelledby="contact-form-title" className="mt-12 lg:mt-0">
       <h3 id="contact-form-title" className="text-[1.125rem] font-semibold tracking-[-0.01em]">
         Or leave a message
       </h3>

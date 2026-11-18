@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
 import BrowserWindow from "@/components/react-bits/browser-window";
+import { ArchitectureDiagram } from "./visuals.jsx";
 
 // Public sites only (everything else is under NDA). Screenshots captured from the live sites.
 const SITES = [
@@ -179,6 +180,9 @@ export default function Work() {
                   <span className="sr-only"> (opens in new tab)</span>
                 </a>
               </div>
+            </div>
+            <div className="max-w-[44rem]">
+              <ArchitectureDiagram site={site.id} />
             </div>
           </div>
         </div>

@@ -64,7 +64,6 @@ export const EXPERIENCE = [
         result: "The company's first subscription product, live and used by customers and the sales team.",
         link: { href: "https://reotempintelligence.com/", label: "reotempintelligence.com" },
         tools: ["Vercel", "JavaScript", "Supabase", "Stripe"],
-        diagram: "rti",
       },
       {
         id: "wakecalc",
@@ -78,7 +77,6 @@ export const EXPERIENCE = [
         result: "A free public tool that checks a thermowell design against each of the standard's four criteria and produces a PDF report.",
         link: { href: "https://www.wakefrequencycalc.com/", label: "wakefrequencycalc.com" },
         tools: ["Vercel", "Python", "OpenAI"],
-        diagram: "wfc",
       },
       {
         id: "configurators",
@@ -178,19 +176,6 @@ export const EDUCATION = {
 };
 
 // The job-backed "areas" strip. Each area points at real wins above.
-// The job-backed "areas" index. Each area links to the specific wins above.
-export const AREAS = [
-  { id: "design", name: "Product & front-end design", wins: ["configurators", "stripe", "wakecalc"] },
-  { id: "ai", name: "AI tools", wins: ["quoting", "matching"] },
-  { id: "business", name: "Business systems", wins: ["stripe", "odoo", "metrics"] },
-  {
-    id: "security",
-    name: "Security, reliability & infrastructure",
-    wins: ["uptime"],
-    note: "I also run my own servers for gaming and media sharing.",
-  },
-];
-
 export const SKILLS = {
   "Languages & databases": ["Python", "PHP", "JavaScript", "HTML/CSS", "React", "MySQL", "PostgreSQL (Supabase)"],
   "Product & design": ["Figma", "Jira", "User testing", "Product configurators", "IoT products"],

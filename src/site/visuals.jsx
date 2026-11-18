@@ -3,17 +3,6 @@ import { FiArrowDown, FiArrowRight, FiFileText, FiMail } from "react-icons/fi";
 import { SiOpenai, SiStripe, SiSupabase, SiVercel } from "react-icons/si";
 import { TOOL_MARKS } from "./icons.js";
 
-export function IconTile({ Icon }) {
-  return (
-    <span
-      aria-hidden="true"
-      className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-pine-wash text-pine ring-1 ring-inset ring-pine/10"
-    >
-      <Icon className="size-[1.05rem]" />
-    </span>
-  );
-}
-
 export function ToolChips({ tools }) {
   if (!tools?.length) return null;
   return (
