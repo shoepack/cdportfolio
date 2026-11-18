@@ -49,9 +49,9 @@ The current hero title "Full-Stack Engineer" predates this positioning and shoul
 
 ## Evidence on Hand
 
-- Experience: Software Product Specialist, Reotemp Instruments (Aug 2024 – present); Math & Computer Science Tutor, MiraCosta College (Aug–Dec 2020). Copy in `src/constants/index.js`, logos in `public/`.
+- Experience: Software Product Specialist, Reotemp Instruments (Aug 2024 – present); Math & Computer Science Tutor, MiraCosta College (Aug–Dec 2020). Copy in `src/shared/profile.js`, logos in `public/img/`.
 - Education: B.S. Cognitive Science (Design & Interaction), UC San Diego, 2024, Cum Laude.
-- Portrait: `src/assets/portrait-1.jpg` (6.5 MB; also `sanDiego-2.jpg`).
+- Portrait: web versions in `public/img/portrait-*.{avif,webp,jpg}` and `og-portrait.jpg` (the 6.5 MB original is in git history at `src/assets/portrait-1.jpg`).
 - Contact: contact@jasonartley.com, LinkedIn `linkedin.com/in/jasonartley`, GitHub `github.com/shoepack`, San Diego, CA.
 - Résumé: Google Doc `Jason_Artley_Resume_2026` (Drive, edited Oct 2026). It is the source of truth for the claims below. Its header includes a phone number; do not publish the phone number on the site without Jason's explicit OK.
 - Résumé-confirmed facts usable on the site:

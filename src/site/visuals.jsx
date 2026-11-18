@@ -1,58 +1,14 @@
-import {
-  FiActivity,
-  FiBarChart2,
-  FiCpu,
-  FiCreditCard,
-  FiLayers,
-  FiLayout,
-  FiMessageSquare,
-  FiServer,
-  FiShield,
-  FiTarget,
-} from "react-icons/fi";
-import { SiCloudflare, SiFigma, SiJavascript, SiJira, SiOdoo, SiPhp, SiPython, SiStripe, SiSupabase, SiVercel } from "react-icons/si";
+import { FiArrowDown, FiArrowRight, FiMail } from "react-icons/fi";
+import { SiStripe, SiSupabase, SiVercel } from "react-icons/si";
+import { TOOL_MARKS } from "./icons.js";
 
-// One UI icon family (Feather) for wins and areas; brand marks only for named tools.
-export const WIN_ICONS = {
-  stripe: FiCreditCard,
-  wakecalc: FiActivity,
-  configurators: FiLayout,
-  quoting: FiMessageSquare,
-  matching: FiTarget,
-  odoo: FiLayers,
-  metrics: FiBarChart2,
-  uptime: FiShield,
-};
-
-export const AREA_ICONS = {
-  design: FiLayout,
-  ai: FiCpu,
-  business: FiLayers,
-  security: FiShield,
-  infra: FiServer,
-};
-
-const TOOL_MARKS = {
-  Stripe: SiStripe,
-  Vercel: SiVercel,
-  Figma: SiFigma,
-  Jira: SiJira,
-  Python: SiPython,
-  Odoo: SiOdoo,
-  Cloudflare: SiCloudflare,
-  PHP: SiPhp,
-  JavaScript: SiJavascript,
-  Supabase: SiSupabase,
-};
-
-export function IconTile({ Icon, size = "md" }) {
-  const box = size === "lg" ? "size-11 rounded-xl" : "size-9 rounded-lg";
+export function IconTile({ Icon }) {
   return (
     <span
       aria-hidden="true"
-      className={`${box} inline-flex shrink-0 items-center justify-center bg-pine-wash text-pine ring-1 ring-inset ring-pine/10`}
+      className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-pine-wash text-pine ring-1 ring-inset ring-pine/10"
     >
-      <Icon className={size === "lg" ? "size-5" : "size-[1.05rem]"} />
+      <Icon className="size-[1.05rem]" />
     </span>
   );
 }
@@ -89,73 +45,124 @@ export function Logo({ logo, company, className = "" }) {
           alt={`${company} logo`}
           loading="lazy"
           decoding="async"
-          className="block h-11 w-auto max-w-none"
+          className="block h-9 w-auto max-w-none sm:h-11"
         />
       </picture>
     </span>
   );
 }
 
-/* How the AI quoting assistant works, as a labelled illustration.
-   The real tool is internal (NDA): placeholder segments, no real part number or price. */
+/* How the AI quoting assistant works, as one compact strip.
+   The real tool is internal (NDA): the part number and price are invented. */
+const SEGMENTS = [
+  { code: "PG", label: "Series" },
+  { code: "25", label: "2.5″ dial" },
+  { code: "L4", label: "¼″ lower mount" },
+  { code: "160P", label: "0–160 psi" },
+];
+
 export function QuotingDiagram() {
-  const segs = [
-    { k: "A", label: "Series" },
-    { k: "B", label: "Size" },
-    { k: "C", label: "Range" },
-    { k: "D", label: "Option" },
+  return (
+    <figure className="mt-5 rounded-xl border border-line bg-raised p-4 sm:p-5">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+        <ol className="flex flex-wrap items-start gap-1.5" aria-label="Part number split into segments">
+          {SEGMENTS.map((s, i) => (
+            <li key={s.code} className="flex items-start gap-1.5">
+              <span className="flex flex-col items-center">
+                <span className="num inline-flex h-8 items-center rounded-md bg-pine-wash px-2 text-[0.875rem] font-medium text-pine">
+                  {s.code}
+                </span>
+                <span className="mt-1 text-[0.6875rem] leading-tight text-muted">{s.label}</span>
+              </span>
+              {i < SEGMENTS.length - 1 && (
+                <span aria-hidden="true" className="pt-1.5 text-muted">
+                  -
+                </span>
+              )}
+            </li>
+          ))}
+        </ol>
+        <FiArrowRight aria-hidden="true" className="hidden size-4 shrink-0 text-muted sm:block" />
+        <FiArrowDown aria-hidden="true" className="size-4 shrink-0 text-muted sm:hidden" />
+        <p className="w-fit rounded-2xl rounded-bl-sm border border-line bg-white px-3 py-2 text-[0.875rem] leading-snug text-ink">
+          <span className="num font-medium">$48.20</span>
+          <span className="text-muted"> · 2.5″ gauge, 0–160 psi, lower mount</span>
+        </p>
+      </div>
+      <figcaption className="mt-3 text-[0.75rem] text-muted">
+        Illustrative part number and price, not Reotemp data. The real tool is internal.
+      </figcaption>
+    </figure>
+  );
+}
+
+/* A simplified, public-safe overview of reotempintelligence.com, built from what Jason
+   confirmed: who uses it, what it holds, and the services it runs on. */
+function Node({ children, className = "" }) {
+  return <div className={`rounded-lg border border-line bg-white px-3 py-2 ${className}`}>{children}</div>;
+}
+
+function Arrow() {
+  return (
+    <div aria-hidden="true" className="flex items-center justify-center text-muted">
+      <FiArrowDown className="size-4 lg:hidden" />
+      <FiArrowRight className="hidden size-4 lg:block" />
+    </div>
+  );
+}
+
+export function ArchitectureDiagram() {
+  const users = ["Customers", "Sales staff", "Admins"];
+  const parts = ["Product pages & resource library", "Quote & subscription checkout", "Admin dashboard: SaaS metrics, past-due invoices"];
+  const services = [
+    { name: "Supabase", role: "Database", Mark: SiSupabase },
+    { name: "Stripe", role: "Subscriptions & invoices", Mark: SiStripe },
+    { name: "SMTP2GO", role: "Email delivery", Mark: FiMail },
   ];
   return (
-    <figure className="mt-5 overflow-hidden rounded-xl border border-line bg-raised">
-      <div className="grid gap-px bg-line sm:grid-cols-3">
-        <div className="bg-raised p-4">
-          <p className="text-[0.75rem] font-medium text-muted">1 · Part number in</p>
-          <div className="mt-3 flex flex-wrap gap-1" aria-hidden="true">
-            {segs.map((s, i) => (
-              <span key={s.k} className="flex items-center gap-1">
-                <span className="num inline-flex h-8 min-w-9 items-center justify-center rounded-md bg-pine-wash px-2 text-[0.875rem] font-medium text-pine">
-                  {s.k.repeat(i === 0 ? 3 : 2)}
-                </span>
-                {i < segs.length - 1 && <span className="text-muted">-</span>}
-              </span>
+    <figure className="mt-6 rounded-xl border border-line bg-raised p-4 sm:p-5" aria-labelledby="arch-title">
+      <p id="arch-title" className="text-[0.8125rem] font-medium text-muted">
+        How reotempintelligence.com fits together
+      </p>
+      <div className="mt-3 grid gap-2 lg:grid-cols-[auto_auto_1fr_auto_auto] lg:items-center lg:gap-3">
+        <ul className="flex flex-wrap gap-1.5 lg:flex-col" aria-label="Used by">
+          {users.map((u) => (
+            <li key={u}>
+              <Node className="text-[0.8125rem] text-ink">{u}</Node>
+            </li>
+          ))}
+        </ul>
+        <Arrow />
+        <div className="rounded-xl border border-pine/30 bg-pine-wash/50 p-3">
+          <p className="flex items-center gap-1.5 text-[0.9375rem] font-semibold text-ink">
+            <SiVercel aria-hidden="true" className="size-3.5" />
+            reotempintelligence.com
+          </p>
+          <p className="text-[0.75rem] text-muted">HTML, CSS and JavaScript on Vercel</p>
+          <ul className="mt-2 grid gap-1">
+            {parts.map((p) => (
+              <li key={p} className="rounded-md bg-white/80 px-2.5 py-1.5 text-[0.8125rem] leading-snug text-ink">
+                {p}
+              </li>
             ))}
-          </div>
-          <p className="mt-2 text-[0.8125rem] leading-snug text-muted">Split into its segments.</p>
+          </ul>
         </div>
-        <div className="bg-raised p-4">
-          <p className="text-[0.75rem] font-medium text-muted">2 · Match each segment</p>
-          <table className="mt-3 w-full text-[0.8125rem]">
-            <caption className="sr-only">Each segment matched to a row of the pricing sheet</caption>
-            <tbody>
-              {segs.map((s) => (
-                <tr key={s.k} className="border-b border-line last:border-0">
-                  <th scope="row" className="num w-7 py-1 text-left font-medium text-pine">
-                    {s.k}
-                  </th>
-                  <td className="py-1 text-muted">{s.label}</td>
-                  <td className="py-1 text-right" aria-label="matched">
-                    <span aria-hidden="true" className="inline-block size-1.5 rounded-full bg-pine" />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div className="bg-raised p-4">
-          <p className="text-[0.75rem] font-medium text-muted">3 · Answer in chat</p>
-          <div className="mt-3 space-y-1.5 text-[0.8125rem] leading-snug">
-            <p className="ml-auto w-fit max-w-[90%] rounded-2xl rounded-br-sm bg-ink px-3 py-1.5 text-paper">
-              Price for <span className="num">AAA-BB-CC-DD</span>?
-            </p>
-            <p className="w-fit max-w-[90%] rounded-2xl rounded-bl-sm border border-line bg-white px-3 py-1.5 text-ink">
-              Price and description, from the pricing sheet.
-            </p>
-          </div>
-        </div>
+        <Arrow />
+        <ul className="grid gap-1.5" aria-label="Services">
+          {services.map(({ name, role, Mark }) => (
+            <li key={name}>
+              <Node className="flex items-center gap-2">
+                <Mark aria-hidden="true" className="size-3.5 shrink-0 text-ink/70" />
+                <span className="text-[0.8125rem]">
+                  <span className="font-medium text-ink">{name}</span>
+                  <span className="text-muted"> · {role}</span>
+                </span>
+              </Node>
+            </li>
+          ))}
+        </ul>
       </div>
-      <figcaption className="border-t border-line px-4 py-2.5 text-[0.75rem] text-muted">
-        Illustration of how the tool works. The real tool is internal; segments shown are placeholders.
-      </figcaption>
+      <figcaption className="mt-3 text-[0.75rem] text-muted">Simplified overview. I&rsquo;m the site&rsquo;s sole developer.</figcaption>
     </figure>
   );
 }

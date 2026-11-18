@@ -67,7 +67,6 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     caret-color: var(--color-pine);
-    overflow-x: clip;
   }
   ::selection {
     background-color: var(--color-pine-wash);
@@ -75,7 +74,9 @@
   }
   h1,
   h2,
-  h3 {
+  h3,
+  h4,
+  h5 {
     text-wrap: balance;
   }
   p,
@@ -87,6 +88,7 @@
     text-decoration-thickness: 1px;
   }
   :focus-visible {
+    transition-property: color, background-color, border-color, transform, box-shadow;
     outline: 2px solid var(--color-pine);
     outline-offset: 3px;
     border-radius: 4px;
@@ -148,5 +150,19 @@
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+}
+
+/* Phone contact bar: slides up once the hero's actions are off screen. */
+.sticky-contact {
+  transform: translateY(110%);
+  transition: transform 320ms var(--ease-out-expo);
+}
+.sticky-contact.is-visible {
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sticky-contact {
+    transition: none;
   }
 }

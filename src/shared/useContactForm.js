@@ -2,16 +2,19 @@ import { useCallback, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { PERSON } from "./profile";
 
-// Shared contact-form behaviour. Each direction renders its own markup and
-// wires it up with the props this hook returns:
+// Contact-form behaviour for the site. The markup wires up with:
 //
 //   const form = useContactForm();
 //   <form {...form.formProps}>
 //     <input {...form.field("name")} />          // value, onChange, aria-invalid, aria-describedby, ref
 //     {form.errors.name && <p id={form.errorId("name")}>{form.errors.name}</p>}
-//     <div {...form.statusProps}>{form.statusMessage}</div>   // role=status/alert live region
+//     <div {...form.statusProps}>{form.status !== "failed" && form.statusMessage}</div>  // always-present role=status
+//     <div {...form.alertProps}>{form.status === "failed" && form.statusMessage}</div>   // always-present role=alert
 //     <button disabled={form.status === "sending"}>…</button>
 //   </form>
+//
+// Two stable live regions: changing a region's role in the same render as its
+// text is unreliable in VoiceOver and NVDA, so failures get their own alert region.
 
 const LIMITS = { nameMin: 2, messageMin: 10, messageMax: 1000 };
 const RATE_LIMIT_MS = 60_000;
@@ -125,8 +128,11 @@ export function useContactForm() {
     formProps: { onSubmit, noValidate: true },
     // Render this container always (empty when idle) so screen readers announce changes.
     statusProps: {
-      role: status === "failed" ? "alert" : "status",
-      "aria-live": status === "failed" ? "assertive" : "polite",
+      role: "status",
+      "aria-live": "polite",
+    },
+    alertProps: {
+      role: "alert",
     },
   };
 }

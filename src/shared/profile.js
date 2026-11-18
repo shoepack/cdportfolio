@@ -5,23 +5,19 @@
 export const PERSON = {
   name: "Jason Artley",
   role: "Solutions Architect",
-  roleLong: "Software Solutions Architect",
   location: "San Diego, CA",
   email: "contact@jasonartley.com",
   linkedin: "https://www.linkedin.com/in/jasonartley/",
   linkedinLabel: "linkedin.com/in/jasonartley",
   github: "https://github.com/shoepack",
   resume: "/Jason_Artley_Resume.pdf",
-  site: "https://www.jasonartley.com/",
 };
 
-// Default copy. Directions may restate these in their own vocabulary,
-// but must not change the facts.
-export const HEADLINE =
-  "I design, build, and keep running the systems a business actually uses.";
-
-export const INTRO =
-  "Software Product Specialist at Reotemp Instruments. I shipped the company's first Stripe subscription product, built its AI quoting and product-matching tools, helped move it onto Odoo, and cut site outages from 1–2 a week to about one a month.";
+// Hero proof sentence, rendered with the outcome phrase emphasized.
+export const INTRO = {
+  text: "As Software Product Specialist at Reotemp Instruments, I shipped the company's first Stripe subscription product, built its AI quoting and product-matching tools, and cut site outages from 1–2 a week to about one a month.",
+  emphasis: "1–2 a week to about one a month",
+};
 
 export const SUMMARY =
   "A generalist across product design, front-end, AI tooling, business systems, and security. Cognitive Science (Design & Interaction) graduate, UC San Diego, Cum Laude.";
@@ -58,6 +54,8 @@ export const EXPERIENCE = [
     wins: [
       {
         id: "stripe",
+        lead: true,
+        short: "reotempintelligence.com",
         area: "business",
         title: "Built and run reotempintelligence.com as its sole developer",
         problem: "Reotemp's IoT smart probe had no home online and no way to sell a subscription.",
@@ -65,10 +63,11 @@ export const EXPERIENCE = [
           "As the sole developer, I built and launched reotempintelligence.com and led the company's first Stripe integration. It serves customers and internal sales staff, holds the resource library for the Intelligence product line, and includes an admin dashboard for key SaaS metrics such as past-due invoices. I also contribute to the product's software.",
         result: "The company's first subscription product, live and used by customers and the sales team.",
         link: { href: "https://reotempintelligence.com/", label: "reotempintelligence.com" },
-        tools: ["Vercel", "JavaScript", "Supabase", "Stripe", "SMTP2GO"],
+        tools: ["Vercel", "JavaScript", "Supabase", "Stripe"],
       },
       {
         id: "wakecalc",
+        short: "Wake frequency calculator",
         area: "systems",
         title: "Turned an engineering spreadsheet into a public calculator",
         problem:
@@ -77,10 +76,11 @@ export const EXPERIENCE = [
           "Learned the thermowell product, then worked with engineers to turn it into a standalone site and later into the thermowell configurator on reotemp.com. I set up the site on Vercel, iterated on it rapidly, and worked on the front-end form, the back-end calculation engine and API, and the customer PDF reports.",
         result: "A free public tool that checks a thermowell design against each ASME criterion and produces a PDF report.",
         link: { href: "https://www.wakefrequencycalc.com/", label: "wakefrequencycalc.com" },
-        tools: ["Vercel", "ASME 19.3"],
+        tools: ["Vercel"],
       },
       {
         id: "configurators",
+        short: "Configurators",
         area: "design",
         title: "Designed product configurators and portal redesigns",
         problem: "Sales staff and customers needed a clearer way to configure products and use the customer portal.",
@@ -88,10 +88,12 @@ export const EXPERIENCE = [
           "Mocked up configurator updates and customer-portal redesigns in Figma with engineering and leadership, ran the work from my own Jira Kanban board, and led stakeholder user testing.",
         result: "About 95% of designs shipped.",
         metric: { value: "~95%", label: "of designs shipped" },
-        tools: ["Figma", "Jira", "User testing"],
+        tools: ["Figma", "Jira"],
       },
       {
         id: "quoting",
+        lead: true,
+        short: "AI quoting assistant",
         area: "ai",
         title: "Built an AI quoting assistant",
         problem: "Products without a configurator had to be priced by hand from an internal pricing sheet.",
@@ -102,6 +104,7 @@ export const EXPERIENCE = [
       },
       {
         id: "matching",
+        short: "Gauge-matching tool",
         area: "ai",
         title: "Built a customer-facing gauge-matching tool",
         problem: "Customers knew the pressure range they needed, not which gauge to order.",
@@ -112,6 +115,7 @@ export const EXPERIENCE = [
       },
       {
         id: "odoo",
+        short: "Odoo migration",
         area: "systems",
         title: "Moved the business onto Odoo",
         problem: "The company ran on Sage plus a custom CRM.",
@@ -122,6 +126,7 @@ export const EXPERIENCE = [
       },
       {
         id: "metrics",
+        short: "CEO metrics report",
         area: "systems",
         title: "Turned the CEO's metric ideas into a daily report",
         problem: "Leadership wanted to track the numbers tied to company bonuses.",
@@ -132,6 +137,8 @@ export const EXPERIENCE = [
       },
       {
         id: "uptime",
+        lead: true,
+        short: "Security and uptime",
         area: "security",
         title: "Improved site security and uptime",
         problem: "The site went down one to two times a week and had SQL injection vulnerabilities.",
@@ -139,7 +146,7 @@ export const EXPERIENCE = [
           "Worked with the senior developer to patch SQL injection vulnerabilities, linked server-load spikes to marketing email sends, and led adoption of Cloudflare for caching and filtering malicious traffic.",
         result: "Outages fell from 1–2 a week to about 1 a month.",
         metric: { value: "1–2/wk → ~1/mo", label: "site outages" },
-        tools: ["Cloudflare", "SQL"],
+        tools: ["Cloudflare"],
       },
     ],
   },
@@ -169,36 +176,16 @@ export const EDUCATION = {
 };
 
 // The job-backed "areas" strip. Each area points at real wins above.
+// The job-backed "areas" index. Each area links to the specific wins above.
 export const AREAS = [
-  {
-    id: "design",
-    name: "Product & front-end design",
-    line: "Configurators and portal redesigns in Figma; about 95% shipped.",
-    wins: ["configurators"],
-  },
-  {
-    id: "ai",
-    name: "AI tools",
-    line: "A part-number quoting assistant and a gauge-matching tool at a fraction of a cent per request.",
-    wins: ["quoting", "matching"],
-  },
-  {
-    id: "business",
-    name: "Business systems",
-    line: "The company's first Stripe subscription, its move to Odoo, a public ASME calculator, and a daily metrics report for the CEO.",
-    wins: ["stripe", "odoo", "wakecalc", "metrics"],
-  },
+  { id: "design", name: "Product & front-end design", wins: ["configurators", "stripe", "wakecalc"] },
+  { id: "ai", name: "AI tools", wins: ["quoting", "matching"] },
+  { id: "business", name: "Business systems", wins: ["stripe", "odoo", "metrics"] },
   {
     id: "security",
-    name: "Security & reliability",
-    line: "Patched SQL injection, added Cloudflare, and cut outages from 1–2 a week to about one a month.",
+    name: "Security, reliability & infrastructure",
     wins: ["uptime"],
-  },
-  {
-    id: "infra",
-    name: "Infrastructure",
-    line: "Linux and Cloudflare, plus my own servers for gaming and media sharing.",
-    wins: ["uptime"],
+    note: "I also run my own servers for gaming and media sharing.",
   },
 ];
 
