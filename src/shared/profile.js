@@ -60,10 +60,11 @@ export const EXPERIENCE = [
         title: "Built and run reotempintelligence.com as its sole developer",
         problem: "Reotemp's IoT smart probe had no home online and no way to sell a subscription.",
         action:
-          "As the sole developer, I built and launched reotempintelligence.com and led the company's first Stripe integration. It serves customers and internal sales staff, holds the resource library for the Intelligence product line, and includes an admin dashboard for key SaaS metrics such as past-due invoices. I also contribute to the product's software.",
+          "As the sole developer, I built and launched reotempintelligence.com and led the company's first Stripe integration. Customers configure a system, get a priced quote by email, sign it and pay; Reotemp staff use a protected dashboard to review quotes, build custom quotes, manage pricing and follow up on past-due invoices. It also holds the resource library for the Intelligence product line, and I contribute to the product's software.",
         result: "The company's first subscription product, live and used by customers and the sales team.",
         link: { href: "https://reotempintelligence.com/", label: "reotempintelligence.com" },
         tools: ["Vercel", "JavaScript", "Supabase", "Stripe"],
+        diagram: "rti",
       },
       {
         id: "wakecalc",
@@ -71,12 +72,13 @@ export const EXPERIENCE = [
         area: "systems",
         title: "Turned an engineering spreadsheet into a public calculator",
         problem:
-          "An engineer's thermowell wake-frequency calculator, based on the ASME 19.3 standard, lived in a Google Sheets prototype.",
+          "An engineer's thermowell wake-frequency calculator, based on the ASME PTC 19.3 TW-2016 standard, lived in a Google Sheets prototype.",
         action:
-          "Learned the thermowell product, then worked with engineers to turn it into a standalone site and later into the thermowell configurator on reotemp.com. I set up the site on Vercel, iterated on it rapidly, and worked on the front-end form, the back-end calculation engine and API, and the customer PDF reports.",
-        result: "A free public tool that checks a thermowell design against each ASME criterion and produces a PDF report.",
+          "Learned the thermowell product, then worked with engineers to turn it into a standalone site whose calculation service also powers the thermowell configurator on reotemp.com. I set up the site on Vercel, iterated on it rapidly, and worked on the front-end form, the back-end calculation engine and API, and the customer PDF reports. When a design fails and the engine can't find a fix, it asks OpenAI for suggestions; a batch mode checks up to 500 wells from an Excel workbook.",
+        result: "A free public tool that checks a thermowell design against each of the standard's four criteria and produces a PDF report.",
         link: { href: "https://www.wakefrequencycalc.com/", label: "wakefrequencycalc.com" },
-        tools: ["Vercel"],
+        tools: ["Vercel", "Python", "OpenAI"],
+        diagram: "wfc",
       },
       {
         id: "configurators",

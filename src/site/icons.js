@@ -4,6 +4,7 @@ import {
   SiFigma,
   SiJavascript,
   SiJira,
+  SiOpenai,
   SiOdoo,
   SiPhp,
   SiPython,
@@ -33,4 +34,5 @@ export const TOOL_MARKS = {
   Odoo: SiOdoo,
   Cloudflare: SiCloudflare,
   PHP: SiPhp,
+  OpenAI: SiOpenai,
 };

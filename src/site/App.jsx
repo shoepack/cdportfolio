@@ -17,7 +17,7 @@ const q = (s) => s.replace(/'/g, "’");
 // Which phrase in each win's result carries the outcome. Rendered heavier, never reworded.
 const RESULT_EMPHASIS = {
   stripe: "first subscription product",
-  wakecalc: "each ASME criterion",
+  wakecalc: "four criteria",
   configurators: "About 95%",
   quoting: "Instant quotes",
   matching: "a fraction of a cent per request",
@@ -319,7 +319,7 @@ function LeadWin({ win }) {
       <p className="mt-2 text-[1.0625rem] leading-relaxed text-ink">
         <Emphasize text={win.result} phrase={RESULT_EMPHASIS[win.id]} />
       </p>
-      {win.id === "stripe" && <ArchitectureDiagram />}
+      {win.diagram && <ArchitectureDiagram site={win.diagram} />}
       <How win={win}>{win.id === "quoting" && <QuotingDiagram />}</How>
     </li>
   );
@@ -332,7 +332,9 @@ function MoreWin({ win }) {
       <p className="mt-1 leading-relaxed text-muted">
         <Emphasize text={win.result} phrase={RESULT_EMPHASIS[win.id]} />
       </p>
-      <How win={win} alwaysCollapsible />
+      <How win={win} alwaysCollapsible>
+        {win.diagram && <ArchitectureDiagram site={win.diagram} />}
+      </How>
     </li>
   );
 }

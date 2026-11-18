@@ -1,5 +1,6 @@
-import { FiArrowDown, FiArrowRight, FiMail } from "react-icons/fi";
-import { SiStripe, SiSupabase, SiVercel } from "react-icons/si";
+import { useId } from "react";
+import { FiArrowDown, FiArrowRight, FiFileText, FiMail } from "react-icons/fi";
+import { SiOpenai, SiStripe, SiSupabase, SiVercel } from "react-icons/si";
 import { TOOL_MARKS } from "./icons.js";
 
 export function IconTile({ Icon }) {
@@ -96,8 +97,47 @@ export function QuotingDiagram() {
   );
 }
 
-/* A simplified, public-safe overview of reotempintelligence.com, built from what Jason
-   confirmed: who uses it, what it holds, and the services it runs on. */
+/* Simplified, public-safe overviews of the two public sites. Generic by design:
+   who uses each site, what it does, and the services it runs on. No endpoints,
+   data model, auth mechanics or other internals. */
+const SYSTEMS = {
+  rti: {
+    title: "How reotempintelligence.com fits together",
+    host: "reotempintelligence.com",
+    stack: "HTML, CSS and JavaScript, plus serverless functions, on Vercel",
+    users: ["Customers", "Reotemp staff"],
+    parts: [
+      "Product pages & resource library",
+      "Configurator \u2192 emailed quote \u2192 sign \u2192 pay",
+      "Staff dashboard: quotes, pricing, past-due invoices",
+    ],
+    services: [
+      { name: "Supabase", role: "Data & staff sign-in", Mark: SiSupabase },
+      { name: "Stripe", role: "Billing", Mark: SiStripe },
+      { name: "SMTP2GO", role: "Quote & order emails", Mark: FiMail },
+    ],
+    caption: "Simplified overview. I\u2019m the site\u2019s sole developer.",
+  },
+  wfc: {
+    title: "How wakefrequencycalc.com fits together",
+    host: "wakefrequencycalc.com",
+    stack: "Static front end and Python serverless functions on Vercel",
+    users: ["Engineers & customers", "reotemp.com configurator"],
+    parts: [
+      "Pass or fail on ASME PTC 19.3 TW-2016\u2019s four criteria",
+      "Fix suggestions when a design fails",
+      "Batch: up to 500 wells from an Excel workbook",
+      "PDF reports",
+    ],
+    services: [
+      { name: "OpenAI", role: "Suggestions when the engine finds no fix", Mark: SiOpenai },
+      { name: "PDF service", role: "Renders the reports", Mark: FiFileText },
+    ],
+    note: "Stateless: no database, each request carries its own inputs.",
+    caption: "Simplified overview.",
+  },
+};
+
 function Node({ children, className = "" }) {
   return <div className={`rounded-lg border border-line bg-white px-3 py-2 ${className}`}>{children}</div>;
 }
@@ -105,28 +145,23 @@ function Node({ children, className = "" }) {
 function Arrow() {
   return (
     <div aria-hidden="true" className="flex items-center justify-center text-muted">
-      <FiArrowDown className="size-4 lg:hidden" />
-      <FiArrowRight className="hidden size-4 lg:block" />
+      <FiArrowDown className="size-4" />
     </div>
   );
 }
 
-export function ArchitectureDiagram() {
-  const users = ["Customers", "Sales staff", "Admins"];
-  const parts = ["Product pages & resource library", "Quote & subscription checkout", "Admin dashboard: SaaS metrics, past-due invoices"];
-  const services = [
-    { name: "Supabase", role: "Database", Mark: SiSupabase },
-    { name: "Stripe", role: "Subscriptions & invoices", Mark: SiStripe },
-    { name: "SMTP2GO", role: "Email delivery", Mark: FiMail },
-  ];
+export function ArchitectureDiagram({ site }) {
+  const sys = SYSTEMS[site];
+  const titleId = useId();
+  if (!sys) return null;
   return (
-    <figure className="mt-6 rounded-xl border border-line bg-raised p-4 sm:p-5" aria-labelledby="arch-title">
-      <p id="arch-title" className="text-[0.8125rem] font-medium text-muted">
-        How reotempintelligence.com fits together
+    <figure className="mt-6 rounded-xl border border-line bg-raised p-4 sm:p-5" aria-labelledby={titleId}>
+      <p id={titleId} className="text-[0.8125rem] font-medium text-muted">
+        {sys.title}
       </p>
-      <div className="mt-3 grid grid-cols-[minmax(0,1fr)] gap-2 lg:grid-cols-[auto_auto_minmax(0,1fr)_auto_minmax(0,auto)] lg:items-center lg:gap-3 [&>*]:min-w-0">
-        <ul className="flex flex-wrap gap-1.5 lg:flex-col" aria-label="Used by">
-          {users.map((u) => (
+      <div className="mt-3 grid grid-cols-[minmax(0,1fr)] gap-2 [&>*]:min-w-0">
+        <ul className="flex flex-wrap gap-1.5" aria-label="Used by">
+          {sys.users.map((u) => (
             <li key={u}>
               <Node className="text-[0.8125rem] text-ink">{u}</Node>
             </li>
@@ -136,22 +171,23 @@ export function ArchitectureDiagram() {
         <div className="rounded-xl border border-pine/30 bg-pine-wash/50 p-3">
           <p className="flex min-w-0 items-center gap-1.5 text-[0.9375rem] font-semibold text-ink [overflow-wrap:anywhere]">
             <SiVercel aria-hidden="true" className="size-3.5 shrink-0" />
-            reotempintelligence.com
+            {sys.host}
           </p>
-          <p className="text-[0.75rem] text-muted">HTML, CSS and JavaScript on Vercel</p>
-          <ul className="mt-2 grid grid-cols-[minmax(0,1fr)] gap-1">
-            {parts.map((p) => (
+          <p className="text-[0.75rem] text-muted">{sys.stack}</p>
+          <ul className="mt-2 grid grid-cols-[minmax(0,1fr)] gap-1 sm:grid-cols-2 sm:[&>li:last-child:nth-child(odd)]:col-span-2">
+            {sys.parts.map((p) => (
               <li key={p} className="rounded-md bg-white/80 px-2.5 py-1.5 text-[0.8125rem] leading-snug text-ink">
                 {p}
               </li>
             ))}
           </ul>
+          {sys.note && <p className="mt-2 text-[0.75rem] text-muted">{sys.note}</p>}
         </div>
         <Arrow />
-        <ul className="grid grid-cols-[minmax(0,1fr)] gap-1.5" aria-label="Services">
-          {services.map(({ name, role, Mark }) => (
+        <ul className={`grid grid-cols-[minmax(0,1fr)] gap-1.5 ${sys.services.length > 2 ? "sm:grid-cols-3" : "sm:grid-cols-2"}`} aria-label="Services">
+          {sys.services.map(({ name, role, Mark }) => (
             <li key={name}>
-              <Node className="flex items-center gap-2">
+              <Node className="flex h-full items-center gap-2">
                 <Mark aria-hidden="true" className="size-3.5 shrink-0 text-ink/70" />
                 <span className="min-w-0 text-[0.8125rem] [overflow-wrap:anywhere]">
                   <span className="font-medium text-ink">{name}</span>
@@ -162,7 +198,7 @@ export function ArchitectureDiagram() {
           ))}
         </ul>
       </div>
-      <figcaption className="mt-3 text-[0.75rem] text-muted">Simplified overview. I&rsquo;m the site&rsquo;s sole developer.</figcaption>
+      <figcaption className="mt-3 text-[0.75rem] text-muted">{sys.caption}</figcaption>
     </figure>
   );
 }
