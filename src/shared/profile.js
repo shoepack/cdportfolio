@@ -59,13 +59,13 @@ export const EXPERIENCE = [
       {
         id: "stripe",
         area: "business",
-        title: "Launched the smart probe's storefront and first subscription",
-        problem: "The company's new IoT smart probe had no home online and no way to sell a subscription.",
+        title: "Built and run reotempintelligence.com as its sole developer",
+        problem: "Reotemp's IoT smart probe had no home online and no way to sell a subscription.",
         action:
-          "Built and launched reotempintelligence.com and led the company's first Stripe integration. I also contribute to the product's software.",
-        result: "The company's first subscription product, live.",
+          "As the sole developer, I built and launched reotempintelligence.com and led the company's first Stripe integration. It serves customers and internal sales staff, holds the resource library for the Intelligence product line, and includes an admin dashboard for key SaaS metrics such as past-due invoices. I also contribute to the product's software.",
+        result: "The company's first subscription product, live and used by customers and the sales team.",
         link: { href: "https://reotempintelligence.com/", label: "reotempintelligence.com" },
-        tools: ["Stripe"],
+        tools: ["Vercel", "JavaScript", "Supabase", "Stripe", "SMTP2GO"],
       },
       {
         id: "wakecalc",

@@ -11,7 +11,7 @@ const SITES = [
     href: "https://www.reotempintelligence.com/",
     win: "win-stripe",
     blurb:
-      "Built and launched the home for Reotemp’s IoT smart probe, including the company’s first Stripe subscription.",
+      "Sole developer. Customer site, subscription checkout and resource library for Reotemp’s smart-probe line, plus an admin dashboard for SaaS metrics. Plain HTML, CSS and JS on Vercel, with Supabase, Stripe and SMTP2GO.",
     pages: [
       { url: "reotempintelligence.com", title: "Home", src: "/img/work/rti-home.webp", alt: "Reotemp Intelligence home page" },
       { url: "reotempintelligence.com/software", title: "Software", src: "/img/work/rti-software.webp", alt: "Reotemp Intelligence software page" },

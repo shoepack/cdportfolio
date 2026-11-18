@@ -10,7 +10,7 @@ import {
   FiShield,
   FiTarget,
 } from "react-icons/fi";
-import { SiCloudflare, SiFigma, SiJira, SiOdoo, SiPhp, SiPython, SiStripe, SiVercel } from "react-icons/si";
+import { SiCloudflare, SiFigma, SiJavascript, SiJira, SiOdoo, SiPhp, SiPython, SiStripe, SiSupabase, SiVercel } from "react-icons/si";
 
 // One UI icon family (Feather) for wins and areas; brand marks only for named tools.
 export const WIN_ICONS = {
@@ -41,6 +41,8 @@ const TOOL_MARKS = {
   Odoo: SiOdoo,
   Cloudflare: SiCloudflare,
   PHP: SiPhp,
+  JavaScript: SiJavascript,
+  Supabase: SiSupabase,
 };
 
 export function IconTile({ Icon, size = "md" }) {
