@@ -19,10 +19,13 @@ export interface BrowserPage {
   title?: string;
   src?: string;
   alt?: string;
+  /** Live address of this page. When set, the viewport becomes a link to it (new tab). */
+  href?: string;
   content?: ReactNode;
 }
 
 export interface BrowserWindowHandle {
+  /** next / prev / goTo are treated as the visitor taking control: autoplay stops until play(). */
   next: () => void;
   prev: () => void;
   goTo: (index: number) => void;
@@ -42,6 +45,8 @@ export interface BrowserWindowProps {
   accentColor?: string;
   windowColor?: string;
   textColor?: string;
+  /** Secondary chrome text (URL path, idle tabs, icons). Must hold 4.5:1 on the address field. */
+  mutedColor?: string;
   radius?: number;
   aspect?: number;
   height?: number;
@@ -51,12 +56,18 @@ export interface BrowserWindowProps {
   autoplay?: boolean;
   loop?: boolean;
   pauseOnHover?: boolean;
+  pauseOnFocus?: boolean;
   typing?: boolean;
   loader?: boolean;
   scroll?: boolean;
   controls?: boolean;
   defaultPage?: number;
+  /** Loading hint for the first screenshot. Later pages are preloaded before they are shown. */
+  imageLoading?: "lazy" | "eager";
+  /** Accessible name for the window. */
+  label?: string;
   onPageChange?: (index: number) => void;
+  onPlayingChange?: (playing: boolean) => void;
   className?: string;
   style?: CSSProperties;
 }
@@ -70,9 +81,9 @@ interface Palette {
   bar: string;
   text: string;
   muted: string;
-  dim: string;
   accent: string;
   field: string;
+  fieldEdge: string;
   hover: string;
   dot: string;
   divide: string;
@@ -83,7 +94,21 @@ interface Layer {
   index: number;
 }
 
+type NavMode = "auto" | "user" | "replay";
+
 const SANS = 'var(--font-sans, ui-sans-serif), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif';
+
+const SR_ONLY: CSSProperties = {
+  position: "absolute",
+  width: 1,
+  height: 1,
+  padding: 0,
+  margin: -1,
+  overflow: "hidden",
+  clip: "rect(0, 0, 0, 0)",
+  whiteSpace: "nowrap",
+  border: 0,
+};
 
 const DEFAULT_PAGES: BrowserPage[] = [
   { url: "atelier.studio", title: "Atelier", src: "https://pro.reactbits.dev/demo-media/architecture-pool.webp", alt: "Figure in black crossing a shallow pool before a tall cream wall" },
@@ -166,54 +191,77 @@ const readBackdrop = (root: HTMLElement, probe: CanvasRenderingContext2D | null)
   return { dark: own.matchMedia("(prefers-color-scheme: dark)").matches, color: null };
 };
 
-const makePalette = (dark: boolean, accent?: string, surface?: string, text?: string): Palette =>
-  dark
-    ? {
-        surface: surface || "#111113",
-        frame: `color-mix(in srgb, ${surface || "#111113"} 94%, #ffffff)`,
-        shadow: "0 0 0 1px rgba(255,255,255,0.07), 0 24px 60px -16px rgba(0,0,0,0.65)",
-        frameShadow: "0 0 0 1px rgba(255,255,255,0.06), 0 24px 60px -16px rgba(0,0,0,0.65)",
-        panel: "inset 0 0 0 1px rgba(255,255,255,0.06)",
-        bar: "rgba(255,255,255,0.025)",
-        text: text || "#E7E7EA",
-        muted: "#8C8C95",
-        dim: "#5D5D66",
-        accent: accent || "#A99BFF",
-        field: "rgba(255,255,255,0.06)",
-        hover: "rgba(255,255,255,0.07)",
-        dot: "rgba(255,255,255,0.14)",
-        divide: "rgba(255,255,255,0.06)",
-      }
-    : {
-        surface: surface || "#FFFFFF",
-        frame: `color-mix(in srgb, ${surface || "#FFFFFF"} 96%, #000000)`,
-        shadow: "0 0 0 1px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04), 0 16px 40px -14px rgba(0,0,0,0.16)",
-        frameShadow: "0 0 0 1px rgba(0,0,0,0.05), 0 16px 40px -14px rgba(0,0,0,0.14)",
-        panel: "inset 0 0 0 1px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)",
-        bar: "rgba(0,0,0,0.022)",
-        text: text || "#18181B",
-        muted: "#71717A",
-        dim: "#A1A1AA",
-        accent: accent || "#5227FF",
-        field: "rgba(0,0,0,0.045)",
-        hover: "rgba(0,0,0,0.05)",
-        dot: "rgba(0,0,0,0.12)",
-        divide: "rgba(0,0,0,0.06)",
-      };
+// Secondary text follows the caller's colours when given: an explicit mutedColor wins, then a
+// mix of textColor into the surface, and only then the built-in neutral (5.2:1 on the light frame).
+const makePalette = (dark: boolean, accent?: string, surface?: string, text?: string, muted?: string): Palette => {
+  if (dark) {
+    const base = surface || "#111113";
+    const ink = text || "#E7E7EA";
+    return {
+      surface: base,
+      frame: `color-mix(in srgb, ${base} 94%, #ffffff)`,
+      shadow: "0 0 0 1px rgba(255,255,255,0.07), 0 24px 60px -16px rgba(0,0,0,0.65)",
+      frameShadow: "0 0 0 1px rgba(255,255,255,0.06), 0 24px 60px -16px rgba(0,0,0,0.65)",
+      panel: "inset 0 0 0 1px rgba(255,255,255,0.06)",
+      bar: "rgba(255,255,255,0.025)",
+      text: ink,
+      muted: muted || (text ? `color-mix(in srgb, ${ink} 70%, ${base})` : "#9A9AA3"),
+      accent: accent || "#A99BFF",
+      field: "rgba(255,255,255,0.06)",
+      fieldEdge: "rgba(255,255,255,0.05)",
+      hover: "rgba(255,255,255,0.07)",
+      dot: "rgba(255,255,255,0.14)",
+      divide: "rgba(255,255,255,0.06)",
+    };
+  }
+  const base = surface || "#FFFFFF";
+  const ink = text || "#18181B";
+  return {
+    surface: base,
+    frame: `color-mix(in srgb, ${base} 96%, #000000)`,
+    shadow: "0 0 0 1px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04), 0 16px 40px -14px rgba(0,0,0,0.16)",
+    frameShadow: "0 0 0 1px rgba(0,0,0,0.05), 0 16px 40px -14px rgba(0,0,0,0.14)",
+    panel: "inset 0 0 0 1px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)",
+    bar: "rgba(0,0,0,0.022)",
+    text: ink,
+    muted: muted || (text ? `color-mix(in srgb, ${ink} 78%, ${base})` : "#66666E"),
+    accent: accent || "#5227FF",
+    // A raised field, lighter than the toolbar, so secondary text keeps its contrast.
+    field: `color-mix(in srgb, ${base} 55%, #ffffff)`,
+    fieldEdge: "rgba(0,0,0,0.06)",
+    hover: "rgba(0,0,0,0.05)",
+    dot: "rgba(0,0,0,0.12)",
+    divide: "rgba(0,0,0,0.06)",
+  };
+};
 
-const Icon = ({ name }: { name: "back" | "forward" | "reload" | "lock" }) => {
+type IconName = "back" | "forward" | "lock" | "pause" | "play" | "external";
+
+const Icon = ({ name }: { name: IconName }) => {
   if (name === "lock")
     return (
-      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg width="0.9em" height="0.9em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <rect x="5" y="10.5" width="14" height="10" rx="2.5" />
         <path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3" />
       </svg>
     );
-  if (name === "reload")
+  if (name === "external")
     return (
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M20 11.5A8 8 0 1 0 17.66 17.3" />
-        <path d="M20 5v6.5h-6.5" />
+      <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M8 16 16 8" />
+        <path d="M9 8h7v7" />
+      </svg>
+    );
+  if (name === "pause")
+    return (
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
+        <path d="M9 6.5v11M15 6.5v11" />
+      </svg>
+    );
+  if (name === "play")
+    return (
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M8.5 6.2v11.6L18 12 8.5 6.2Z" />
       </svg>
     );
   return (
@@ -235,6 +283,7 @@ const BrowserWindow = forwardRef<BrowserWindowHandle, BrowserWindowProps>(functi
     accentColor,
     windowColor,
     textColor,
+    mutedColor,
     radius = 16,
     aspect = 1.6,
     height,
@@ -244,12 +293,16 @@ const BrowserWindow = forwardRef<BrowserWindowHandle, BrowserWindowProps>(functi
     autoplay = true,
     loop = true,
     pauseOnHover = true,
+    pauseOnFocus = true,
     typing = true,
     loader = true,
     scroll = true,
     controls = true,
     defaultPage = 0,
+    imageLoading = "lazy",
+    label = "Browser window",
     onPageChange,
+    onPlayingChange,
     className,
     style,
   },
@@ -263,14 +316,21 @@ const BrowserWindow = forwardRef<BrowserWindowHandle, BrowserWindowProps>(functi
   const keyRef = useRef(1);
   const pageRef = useRef(0);
   const busyRef = useRef(false);
-  const hoverRef = useRef(false);
-  const elapsedRef = useRef(0);
   const changeRef = useRef(onPageChange);
+  const playingChangeRef = useRef(onPlayingChange);
+  // Things that hold the autoplay clock without stopping autoplay.
+  const holdRef = useRef({ hover: false, focus: false, press: false, visible: false });
+  // setTimeout-based dwell clock: remaining time survives pauses.
+  const clockRef = useRef({ handle: 0, startedAt: 0, remaining: 0 });
+  const syncRef = useRef<() => void>(() => {});
+  const jobsRef = useRef(new Map<string, Promise<void>>());
+  const decodedRef = useRef(new Set<string>());
   const reduced = useSyncExternalStore(subscribeToMotion, readMotion, () => false);
   const single = children !== undefined && children !== null;
   const list = single ? [{ url: url ?? "localhost:3000", title: "", content: children } as BrowserPage] : pages.length ? pages : DEFAULT_PAGES;
   const count = list.length;
   const start = clamp(Math.round(finite(defaultPage, 0)), 0, count - 1);
+  const dwell = Math.max(1800, finite(interval, 4600));
   const [layers, setLayers] = useState<Layer[]>([{ key: 0, index: start }]);
   const [active, setActive] = useState(start);
   const [typed, setTyped] = useState(list[start]?.url ?? "");
@@ -279,16 +339,38 @@ const BrowserWindow = forwardRef<BrowserWindowHandle, BrowserWindowProps>(functi
   const [dark, setDark] = useState(theme === "dark");
   const [playing, setPlaying] = useState(autoplay);
   const [width, setWidth] = useState(0);
+  const [announcement, setAnnouncement] = useState("");
+  const [linkRing, setLinkRing] = useState(false);
+  const [linkHot, setLinkHot] = useState(false);
   const listRef = useRef(list);
+  const dwellRef = useRef(dwell);
+  if (!clockRef.current.remaining) clockRef.current.remaining = dwell;
 
   useEffect(() => {
     changeRef.current = onPageChange;
+    playingChangeRef.current = onPlayingChange;
     listRef.current = list;
+    dwellRef.current = dwell;
   });
+
+  useEffect(() => {
+    pageRef.current = start;
+    // Only the mount value matters; later page changes come from navigate().
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setPlaying(autoplay);
   }, [autoplay]);
+
+  const firstPlaying = useRef(true);
+  useEffect(() => {
+    if (firstPlaying.current) {
+      firstPlaying.current = false;
+      return;
+    }
+    playingChangeRef.current?.(playing);
+  }, [playing]);
 
   const later = useCallback((callback: () => void, wait: number) => {
     const view = rootRef.current?.ownerDocument.defaultView ?? window;
@@ -306,6 +388,36 @@ const BrowserWindow = forwardRef<BrowserWindowHandle, BrowserWindowProps>(functi
   }, []);
 
   useEffect(() => clearTimers, [clearTimers]);
+
+  // Fetch and decode a page's screenshot off-screen. Pages are only swapped in once this settles,
+  // so a slow network shows the loader bar instead of a half-painted image.
+  const ready = useCallback((index: number) => {
+    const src = listRef.current[index]?.src;
+    if (!src || decodedRef.current.has(src)) return Promise.resolve();
+    const jobs = jobsRef.current;
+    let job = jobs.get(src);
+    if (!job) {
+      const view = rootRef.current?.ownerDocument.defaultView ?? window;
+      const image = new view.Image();
+      image.decoding = "async";
+      image.src = src;
+      const decoding = typeof image.decode === "function" ? image.decode() : new Promise<void>((resolve, reject) => {
+        image.onload = () => resolve();
+        image.onerror = reject;
+      });
+      job = decoding.then(
+        () => {
+          decodedRef.current.add(src);
+        },
+        () => {
+          jobs.delete(src);
+        },
+      );
+      jobs.set(src, job);
+    }
+    const view = rootRef.current?.ownerDocument.defaultView ?? window;
+    return Promise.race([job, new Promise<void>((resolve) => view.setTimeout(resolve, 8000))]);
+  }, []);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -359,43 +471,81 @@ const BrowserWindow = forwardRef<BrowserWindowHandle, BrowserWindowProps>(functi
   }, [theme]);
 
   const swap = useCallback(
-    (index: number, token: number) => {
+    (index: number, token: number, user: boolean) => {
       if (token !== tokenRef.current) return;
       const key = keyRef.current++;
       pageRef.current = index;
       setActive(index);
       setLayers((current) => [...current.slice(-1), { key, index }]);
       changeRef.current?.(index);
+      if (user) {
+        const pagesNow = listRef.current;
+        setAnnouncement(`Showing ${pagesNow[index]?.url ?? ""}, page ${index + 1} of ${pagesNow.length}`);
+      }
+      clockRef.current.remaining = dwellRef.current;
       const settle = reduced ? 0 : 700;
       later(() => {
         if (token !== tokenRef.current) return;
         setLayers((current) => current.filter((layer) => layer.key === key));
         busyRef.current = false;
+        syncRef.current();
       }, settle + 40);
     },
     [later, reduced],
   );
 
   const navigate = useCallback(
-    (target: number, replay = false) => {
+    (target: number, mode: NavMode = "auto") => {
       const pagesNow = listRef.current;
       const total = pagesNow.length;
       if (!total) return;
+      const replay = mode === "replay";
+      const user = mode !== "auto";
       const index = ((Math.round(target) % total) + total) % total;
       if (index === pageRef.current && !replay) return;
       clearTimers();
       tokenRef.current += 1;
       const token = tokenRef.current;
       busyRef.current = true;
-      elapsedRef.current = 0;
+      syncRef.current();
       const from = pagesNow[pageRef.current]?.url ?? "";
       const to = pagesNow[index]?.url ?? "";
-      if (reduced) {
+      const src = pagesNow[index]?.src;
+      const cached = !src || decodedRef.current.has(src);
+      const loaded = ready(index);
+      const live = () => token === tokenRef.current;
+      const complete = () => {
+        later(() => {
+          if (live()) setProgress({ value: 1, visible: true, speed: 260 });
+        }, 0);
+        later(() => {
+          if (live()) setProgress((current) => ({ ...current, visible: false }));
+        }, 300);
+      };
+
+      // Reduced motion, or the visitor asked for this page: no typing theatre, swap as soon as decoded.
+      if (reduced || user) {
+        setCaret(false);
         setTyped(to);
-        setProgress({ value: 0, visible: false, speed: 0 });
-        swap(index, token);
+        if (reduced || cached || !loader) {
+          setProgress((current) => ({ ...current, visible: false }));
+          loaded.then(() => {
+            if (live()) swap(index, token, user);
+          });
+          return;
+        }
+        setProgress({ value: 0, visible: true, speed: 0 });
+        later(() => {
+          if (live()) setProgress({ value: 0.72, visible: true, speed: 520 });
+        }, 30);
+        loaded.then(() => {
+          if (!live()) return;
+          swap(index, token, user);
+          complete();
+        });
         return;
       }
+
       let shared = 0;
       while (shared < from.length && shared < to.length && from[shared] === to[shared]) shared++;
       const erase = typing && !replay ? from.length - shared : 0;
@@ -406,19 +556,19 @@ const BrowserWindow = forwardRef<BrowserWindowHandle, BrowserWindowProps>(functi
         for (let k = 1; k <= erase; k++) {
           const text = from.slice(0, from.length - k);
           later(() => {
-            if (token === tokenRef.current) setTyped(text);
+            if (live()) setTyped(text);
           }, (wait += 22));
         }
         wait += erase ? 90 : 0;
         for (let k = 1; k <= write; k++) {
           const text = to.slice(0, shared + k);
           later(() => {
-            if (token === tokenRef.current) setTyped(text);
+            if (live()) setTyped(text);
           }, (wait += 34 + (to[shared + k - 1] === "/" ? 40 : 0)));
         }
         wait += 120;
         later(() => {
-          if (token === tokenRef.current) setCaret(false);
+          if (live()) setCaret(false);
         }, wait);
       } else {
         setTyped(to);
@@ -426,23 +576,21 @@ const BrowserWindow = forwardRef<BrowserWindowHandle, BrowserWindowProps>(functi
       const show = loader;
       if (show) {
         later(() => {
-          if (token === tokenRef.current) setProgress({ value: 0, visible: true, speed: 0 });
+          if (live()) setProgress({ value: 0, visible: true, speed: 0 });
         }, wait);
         later(() => {
-          if (token === tokenRef.current) setProgress({ value: 0.72, visible: true, speed: 520 });
+          if (live()) setProgress({ value: 0.72, visible: true, speed: 520 });
         }, wait + 30);
       }
-      later(() => swap(index, token), wait + (show ? 560 : 120));
-      if (show) {
-        later(() => {
-          if (token === tokenRef.current) setProgress({ value: 1, visible: true, speed: 260 });
-        }, wait + 600);
-        later(() => {
-          if (token === tokenRef.current) setProgress((current) => ({ ...current, visible: false }));
-        }, wait + 900);
-      }
+      later(() => {
+        loaded.then(() => {
+          if (!live()) return;
+          swap(index, token, false);
+          if (show) complete();
+        });
+      }, wait + (show ? 560 : 120));
     },
-    [clearTimers, later, loader, reduced, swap, typing],
+    [clearTimers, later, loader, ready, reduced, swap, typing],
   );
 
   const advance = useCallback(() => {
@@ -454,61 +602,83 @@ const BrowserWindow = forwardRef<BrowserWindowHandle, BrowserWindowProps>(functi
     navigate(pageRef.current + 1);
   }, [loop, navigate]);
 
-  const running = playing && count > 1 && !reduced && !single;
+  const canAutoplay = count > 1 && !reduced && !single;
+  const running = playing && canAutoplay;
 
+  // The dwell clock. One setTimeout per page, armed only while the window is on screen, the tab is
+  // visible, nothing holds it (hover, focus, press) and no page change is in flight.
   useEffect(() => {
     const root = rootRef.current;
-    if (!root || !running) return;
+    if (!root) return;
     const doc = root.ownerDocument;
     const view = doc.defaultView ?? window;
-    const wait = Math.max(1800, finite(interval, 4600));
-    let raf = 0;
-    let last = 0;
-    let visible = false;
-    const tick = (now: number) => {
-      raf = 0;
-      const dt = last ? Math.min(64, now - last) : 0;
-      last = now;
-      if (!busyRef.current && !(pauseOnHover && hoverRef.current)) elapsedRef.current += dt;
-      if (elapsedRef.current >= wait) {
-        elapsedRef.current = 0;
-        advance();
+    const clock = clockRef.current;
+    const hold = holdRef.current;
+    const stop = () => {
+      if (!clock.handle) return;
+      view.clearTimeout(clock.handle);
+      clock.handle = 0;
+      clock.remaining = Math.max(0, clock.remaining - (view.performance.now() - clock.startedAt));
+    };
+    if (!running) {
+      syncRef.current = () => {};
+      return;
+    }
+    const sync = () => {
+      const blocked =
+        busyRef.current || doc.visibilityState === "hidden" || !hold.visible || hold.press || (pauseOnHover && hold.hover) || (pauseOnFocus && hold.focus);
+      if (blocked) {
+        stop();
+        return;
       }
-      if (visible && !doc.hidden) raf = view.requestAnimationFrame(tick);
+      if (clock.handle) return;
+      const total = listRef.current.length;
+      if (loop || pageRef.current < total - 1) void ready((pageRef.current + 1) % total);
+      clock.startedAt = view.performance.now();
+      clock.handle = view.setTimeout(() => {
+        clock.handle = 0;
+        clock.remaining = dwellRef.current;
+        advance();
+      }, Math.max(0, clock.remaining));
     };
-    const wake = () => {
-      if (raf || !visible || doc.hidden) return;
-      last = 0;
-      raf = view.requestAnimationFrame(tick);
-    };
+    syncRef.current = sync;
     const observer = new IntersectionObserver(
       (entries) => {
-        visible = entries.some((entry) => entry.isIntersecting);
-        if (visible) wake();
+        hold.visible = entries[entries.length - 1]?.isIntersecting ?? false;
+        sync();
       },
       { threshold: 0.2 },
     );
     observer.observe(root);
-    const onVisibility = () => wake();
-    doc.addEventListener("visibilitychange", onVisibility);
+    doc.addEventListener("visibilitychange", sync);
+    sync();
     return () => {
       observer.disconnect();
-      doc.removeEventListener("visibilitychange", onVisibility);
-      view.cancelAnimationFrame(raf);
+      doc.removeEventListener("visibilitychange", sync);
+      stop();
+      syncRef.current = () => {};
     };
-  }, [advance, interval, pauseOnHover, running]);
+  }, [advance, loop, pauseOnFocus, pauseOnHover, ready, running]);
+
+  const takeControl = useCallback(
+    (target: number) => {
+      setPlaying(false);
+      navigate(target, "user");
+    },
+    [navigate],
+  );
 
   useImperativeHandle(
     ref,
     () => ({
-      next: () => navigate(pageRef.current + 1),
-      prev: () => navigate(pageRef.current - 1),
-      goTo: (index: number) => navigate(index),
-      reload: () => navigate(pageRef.current, true),
+      next: () => takeControl(pageRef.current + 1),
+      prev: () => takeControl(pageRef.current - 1),
+      goTo: (index: number) => takeControl(index),
+      reload: () => navigate(pageRef.current, "replay"),
       play: () => setPlaying(true),
       pause: () => setPlaying(false),
     }),
-    [navigate],
+    [navigate, takeControl],
   );
 
   const enter = useCallback(
@@ -543,7 +713,6 @@ const BrowserWindow = forwardRef<BrowserWindowHandle, BrowserWindowProps>(functi
         const travel = rendered - viewport.clientHeight;
         if (travel < 4) return;
         image.getAnimations().forEach((animation) => animation.cancel());
-        const wait = Math.max(1800, finite(interval, 4600));
         image.animate(
           [
             { transform: "translateY(0px)", offset: 0 },
@@ -551,13 +720,13 @@ const BrowserWindow = forwardRef<BrowserWindowHandle, BrowserWindowProps>(functi
             { transform: `translateY(${-travel}px)`, offset: 0.92 },
             { transform: `translateY(${-travel}px)`, offset: 1 },
           ],
-          { duration: wait + 1400, easing: "ease-in-out", fill: "forwards" },
+          { duration: dwell + 1400, easing: "ease-in-out", fill: "forwards" },
         );
       };
       if (image.complete) run();
       else image.addEventListener("load", run, { once: true });
     },
-    [interval, reduced, scroll],
+    [dwell, reduced, scroll],
   );
 
   const onTabKey = (event: ReactKeyboardEvent, index: number) => {
@@ -569,72 +738,124 @@ const BrowserWindow = forwardRef<BrowserWindowHandle, BrowserWindowProps>(functi
     if (target < 0) return;
     event.preventDefault();
     tabRefs.current[target]?.focus();
-    navigate(target);
+    takeControl(target);
   };
 
-  const palette = makePalette(dark, accentColor, windowColor, textColor);
+  const releasePress = () => {
+    const hold = holdRef.current;
+    if (!hold.press) return;
+    hold.press = false;
+    // A tap or long-press earns a fresh, full look at the page.
+    if (!clockRef.current.handle) clockRef.current.remaining = dwellRef.current;
+    syncRef.current();
+  };
+
+  const palette = makePalette(dark, accentColor, windowColor, textColor, mutedColor);
   const corner = clamp(finite(radius, 14), 0, 40);
   const inset = frame === "inset";
   const gap = 4;
   const inner = Math.max(0, corner - gap);
-  const narrow = width > 0 && width < 420;
-  const showNav = controls && !single && count > 1 && !narrow;
+  const narrow = width > 0 && width < 480;
+  const showNav = controls && !single && count > 1;
   const parts = splitUrl(typed);
   const ratio = clamp(finite(aspect, 1.6), 0.4, 4);
-  const toolbar = 44;
+  const current = list[active];
 
-  const button = (label: string, icon: "back" | "forward" | "reload", onClick: () => void, disabled = false) => (
+  // Icon buttons draw a 30px chip but take a 44px hit area. The focus ring sits inside the button
+  // so the window's rounded clip never cuts it off.
+  const button = (
+    name: string,
+    icon: IconName,
+    onClick: () => void,
+    { disabled = false, pressed }: { disabled?: boolean; pressed?: boolean } = {},
+  ) => (
     <button
       type="button"
-      aria-label={label}
+      aria-label={name}
+      aria-pressed={pressed}
       onClick={onClick}
       disabled={disabled}
       onMouseEnter={(event) => {
-        if (!disabled) event.currentTarget.style.background = palette.hover;
+        const chip = event.currentTarget.firstElementChild as HTMLElement | null;
+        if (!disabled && chip) chip.style.background = palette.hover;
       }}
-      onMouseLeave={(event) => (event.currentTarget.style.background = "transparent")}
+      onMouseLeave={(event) => {
+        const chip = event.currentTarget.firstElementChild as HTMLElement | null;
+        if (chip) chip.style.background = "transparent";
+      }}
       style={{
         boxSizing: "border-box",
-        width: 28,
-        height: 28,
+        width: 44,
+        height: 44,
         padding: 0,
         display: "grid",
         placeItems: "center",
         flex: "none",
         border: 0,
-        borderRadius: 7,
+        borderRadius: 10,
+        outlineOffset: -5,
         background: "transparent",
         color: palette.muted,
         opacity: disabled ? 0.4 : 1,
         cursor: disabled ? "default" : "pointer",
-        transition: "background-color 160ms ease, opacity 160ms ease",
+        WebkitTapHighlightColor: "transparent",
+        transition: "opacity 160ms ease",
       }}
     >
-      <Icon name={icon} />
+      <span
+        aria-hidden="true"
+        style={{ width: 30, height: 30, borderRadius: 8, display: "grid", placeItems: "center", transition: "background-color 160ms ease" }}
+      >
+        <Icon name={icon} />
+      </span>
     </button>
   );
 
-  const centered = chrome === "compact" && !narrow;
+  const nav = showNav ? (
+    <div style={{ display: "flex", flex: "none" }}>
+      {button("Previous page", "back", () => takeControl(pageRef.current - 1), { disabled: !loop && active === 0 })}
+      {button("Next page", "forward", () => takeControl(pageRef.current + 1), { disabled: !loop && active === count - 1 })}
+    </div>
+  ) : null;
+
+  const onToggle = () => {
+    if (!playing) {
+      // An explicit Play outranks the hover and focus holds that the click itself created;
+      // they come back the next time the pointer or focus enters.
+      const hold = holdRef.current;
+      hold.hover = false;
+      hold.focus = false;
+      hold.press = false;
+    }
+    setPlaying(!playing);
+  };
+
+  const toggle = canAutoplay ? button("Pause slideshow", playing ? "pause" : "play", onToggle, { pressed: !playing }) : null;
+
+  // The address bar is decorative; the viewport link and the live region carry the URL for
+  // assistive tech. Sized in rem so it grows with the visitor's text size.
   const address = (
     <div
+      aria-hidden="true"
       style={{
-        position: centered ? "absolute" : "relative",
-        left: centered ? "50%" : undefined,
-        transform: centered ? "translateX(-50%)" : undefined,
-        width: centered ? "min(440px, 52%)" : undefined,
-        flex: centered ? undefined : "1 1 auto",
+        position: "relative",
+        flex: "1 1 auto",
+        maxWidth: chrome === "compact" ? "27.5rem" : undefined,
+        margin: chrome === "compact" ? "0 auto" : undefined,
         minWidth: 0,
         boxSizing: "border-box",
-        height: 28,
+        minHeight: "1.75rem",
         display: "flex",
         alignItems: "center",
         justifyContent: chrome === "compact" ? "center" : "flex-start",
-        gap: 6,
-        padding: "0 12px",
-        borderRadius: 8,
+        gap: "0.375rem",
+        padding: "0.3rem 0.75rem",
+        borderRadius: "0.5rem",
         background: palette.field,
+        boxShadow: `inset 0 0 0 1px ${palette.fieldEdge}`,
         fontFamily: SANS,
-        fontSize: 12.5,
+        fontSize: "0.78125rem",
+        lineHeight: 1.2,
         fontWeight: 500,
         letterSpacing: "0.005em",
         whiteSpace: "nowrap",
@@ -644,14 +865,11 @@ const BrowserWindow = forwardRef<BrowserWindowHandle, BrowserWindowProps>(functi
       <span style={{ color: palette.muted, display: "flex", flex: "none" }}>
         <Icon name="lock" />
       </span>
-      <span style={{ minWidth: 0, overflow: "hidden", textOverflow: "ellipsis" }}>
-        <span style={{ color: palette.text }}>{parts.host}</span>
-        <span style={{ color: palette.muted }}>{parts.path}</span>
+      <span style={{ display: "flex", minWidth: 0, overflow: "hidden" }}>
+        <span style={{ color: palette.text, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis" }}>{parts.host}</span>
+        <span style={{ color: palette.muted, flex: "none" }}>{parts.path}</span>
         {caret ? (
-          <span
-            aria-hidden="true"
-            style={{ display: "inline-block", width: 1.5, height: "1.05em", marginLeft: 1, verticalAlign: "text-bottom", background: palette.accent }}
-          />
+          <span style={{ display: "inline-block", flex: "none", width: 1.5, height: "1.05em", marginLeft: 1, alignSelf: "center", background: palette.accent }} />
         ) : null}
       </span>
     </div>
@@ -698,25 +916,19 @@ const BrowserWindow = forwardRef<BrowserWindowHandle, BrowserWindowProps>(functi
         style={{
           position: "relative",
           flex: "none",
-          height: toolbar,
+          minHeight: "2.75rem",
           display: "flex",
           alignItems: "center",
-          gap: 10,
-          padding: inset ? "0 9px 0 13px" : "0 10px 0 14px",
+          gap: narrow ? 2 : 8,
+          padding: narrow ? "0 2px" : inset ? "0 2px 0 13px" : "0 3px 0 14px",
           background: inset ? "transparent" : palette.bar,
           boxShadow: inset ? undefined : `inset 0 -1px 0 ${palette.divide}`,
         }}
       >
-        {windowDots}
-        {showNav ? (
-          <div style={{ display: "flex", gap: 2, marginLeft: 4 }}>
-            {button("Back", "back", () => navigate(pageRef.current - 1), !loop && active === 0)}
-            {button("Forward", "forward", () => navigate(pageRef.current + 1), !loop && active === count - 1)}
-          </div>
-        ) : null}
+        {narrow ? null : windowDots}
+        {nav}
         {address}
-        {centered ? <div style={{ flex: "1 1 auto" }} /> : null}
-        {controls && !narrow ? button("Reload", "reload", () => navigate(pageRef.current, true)) : null}
+        {toggle}
         {loader ? bar : null}
       </div>
     ) : (
@@ -730,7 +942,7 @@ const BrowserWindow = forwardRef<BrowserWindowHandle, BrowserWindowProps>(functi
           >
             {list.map((item, index) => {
               const selected = index === active;
-              const label = item.title || splitUrl(item.url).host;
+              const name = item.title || splitUrl(item.url).host;
               return (
                 <button
                   key={index}
@@ -741,7 +953,7 @@ const BrowserWindow = forwardRef<BrowserWindowHandle, BrowserWindowProps>(functi
                   role="tab"
                   aria-selected={selected}
                   tabIndex={selected ? 0 : -1}
-                  onClick={() => navigate(index)}
+                  onClick={() => takeControl(index)}
                   onKeyDown={(event) => onTabKey(event, index)}
                   style={{
                     flex: "none",
@@ -756,7 +968,7 @@ const BrowserWindow = forwardRef<BrowserWindowHandle, BrowserWindowProps>(functi
                     background: selected ? palette.field : "transparent",
                     color: selected ? palette.text : palette.muted,
                     fontFamily: SANS,
-                    fontSize: 12.5,
+                    fontSize: "0.78125rem",
                     fontWeight: 500,
                     cursor: "pointer",
                     whiteSpace: "nowrap",
@@ -778,26 +990,25 @@ const BrowserWindow = forwardRef<BrowserWindowHandle, BrowserWindowProps>(functi
                       transition: "background-color 200ms ease, color 200ms ease",
                     }}
                   >
-                    {label.slice(0, 1).toUpperCase()}
+                    {name.slice(0, 1).toUpperCase()}
                   </span>
-                  {label}
+                  {name}
                 </button>
               );
             })}
           </div>
         </div>
-        <div style={{ position: "relative", height: 40, display: "flex", alignItems: "center", gap: 4, padding: inset ? "0 9px 6px" : "0 10px 6px" }}>
-          {controls ? button("Back", "back", () => navigate(pageRef.current - 1), single || count < 2 || (!loop && active === 0)) : null}
-          {controls ? button("Forward", "forward", () => navigate(pageRef.current + 1), single || count < 2 || (!loop && active === count - 1)) : null}
-          {controls ? button("Reload", "reload", () => navigate(pageRef.current, true)) : null}
-          <div style={{ width: controls ? 4 : 0 }} />
+        <div style={{ position: "relative", minHeight: 44, display: "flex", alignItems: "center", gap: 4, padding: inset ? "0 3px 4px" : "0 4px 4px" }}>
+          {controls ? button("Previous page", "back", () => takeControl(pageRef.current - 1), { disabled: single || count < 2 || (!loop && active === 0) }) : null}
+          {controls ? button("Next page", "forward", () => takeControl(pageRef.current + 1), { disabled: single || count < 2 || (!loop && active === count - 1) }) : null}
           {address}
+          {toggle}
           {loader ? bar : null}
         </div>
       </div>
     );
 
-  const renderPage = (index: number) => {
+  const renderPage = (index: number, layerKey: number) => {
     const item = list[index];
     if (!item) return null;
     if (item.content !== undefined) return <div style={{ position: "absolute", inset: 0, overflow: "auto" }}>{item.content}</div>;
@@ -808,6 +1019,8 @@ const BrowserWindow = forwardRef<BrowserWindowHandle, BrowserWindowProps>(functi
         ref={tall ? pan : undefined}
         src={item.src}
         alt={item.alt ?? item.title ?? ""}
+        loading={layerKey === 0 ? imageLoading : "eager"}
+        decoding="async"
         draggable={false}
         style={
           tall
@@ -818,16 +1031,95 @@ const BrowserWindow = forwardRef<BrowserWindowHandle, BrowserWindowProps>(functi
     );
   };
 
+  const link = current?.href ? (
+    <a
+      href={current.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      onFocus={(event) => {
+        let ring = true;
+        try {
+          ring = event.currentTarget.matches(":focus-visible");
+        } catch {
+          ring = true;
+        }
+        setLinkRing(ring);
+      }}
+      onBlur={() => setLinkRing(false)}
+      onPointerEnter={(event) => {
+        if (event.pointerType === "mouse") setLinkHot(true);
+      }}
+      onPointerLeave={() => setLinkHot(false)}
+      style={{
+        position: "absolute",
+        inset: 0,
+        zIndex: 11,
+        borderRadius: inset ? inner : 0,
+        outline: "none",
+        boxShadow: linkRing ? `inset 0 0 0 2px ${palette.accent}, inset 0 0 0 4px ${palette.surface}` : undefined,
+        WebkitTapHighlightColor: "transparent",
+      }}
+    >
+      <span style={SR_ONLY}>Open {current.url} (opens in new tab)</span>
+      <span
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          right: 10,
+          bottom: 10,
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "0.25rem",
+          padding: "0.375rem 0.625rem 0.375rem 0.75rem",
+          borderRadius: 999,
+          background: palette.surface,
+          color: palette.text,
+          boxShadow: "0 1px 2px rgba(0,0,0,0.08), 0 6px 16px -6px rgba(0,0,0,0.25)",
+          fontFamily: SANS,
+          fontSize: "0.78125rem",
+          fontWeight: 500,
+          lineHeight: 1.2,
+          opacity: linkHot || linkRing ? 1 : 0,
+          transform: linkHot || linkRing || reduced ? "none" : "translateY(3px)",
+          transition: "opacity 180ms ease, transform 220ms cubic-bezier(0.22, 1, 0.36, 1)",
+          pointerEvents: "none",
+        }}
+      >
+        Open page
+        <Icon name="external" />
+      </span>
+    </a>
+  ) : null;
+
   return (
     <div
       ref={rootRef}
       role="group"
-      aria-label={`Browser window showing ${list[active]?.url ?? ""}`}
+      aria-label={label}
       onPointerEnter={(event) => {
-        if (event.pointerType === "mouse") hoverRef.current = true;
+        if (event.pointerType !== "mouse") return;
+        holdRef.current.hover = true;
+        syncRef.current();
       }}
       onPointerLeave={() => {
-        hoverRef.current = false;
+        holdRef.current.hover = false;
+        releasePress();
+        syncRef.current();
+      }}
+      onPointerDown={() => {
+        holdRef.current.press = true;
+        syncRef.current();
+      }}
+      onPointerUp={releasePress}
+      onPointerCancel={releasePress}
+      onFocus={() => {
+        holdRef.current.focus = true;
+        syncRef.current();
+      }}
+      onBlur={(event) => {
+        if (event.currentTarget.contains(event.relatedTarget as Node | null)) return;
+        holdRef.current.focus = false;
+        syncRef.current();
       }}
       className={cn("relative isolate flex w-full flex-col overflow-hidden", className)}
       style={{
@@ -859,12 +1151,17 @@ const BrowserWindow = forwardRef<BrowserWindowHandle, BrowserWindowProps>(functi
             key={layer.key}
             ref={enter}
             data-initial={layer.key === 0 ? "" : undefined}
+            aria-hidden={position < layers.length - 1 ? true : undefined}
             style={{ position: "absolute", inset: 0, zIndex: position }}
           >
-            {renderPage(layer.index)}
+            {renderPage(layer.index, layer.key)}
           </div>
         ))}
         {inset ? <div aria-hidden="true" style={{ position: "absolute", inset: 0, borderRadius: inner, boxShadow: palette.panel, pointerEvents: "none", zIndex: 10 }} /> : null}
+        {link}
+      </div>
+      <div aria-live="polite" aria-atomic="true" style={SR_ONLY}>
+        {announcement}
       </div>
     </div>
   );
