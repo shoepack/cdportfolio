@@ -43,6 +43,7 @@ The current hero title "Full-Stack Engineer" predates this positioning and shoul
 - Sections: nav, hero (name, role, proof line, Résumé/Email/LinkedIn, portrait), Work in public (browser-window screenshots of the two public sites), Experience, Areas, Contact (direct links + EmailJS form), footer.
 - Contact form sends through EmailJS using `VITE_EMAILJS_*` environment variables set in Vercel.
 - React Bits Pro (Ultimate license) is configured in `components.json`; the license key is injected by the cloud environment's proxy (`.env.local` holds a placeholder).
+- **Write work in durable past tense** ("built X as its sole developer", not "I'm the sole developer"), so claims stay true after Jason leaves a role. Only the role title, dates and "Present" should need changing when he moves on.
 - **Projects are intentionally removed.** They are college-era work; for a second job, employers care about jobs and what he did at them. Do not bring the Projects section back as filler.
 - Gauge-style stat dials were considered and rejected by Jason as corny for a two-year, one-company career; present numbers in text.
 - Résumé is published at `/Jason_Artley_Resume.pdf`, exported from the 2026 Google Doc with the phone number removed (Jason's decision). Re-export when the Doc changes.

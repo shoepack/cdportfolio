@@ -116,7 +116,7 @@ const SYSTEMS = {
       { name: "Stripe", role: "Billing", Mark: SiStripe },
       { name: "SMTP2GO", role: "Quote & order emails", Mark: FiMail },
     ],
-    caption: "Simplified overview. I\u2019m the site\u2019s sole developer.",
+    caption: "Simplified overview. I built the site as its sole developer.",
   },
   wfc: {
     title: "How wakefrequencycalc.com fits together",

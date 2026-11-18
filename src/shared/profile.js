@@ -15,8 +15,8 @@ export const PERSON = {
 
 // Hero proof sentence, rendered with the outcome phrase emphasized.
 export const INTRO = {
-  text: "As Software Product Specialist at Reotemp Instruments, I'm the sole developer of reotempintelligence.com, where I shipped the company's first Stripe subscription product. I also built its AI quoting and product-matching tools.",
-  emphasis: "sole developer of reotempintelligence.com",
+  text: "As Software Product Specialist at Reotemp Instruments, I built reotempintelligence.com as its sole developer, including the company's first Stripe subscription product. I also built its AI quoting and product-matching tools.",
+  emphasis: "built reotempintelligence.com as its sole developer",
 };
 
 export const SUMMARY =
@@ -57,10 +57,10 @@ export const EXPERIENCE = [
         lead: true,
         short: "reotempintelligence.com",
         area: "business",
-        title: "Built and run reotempintelligence.com as its sole developer",
+        title: "Built reotempintelligence.com as its sole developer",
         problem: "Reotemp's IoT smart probe had no home online and no way to sell a subscription.",
         action:
-          "As the sole developer, I built and launched reotempintelligence.com and led the company's first Stripe integration. Customers configure a system, get a priced quote by email, sign it and pay; Reotemp staff use a protected dashboard to review quotes, build custom quotes, manage pricing and follow up on past-due invoices. It also holds the resource library for the Intelligence product line, and I contribute to the product's software.",
+          "As the sole developer, I built and launched reotempintelligence.com and led the company's first Stripe integration. Customers configure a system, get a priced quote by email, sign it and pay; Reotemp staff use a protected dashboard to review quotes, build custom quotes, manage pricing and follow up on past-due invoices. It also holds the resource library for the Intelligence product line, and I contributed to the product's software.",
         result: "The company's first subscription product, live and used by customers and the sales team.",
         link: { href: "https://reotempintelligence.com/", label: "reotempintelligence.com" },
         tools: ["Vercel", "JavaScript", "Supabase", "Stripe"],
