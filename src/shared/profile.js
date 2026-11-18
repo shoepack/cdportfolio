@@ -20,7 +20,7 @@ export const INTRO = {
 };
 
 export const SUMMARY =
-  "A generalist across product design, front-end, AI tooling, business systems, and security. Cognitive Science (Design & Interaction) graduate, UC San Diego, Cum Laude.";
+  "A generalist across product design, front-end, AI tooling, business systems, and security. Cognitive Science (Design & Interaction) graduate, UC San Diego, with Cum Laude honors.";
 
 export const PORTRAIT = {
   alt: "Jason Artley sitting outdoors among green foliage, smiling",
@@ -171,7 +171,7 @@ export const EDUCATION = {
   school: "University of California, San Diego",
   degree: "B.S., Cognitive Science",
   focus: "Specialization in Design & Interaction",
-  honors: "Cum Laude",
+  honors: "Cum Laude honors",
   gpa: "3.9",
   start: "Sep 2022",
   end: "Jun 2024",
